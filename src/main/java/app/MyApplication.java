@@ -1,10 +1,5 @@
 package app;
 
-/**
- * @author : ayoso
- * @mailto : ayomide.sola-ayodele@ucdconnect.ie
- * @since : 30/01/2023, Monday
- **/
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
