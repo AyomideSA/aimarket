@@ -2,6 +2,7 @@ package app.aimarket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -14,7 +15,8 @@ public class MarketController {
   }
 
   @GetMapping("/aimarket/home")
-  public String viewHomePage() {
+  public String viewHomePage(Model model) {
+    model.addAttribute("name", "Guest");
     return "home.html";
   }
 
