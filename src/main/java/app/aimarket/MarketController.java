@@ -10,7 +10,7 @@ public class MarketController {
 
   @GetMapping("/home")
   public String viewHomePage() {
-    return "/home.html";
+    return "home.html";
   }
 
 }
