@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>home</title>
-    <link rel="icon" type="image/x-icon" href="dna-solid.svg">
+    <link rel="icon" type="image/x-icon" href="/dna-solid.svg">
     <meta charset="UTF-8">
     <meta charset="utf-8">
     <link rel="stylesheet" th:href="@{/css/styling.css}">
@@ -27,14 +27,14 @@
                 <span class="input-group-text border-0" id="search-addon">
                     <i class="fas fa-search"></i>
                 </span>
-            </div> <!--If someone knows how to maybe make this smaller feel free too-->
+            </div> <!--If someone knows how to maybe make this smaller feel free to-->
             <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Catalogue</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Hello <span th:text="${name}"></span>, sign in <!-- This should change to access a user's name if they are logged in or we could just copy this page and change what it says in the copy-->
+                        Hello <span th:text="${name}"></span> <!-- This should change to access a user's name if they are logged in or we could just copy this page and change what it says in the copy-->
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Sign In</a></li> <!-- **** Jarek could do this-->
