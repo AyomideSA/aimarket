@@ -73,7 +73,7 @@ public class MarketController {
 
   @GetMapping("aimarket/history")
   // Need to get user's user id later
-  public String getHistory(Model model, int userid) {
+  public String getHistory(Model model, Integer userid) {
    List<Order> userOrders = orderService.findByUserId(5);
    model.addAttribute("orders", userOrders);
     return "orderHistory.html";
