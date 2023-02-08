@@ -79,4 +79,9 @@ public class MarketController {
     return "orderHistory.html";
   }
 
+  @GetMapping("aimarket/catalogue")
+  public String getCatalogue() {
+    return "catalogue.html";
+  }
+
 }
