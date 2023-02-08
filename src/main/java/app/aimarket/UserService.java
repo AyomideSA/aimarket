@@ -28,4 +28,16 @@ public class UserService {
   public List<User> getStudents() {
     return userRepository.findAll();
   }
+
+  public User findUserByEmail(String email) {
+    return userRepository.findByEmail(email);
+  }
+
+  // Liwia Implements this
+  // Just checks for if user already exits in db,
+  // If details are valid etc
+  public boolean ValidUser(@ModelAttribute User user) {
+    return true;
+  }
+
 }
