@@ -1,5 +1,6 @@
-package app.aimarket;
+package app.aimarket.order;
 
+import app.aimarket.order.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

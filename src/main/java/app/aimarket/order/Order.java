@@ -1,6 +1,4 @@
-package app.aimarket;
-
-import org.springframework.format.annotation.DateTimeFormat;
+package app.aimarket.order;
 
 import javax.persistence.*;
 import java.io.Serializable;

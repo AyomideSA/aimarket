@@ -1,5 +1,6 @@
-package app.aimarket;
+package app.aimarket.user;
 
+import app.aimarket.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
