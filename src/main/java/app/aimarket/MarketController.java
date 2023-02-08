@@ -1,5 +1,11 @@
 package app.aimarket;
 
+import app.aimarket.aimodel.AiModelRepository;
+import app.aimarket.aimodel.AiModelService;
+import app.aimarket.order.Order;
+import app.aimarket.order.OrderService;
+import app.aimarket.user.User;
+import app.aimarket.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +20,15 @@ import java.util.List;
 public class MarketController {
   private final UserService userService;
   private final OrderService orderService;
+  private final AiModelService aiModelService;
   // Testing
   private final ArrayList<Order> testOrders = new ArrayList<>();
 
   @Autowired
-  public MarketController(UserService userService, OrderService orderService) {
+  public MarketController(UserService userService, OrderService orderService, AiModelService aiModelService) {
     this.userService = userService;
     this.orderService = orderService;
+    this.aiModelService = aiModelService;
   }
 
   // for testing
@@ -80,7 +88,9 @@ public class MarketController {
   }
 
   @GetMapping("aimarket/catalogue")
-  public String getCatalogue() {
+  public String getCatalogue(Model model) {
+    System.out.println(aiModelService.getAvailabileModels().get(0).getImageurl());
+    model.addAttribute("url", aiModelService.getAvailabileModels().get(0).getImageurl());
     return "catalogue.html";
   }
 
