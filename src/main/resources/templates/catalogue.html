@@ -55,13 +55,10 @@
     <div class="row" th:each="partition: ${partitions}">
         <div class="col" th:each="model: ${partition}">
             <div class="card">
-                <img th:src="${model.imageurl}" alt="Ai" style="width:100%">
-                <h1>for sale</h1>
-                <p class="price">$1000000</p>
-
-                <p>
-                    <button>Add to Cart</button>
-                </p>
+                <img th:src="${model.imagepath}" alt="Ai" style="width:100%">
+                <form method="GET" th:action="@{/aimarket/catalogue/product/{name}(name=${model.name})}">
+                    <button>View Details</button>
+                </form>
             </div>
         </div>
     </div>
