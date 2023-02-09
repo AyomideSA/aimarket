@@ -22,7 +22,7 @@ public class AiModelConfig {
           50.00,
           70.00,
           "A pretty good ai",
-          false,
+          true,
           "/pictures/auto.jpg"
       );
       AiModel cortana = new AiModel(
@@ -54,7 +54,7 @@ public class AiModelConfig {
       );
       AiModel stockai = new AiModel(
           5L,
-          "jarvis",
+          "stockai",
           30.00,
           40.00,
           "The Best AI stock",
