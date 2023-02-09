@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -50,31 +50,19 @@
 
 <div class="row p-5">
     <div class="col text-center p-5">
-        <img class="image-fluid" src="stockai.jpg" height=700 width=700>
+        <img class="image-fluid" th:src="${aiModelPicPath}" height=700 width=700>
         <br><br>
-        <button style="height:40px;width:500px">Buy Trained (xx.xx euro)</button>
+        <button style="height:40px;width:500px" th:text="'Trained Price: €'+${trainedPrice}"></button>
         <br>
-        <button style="height:40px;width:500px">Buy Untrained (xx.xx euro)</button>
+        <button style="height:40px;width:500px" th:text="'Untrained Price: €'+${untrainedPrice}"></button>
     </div>
     <div class="col p-5">
-        <h1 style="font-size:70px;">Skynet</h1>
+        <h1 style="font-size:70px;"> <span th:text="${name}"></span></h1>
 <!--        Info doesn't have to be a big paragraph like this. -->
 <!--        I just did it like this for now as it was the easiest filler text-->
-        <p style="font-size:27px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque diam massa, vestibulum at odio a, facilisis
-            egestas felis. Sed interdum, odio nec bibendum finibus, orci nisl elementum nunc, vel volutpat nibh ligula a
-            leo. Donec vel interdum tortor. Aliquam erat volutpat. Fusce ut tempor purus. Nullam pharetra urna risus, in
-            congue diam rhoncus quis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-            turpis egestas. Phasellus eu erat in ante aliquet imperdiet faucibus facilisis nibh. Aenean sed ipsum est.
-            Suspendisse potenti.
-
-            Cras et ex tempus justo pellentesque ullamcorper id cursus nisl. Mauris tempus luctus ex vitae rhoncus.
-            Maecenas at volutpat quam, varius interdum dui. Vestibulum ante ipsum primis in faucibus orci luctus et
-            ultrices posuere cubilia curae; Proin ac ligula non metus scelerisque commodo. Fusce dolor diam, vulputate
-            sed dictum eu, suscipit a tortor. Aliquam quis cursus sem. Duis convallis finibus massa, vel gravida eros
-            dapibus ut. Duis sem mi, mattis et ipsum nec, finibus eleifend mi. Sed diam justo, pellentesque nec velit
-            non, iaculis finibus risus. Vivamus fermentum, arcu et congue ultrices, elit augue tincidunt felis, eget
-            porta enim felis eu augue. Mauris sit amet auctor nunc. Class aptent taciti sociosqu ad litora torquent per
-            conubia nostra, per inceptos himenaeos. Donec mattis pretium tempus.</p>
+        <p style="font-size:27px;">
+            <span th:text="${aiModelDesc}"></span>
+        </p>
     </div>
 </div>
 </body>
