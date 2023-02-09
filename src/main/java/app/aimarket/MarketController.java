@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping(path="/aimarket")
 public class MarketController {
   private final UserService userService;
   private final OrderService orderService;
@@ -60,14 +61,14 @@ public class MarketController {
     orderService.saveAll(testOrders);
   }
 
-  @GetMapping("/aimarket/home")
+  @GetMapping("/home")
   public String viewHomePage(Model model) {
     createOrders();
     model.addAttribute("name", "Guest, sign in");
     return "home.html";
   }
 
-  @PostMapping("aimarket/register")
+  @PostMapping("/register")
   public String signup(@ModelAttribute User user, Model model) {
     if (userService.ValidUser(user)) {
       model.addAttribute("user", user);
@@ -79,7 +80,7 @@ public class MarketController {
     return "redirect:/aimarket/home";
   }
 
-  @GetMapping("aimarket/history")
+  @GetMapping("/history")
   // Need to get user's user id later
   public String getHistory(Model model, Integer userid) {
    List<Order> userOrders = orderService.findByUserId(5);
@@ -87,14 +88,25 @@ public class MarketController {
     return "orderHistory.html";
   }
 
-  @GetMapping("aimarket/catalogue")
+  @GetMapping("/catalogue")
   public String getCatalogue(Model model) {
    // System.out.println(aiModelService.getAvailabileModels().get(0).getImageurl());
-    model.addAttribute("url", aiModelService.getAvailabileModels().get(0).getImageurl());
-    List<AiModel> models = aiModelService.getAvailabileModels();
+    model.addAttribute("url", aiModelService.getAvailableModels().get(0).getImagepath());
+    List<AiModel> models = aiModelService.getAvailableModels();
     System.out.println(models);
     model.addAttribute("aimodels", models);
     return "catalogue.html";
+  }
+
+  @GetMapping("/catalogue/product/{name}")
+  public String getProduct(Model model, @PathVariable String name) {
+    AiModel currentModel = aiModelService.findByName(name);
+    model.addAttribute("aiModelName", name);
+    model.addAttribute("aiModelDesc", currentModel.getDescription());
+    model.addAttribute("aiModelPicPath", currentModel.getImagepath());
+    model.addAttribute("trainedPrice", currentModel.getTrainedprice());
+    model.addAttribute("untrainedPrice", currentModel.getUntrainedprice());
+    return "productpage.html";
   }
 
 }
