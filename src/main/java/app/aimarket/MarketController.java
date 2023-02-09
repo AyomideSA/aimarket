@@ -1,6 +1,6 @@
 package app.aimarket;
 
-import app.aimarket.aimodel.AiModelRepository;
+import app.aimarket.aimodel.AiModel;
 import app.aimarket.aimodel.AiModelService;
 import app.aimarket.order.Order;
 import app.aimarket.order.OrderService;
@@ -89,8 +89,11 @@ public class MarketController {
 
   @GetMapping("aimarket/catalogue")
   public String getCatalogue(Model model) {
-    System.out.println(aiModelService.getAvailabileModels().get(0).getImageurl());
+   // System.out.println(aiModelService.getAvailabileModels().get(0).getImageurl());
     model.addAttribute("url", aiModelService.getAvailabileModels().get(0).getImageurl());
+    List<AiModel> models = aiModelService.getAvailabileModels();
+    System.out.println(models);
+    model.addAttribute("aimodels", models);
     return "catalogue.html";
   }
 
