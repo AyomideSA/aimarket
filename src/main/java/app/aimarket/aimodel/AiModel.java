@@ -17,10 +17,10 @@ public class AiModel {
   @Column private String name;
   @Column private Double untrainedprice;
   @Column private Double trainedprice;
-  @Size(max = 1000)
+  @Size(max = 1400)
   @Column private String description;
   @Column private boolean availability;
-  @Column private String imageurl;
+  @Column private String imagepath;
 
   public AiModel() {
   }
@@ -30,14 +30,14 @@ public class AiModel {
                  Double trainedprice,
                  String description,
                  boolean availability,
-                 String imageurl) {
+                 String imagepath) {
     this.id = id;
     this.name = name;
     this.untrainedprice = untrainedprice;
     this.trainedprice = trainedprice;
     this.description = description;
     this.availability = availability;
-    this.imageurl = imageurl;
+    this.imagepath = imagepath;
   }
 
   public Long getId() {
@@ -88,12 +88,12 @@ public class AiModel {
     this.availability = availability;
   }
 
-  public String getImageurl() {
-    return imageurl;
+  public String getImagepath() {
+    return imagepath;
   }
 
-  public void setImageurl(String imageurl) {
-    this.imageurl = imageurl;
+  public void setImagepath(String imagepath) {
+    this.imagepath = imagepath;
   }
 
   @Override
@@ -105,7 +105,7 @@ public class AiModel {
         ", trainedprice=" + trainedprice +
         ", description='" + description + '\'' +
         ", availability=" + availability +
-        ", imageurl='" + imageurl + '\'' +
+        ", imageurl='" + imagepath + '\'' +
         '}';
   }
 }
