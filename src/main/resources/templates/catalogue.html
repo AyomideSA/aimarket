@@ -51,46 +51,6 @@
 
 
 <!--  shopping produts -->
-<!--<div class="container" th:each="model, iter:${aimodels}">-->
-<!--    <div class="row">-->
-<!--        <div class="col" th:if="${iter.index &lt; aimodels.size()}">-->
-<!--            <div class="card">-->
-<!--                <img th:src="${model.imageurl}" alt="Ai" style="width:100%">-->
-<!--                <h1>for sale</h1>-->
-<!--                <p class="price">$1000000</p>-->
-
-<!--                <p>-->
-<!--                    <button>Add to Cart</button>-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="col" th:if="${iter.index &lt; aimodels.size()}">-->
-<!--            <div class="card">-->
-<!--                <img th:src="${model.imageurl}" alt="Ai" style="width:100%">-->
-<!--                <h1>for sale</h1>-->
-<!--                <p class="price">$1000000</p>-->
-
-<!--                <p>-->
-<!--                    <button>Add to Cart</button>-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="col" th:if="${iter.index &lt; aimodels.size()}">-->
-<!--            <div class="card">-->
-<!--                <img th:src="${model.imageurl}" alt="Ai" style="width:100%">-->
-<!--                <h1>for sale</h1>-->
-<!--                <p class="price">$1000000</p>-->
-
-<!--                <p>-->
-<!--                    <button>Add to Cart</button>-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 <th:block th:with="partitions=${T(org.apache.commons.collections4.ListUtils).partition(aimodels, 3)}">
     <div class="row" th:each="partition: ${partitions}">
         <div class="col" th:each="model: ${partition}">
@@ -105,33 +65,7 @@
             </div>
         </div>
     </div>
-
-<!--        <div class="col" th:if="${iter.index &lt; aimodels.size()}">-->
-<!--            <div class="card">-->
-<!--                <img th:src="${model.imageurl}" alt="Ai" style="width:100%">-->
-<!--                <h1>for sale</h1>-->
-<!--                <p class="price">$1000000</p>-->
-
-<!--                <p>-->
-<!--                    <button>Add to Cart</button>-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="col" th:if="${iter.index &lt; aimodels.size()}">-->
-<!--            <div class="card">-->
-<!--                <img th:src="${model.imageurl}" alt="Ai" style="width:100%">-->
-<!--                <h1>for sale</h1>-->
-<!--                <p class="price">$1000000</p>-->
-
-<!--                <p>-->
-<!--                    <button>Add to Cart</button>-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </th:block>
-
 
 </body>
 </html>
