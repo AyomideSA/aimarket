@@ -21,8 +21,12 @@ public class AiModelService {
     this.aiModelRepository = aiModelRepository;
   }
 
-  public List<AiModel> getAvailabileModels() {
+  public List<AiModel> getAvailableModels() {
     return aiModelRepository.getAvailableModels();
+  }
+
+  public AiModel findByName(String name) {
+    return aiModelRepository.findByName(name);
   }
 
 }
