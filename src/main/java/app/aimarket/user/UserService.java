@@ -32,6 +32,12 @@ public class UserService {
   public User findUserByEmail(String email) {
     return userRepository.findByEmail(email);
   }
+  public User findUserByUsername(String username) {
+    return userRepository.findByUsername(username);
+  }
+  public User findUserByPassword(String password) {
+    return userRepository.findByPassword(password);
+  }
 
   // Liwia Implements this
   // Just checks for if user already exits in db,
