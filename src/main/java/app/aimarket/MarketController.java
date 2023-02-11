@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping(path="/aimarket")
@@ -31,31 +32,32 @@ public class MarketController {
     this.userService = userService;
     this.orderService = orderService;
     this.aiModelService = aiModelService;
+    createOrders();
   }
 
   // for testing
   public void createOrders() {
     testOrders.add(new Order(
         1,
-        5,
+        1,
         LocalDate.of(2002, Month.DECEMBER,21),
         "arrived")
     );
     testOrders.add(new Order(
         2,
-        5,
+        2,
         LocalDate.of(2002, Month.DECEMBER,21),
         "arrived")
     );
     testOrders.add(new Order(
         3,
-        5,
+        2,
         LocalDate.of(2002, Month.DECEMBER,21),
         "cancelled")
     );
     testOrders.add(new Order(
         4,
-        3,
+        1,
         LocalDate.of(2002, Month.DECEMBER,21),
         "cancelled")
     );
@@ -64,11 +66,7 @@ public class MarketController {
 
   @GetMapping("/home")
   public String viewHomePage(HttpSession session) {
-    createOrders();
-    if (session.getAttribute("user") == null) {
-      session.setAttribute("user", user);
-      session.setAttribute("greeting", user.getUsername() + ", sign in");
-    }
+    setGuest(session);
     return "home.html";
   }
 
@@ -85,24 +83,29 @@ public class MarketController {
 
   @GetMapping("/history")
   // Need to get user's user id later
-  public String getHistory(Model model, Integer userid) {
-   List<Order> userOrders = orderService.findByUserId(5);
-   model.addAttribute("orders", userOrders);
-    return "orderHistory.html";
+  public String getHistory(Model model, HttpSession session) {
+    setGuest(session);
+    user.setId(1);
+    if (!Objects.equals(user.getUsername(), "Guest")) {
+      List<Order> userOrders = orderService.findByUserId(user.getId());
+      model.addAttribute("orders", userOrders);
+      return "orderHistory.html";
+    } else {
+      return "redirect:/aimarket/home";
+    }
   }
 
   @GetMapping("/catalogue")
-  public String getCatalogue(Model model) {
-   // System.out.println(aiModelService.getAvailabileModels().get(0).getImageurl());
-    model.addAttribute("url", aiModelService.getAvailableModels().get(0).getImagepath());
+  public String getCatalogue(Model model, HttpSession session) {
+    setGuest(session);
     List<AiModel> models = aiModelService.getAvailableModels();
-    System.out.println(models);
     model.addAttribute("aimodels", models);
     return "catalogue.html";
   }
 
   @GetMapping("/catalogue/product/{name}")
-  public String getProduct(Model model, @PathVariable String name) {
+  public String getProduct(Model model, @PathVariable String name, HttpSession session) {
+    setGuest(session);
     AiModel currentModel = aiModelService.findByName(name);
     model.addAttribute("aiModelName", name);
     model.addAttribute("aiModelDesc", currentModel.getDescription());
@@ -110,6 +113,13 @@ public class MarketController {
     model.addAttribute("trainedPrice", currentModel.getTrainedprice());
     model.addAttribute("untrainedPrice", currentModel.getUntrainedprice());
     return "productpage.html";
+  }
+
+  private void setGuest(HttpSession session) {
+    if (session.getAttribute("user") == null) {
+      session.setAttribute("user", user);
+      session.setAttribute("greeting", user.getUsername() + ", sign in");
+    }
   }
 
 }
