@@ -34,7 +34,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Hello, sign in <!-- This should change to access a user's name if they are logged in or we could just copy this page and change what it says in the copy-->
+                        Hello <span th:text="${session.greeting}"></span><!-- This should change to access a user's name if they are logged in or we could just copy this page and change what it says in the copy-->
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Sign in</a></li> <!-- **** Jarek could do this-->

@@ -34,7 +34,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Hello <span th:text="${name}"></span> <!-- This should change to access a user's name if they are logged in or we could just copy this page and change what it says in the copy-->
+                        Hello <span th:text="${session.greeting}"></span> <!-- This should change to access a user's name if they are logged in or we could just copy this page and change what it says in the copy-->
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Sign In</a></li> <!-- **** Jarek could do this-->
@@ -50,21 +50,21 @@
 
 <div class="container">
     <div class="row text-center">
+        <!--        Testing for passing input into Database-->
+        <!--        will be moved when proper login window made-->
+        <form method = "POST" action="register">
+            Username: <br>
+            <input type = "text" name = "username"><br>
+            Password: <br>
+            <input type = "text" name = "password"><br>
+            name: <br>
+            <input type = "text" name = "name"><br>
+            Email: <br>
+            <input type = "text" name = "email"><br>
+            <button id="submit" type = "submit"> Sign Up </button>
+        </form>
+        <!--        Testing for passing input into Database-->
         <h3>New Products</h3>
-<!--        Testing for passing input into Database-->
-<!--        will be moved when proper login window made-->
-<!--        <form method = "POST" action="register">-->
-<!--            Username: <br>-->
-<!--            <input type = "text" name = "username"><br>-->
-<!--            Password: <br>-->
-<!--            <input type = "text" name = "password"><br>-->
-<!--            name: <br>-->
-<!--            <input type = "text" name = "name"><br>-->
-<!--            Email: <br>-->
-<!--            <input type = "text" name = "email"><br>-->
-<!--            <button id="submit" type = "submit"> Sign Up </button>-->
-<!--        </form>-->
-<!--        Testing for passing input into Database-->
         <p>Check out the latest models just in!</p> <!--Images should go in columns maybe? If someone has a better idea (which they probably will) feel free to lmk -Andrew -->
         <div class="col-lg-4">
             <img src="/pictures/cortana.jpeg" class="img-thumbnail image" alt="CTN 0453-0">
