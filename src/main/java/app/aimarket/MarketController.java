@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class MarketController {
   private final UserService userService;
   private final OrderService orderService;
   private final AiModelService aiModelService;
-  // Testing
   private final ArrayList<Order> testOrders = new ArrayList<>();
+  private User user = new User("Guest");
 
   @Autowired
   public MarketController(UserService userService, OrderService orderService, AiModelService aiModelService) {
@@ -62,16 +63,18 @@ public class MarketController {
   }
 
   @GetMapping("/home")
-  public String viewHomePage(Model model) {
+  public String viewHomePage(HttpSession session) {
     createOrders();
-    model.addAttribute("name", "Guest, sign in");
+    if (session.getAttribute("user") == null) {
+      session.setAttribute("user", user);
+      session.setAttribute("greeting", user.getUsername() + ", sign in");
+    }
     return "home.html";
   }
 
   @PostMapping("/register")
-  public String signup(@ModelAttribute User user, Model model) {
+  public String signup(User user, HttpSession session) {
     if (userService.ValidUser(user)) {
-      model.addAttribute("user", user);
       userService.save(user);
     } else {
       // Some error shows up on html page
