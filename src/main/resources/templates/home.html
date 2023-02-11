@@ -17,7 +17,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><i class="fa-solid fa-dna"></i> Website Name</a>
+        <a class="navbar-brand" th:href="@{home}"><i class="fa-solid fa-dna"></i>Arasaka</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,7 +30,7 @@
             </div> <!--If someone knows how to maybe make this smaller feel free to-->
             <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/aimarket/catalogue}">Catalogue</a>
+                    <a class="nav-link" th:href="@{catalogue}">Catalogue</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,7 +39,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Sign In</a></li> <!-- **** Jarek could do this-->
                         <li><a class="dropdown-item" href="#">Basket</a></li>
-                        <li><a class="dropdown-item" href="#">Order History</a></li>
+                        <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
                     </ul>
                 </li>
             </ul>
