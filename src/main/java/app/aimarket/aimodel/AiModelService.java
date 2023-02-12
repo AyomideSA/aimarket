@@ -29,4 +29,8 @@ public class AiModelService {
     return aiModelRepository.findByName(name);
   }
 
+  public void saveAll(List<AiModel> models) {
+    aiModelRepository.saveAll(models);
+  }
+
 }
