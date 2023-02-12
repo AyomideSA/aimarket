@@ -25,7 +25,7 @@ public class UserService {
     userRepository.save(user);
   }
 
-  public List<User> getStudents() {
+  public List<User> getUsers() {
     return userRepository.findAll();
   }
 
