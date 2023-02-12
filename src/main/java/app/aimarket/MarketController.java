@@ -32,36 +32,92 @@ public class MarketController {
     this.userService = userService;
     this.orderService = orderService;
     this.aiModelService = aiModelService;
-    createOrders();
+    createTestData();
   }
 
   // for testing
-  public void createOrders() {
+  public void createTestData() {
     testOrders.add(new Order(
-        1,
-        1,
+        1L,
+        1L,
         LocalDate.of(2002, Month.DECEMBER,21),
         "arrived")
     );
     testOrders.add(new Order(
-        2,
-        2,
+        2L,
+        2L,
         LocalDate.of(2002, Month.DECEMBER,21),
         "arrived")
     );
     testOrders.add(new Order(
-        3,
-        2,
+        3L,
+        2L,
         LocalDate.of(2002, Month.DECEMBER,21),
         "cancelled")
     );
     testOrders.add(new Order(
-        4,
-        1,
+        4L,
+        1L,
         LocalDate.of(2002, Month.DECEMBER,21),
         "cancelled")
     );
     orderService.saveAll(testOrders);
+
+    AiModel auto = new AiModel(
+        1L,
+        "Auto",
+        50.00,
+        70.00,
+        "A pretty good ai",
+        true,
+        "/pictures/auto.jpg"
+    );
+    AiModel cortana = new AiModel(
+        2L,
+        "cortana",
+        51.00,
+        71.00,
+        "A really good ai",
+        true,
+        "/pictures/cortana.jpeg"
+    );
+    AiModel irobot = new AiModel(
+        3L,
+        "irobot",
+        22.00,
+        33.00,
+        "A really good ai model",
+        true,
+        "/pictures/irobot.png"
+    );
+    AiModel jarvis = new AiModel(
+        4L,
+        "jarvis",
+        30.00,
+        40.00,
+        "The Best AI model",
+        true,
+        "/pictures/jarvis.png"
+    );
+    AiModel stockai = new AiModel(
+        5L,
+        "stockai",
+        30.00,
+        40.00,
+        "The Best AI stock",
+        true,
+        "/pictures/stockai.jpg"
+    );
+    AiModel ultron = new AiModel(
+        6L,
+        "ultron",
+        40.00,
+        50.00,
+        "ULTRON",
+        true,
+        "/pictures/ultron.jpg"
+    );
+    aiModelService.saveAll(List.of(auto, cortana, irobot, jarvis, stockai, ultron));
   }
 
   @GetMapping("/home")
@@ -78,19 +134,20 @@ public class MarketController {
       // Some error shows up on html page
     }
     // Later will need to replace "Guest" with user's name
+    // Maybe navigate to some success page and then redirect?
     return "redirect:/aimarket/home";
   }
 
   @GetMapping("/history")
-  // Need to get user's user id later
   public String getHistory(Model model, HttpSession session) {
     setGuest(session);
-    user.setId(1);
+    user.setId(1L);
     if (!Objects.equals(user.getUsername(), "Guest")) {
       List<Order> userOrders = orderService.findByUserId(user.getId());
       model.addAttribute("orders", userOrders);
       return "orderHistory.html";
     } else {
+      // Should redirrect to an error page in the future
       return "redirect:/aimarket/home";
     }
   }
