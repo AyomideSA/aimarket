@@ -14,26 +14,26 @@ import java.time.LocalDate;
 public class Order implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  @Column private int userid;
+  private Long id;
+  @Column private Long userid;
   @Column private LocalDate date;
   @Column private String status;
 
   public Order() {
   }
 
-  public Order(int id, int userid, LocalDate date, String status) {
+  public Order(Long id, Long userid, LocalDate date, String status) {
     this.id = id;
     this.userid = userid;
     this.date = date;
     this.status = status;
   }
 
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -53,11 +53,11 @@ public class Order implements Serializable {
     this.status = status;
   }
 
-  public int getUserId() {
+  public Long getUserId() {
     return userid;
   }
 
-  public void setUserId(int userId) {
+  public void setUserId(Long userId) {
     this.userid = userId;
   }
 

@@ -12,17 +12,24 @@ import java.io.Serializable;
 public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Long id;
   @Column private String username;
   @Column private String password;
   @Column private String name;
   @Column private String email;
 
-  public int getId() {
+  public User() {
+  }
+
+  public User(String username) {
+    this.username = username;
+  }
+
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
