@@ -25,13 +25,15 @@ public class MarketController {
   private final OrderService orderService;
   private final AiModelService aiModelService;
   private final ArrayList<Order> testOrders = new ArrayList<>();
-  private User user = new User("Guest");
+  private User user = new User();
+  private final ArrayList<Order> shoppingBasket;
 
   @Autowired
   public MarketController(UserService userService, OrderService orderService, AiModelService aiModelService) {
     this.userService = userService;
     this.orderService = orderService;
     this.aiModelService = aiModelService;
+    shoppingBasket = new ArrayList<>();
     createTestData();
   }
 
@@ -41,25 +43,37 @@ public class MarketController {
         1L,
         1L,
         LocalDate.of(2002, Month.DECEMBER,21),
-        "arrived")
+        "arrived",
+        "auto",
+        "trained",
+        77.01)
     );
     testOrders.add(new Order(
         2L,
         2L,
         LocalDate.of(2002, Month.DECEMBER,21),
-        "arrived")
+        "arrived",
+        "auto",
+        "trained",
+        77.01)
     );
     testOrders.add(new Order(
         3L,
         2L,
         LocalDate.of(2002, Month.DECEMBER,21),
-        "cancelled")
+        "cancelled",
+        "auto",
+        "trained",
+        77.01)
     );
     testOrders.add(new Order(
         4L,
         1L,
         LocalDate.of(2002, Month.DECEMBER,21),
-        "cancelled")
+        "cancelled",
+        "auto",
+        "trained",
+        77.01)
     );
     orderService.saveAll(testOrders);
 
@@ -120,9 +134,19 @@ public class MarketController {
     aiModelService.saveAll(List.of(auto, cortana, irobot, jarvis, stockai, ultron));
   }
 
+  /*
+  Features such as the shopping basking, order history and the buying of products
+  Will not be allowed for guests in the future. They may only be allowed now for
+  the purpose of testing until the login feature is finished.
+
+  In the feature, trying to access these features as a guest should map the user
+  to a register page/popup.
+   */
+
   @GetMapping("/home")
   public String viewHomePage(HttpSession session) {
     setGuest(session);
+    session.setAttribute("basket", shoppingBasket);
     return "home.html";
   }
 
@@ -141,13 +165,12 @@ public class MarketController {
   @GetMapping("/history")
   public String getHistory(Model model, HttpSession session) {
     setGuest(session);
-    user.setId(1L);
     if (!Objects.equals(user.getUsername(), "Guest")) {
       List<Order> userOrders = orderService.findByUserId(user.getId());
       model.addAttribute("orders", userOrders);
       return "orderHistory.html";
     } else {
-      // Should redirrect to an error page in the future
+      // Should redirect to an error page in the future
       return "redirect:/aimarket/home";
     }
   }
@@ -172,6 +195,23 @@ public class MarketController {
     return "productpage.html";
   }
 
+  @PostMapping("/catalogue/product/{name}/{type}/add")
+  public String addToBasket(@PathVariable String name, @PathVariable String type, double price) {
+    if (!Objects.equals(user.getName(), "Guest")) {
+      AiModel aiModel = aiModelService.findByName(name);
+      double modelPrice = Objects.equals(type, "trained") ?
+          aiModel.getTrainedprice() : aiModel.getUntrainedprice();
+      shoppingBasket.add(new Order(user.getId(), LocalDate.now(), "new", name, type, price));
+    }
+    return "redirect:/aimarket/catalogue";
+  }
+
+  @GetMapping("/basket")
+  public String getBasket() {
+    return "basket.html";
+  }
+
+  // Sets user to guest for the first page that a non-logged-in user visits
   private void setGuest(HttpSession session) {
     if (session.getAttribute("user") == null) {
       session.setAttribute("user", user);
