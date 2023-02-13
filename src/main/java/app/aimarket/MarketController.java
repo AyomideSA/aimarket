@@ -63,7 +63,7 @@ public class MarketController {
   @GetMapping("/aimarket/home")
   public String viewHomePage(Model model) {
     createOrders();
-    model.addAttribute("name", "Guest, sign in");
+    model.addAttribute("name", "Guest");
     return "home.html";
   }
 
