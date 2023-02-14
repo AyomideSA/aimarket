@@ -220,7 +220,7 @@ public class MarketController {
     }
   }
 
-  @PostMapping("aimarket/error")
+  @PostMapping("/error")
   public String returnError(){
     return "redirect:/aimarket/home";
   }
