@@ -156,6 +156,7 @@ public class MarketController {
       userService.save(user);
     } else {
       // Some error shows up on html page
+      return "registerError.html";
     }
     // Later will need to replace "Guest" with user's name
     // Maybe navigate to some success page and then redirect?
@@ -217,6 +218,11 @@ public class MarketController {
       session.setAttribute("user", user);
       session.setAttribute("greeting", user.getUsername() + ", sign in");
     }
+  }
+
+  @PostMapping("/error")
+  public String returnError(){
+    return "redirect:/aimarket/home";
   }
 
 }
