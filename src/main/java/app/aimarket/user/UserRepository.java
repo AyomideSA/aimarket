@@ -1,6 +1,4 @@
 package app.aimarket.user;
-
-import app.aimarket.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +6,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends
     JpaRepository<User, Long> {
 
+  User findByUsername(String userrname);
+  User findByPassword(String password);
   User findByEmail(String email);
-  User findByUsername(String username);
 
 }

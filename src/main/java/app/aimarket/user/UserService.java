@@ -29,14 +29,19 @@ public class UserService {
     userRepository.save(user);
   }
 
-  public List<User> getStudents() {
+  public List<User> getUsers() {
     return userRepository.findAll();
   }
 
   public User findUserByEmail(String email) {
     return userRepository.findByEmail(email);
   }
-  public User findUserByUsername(String username){return userRepository.findByUsername(username);}
+  public User findUserByUsername(String username) {
+    return userRepository.findByUsername(username);
+  }
+  public User findUserByPassword(String password) {
+    return userRepository.findByPassword(password);
+  }
 
   public static boolean isValidEmailAddress(String email) {
     boolean result = true;

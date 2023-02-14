@@ -1,7 +1,9 @@
 package app.aimarket.user;
+import app.aimarket.aimodel.AiModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @author : ayoso
@@ -13,17 +15,24 @@ import java.io.Serializable;
 public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  @Column private String username;
-  @Column private String password;
-  @Column private String name;
-  @Column private String email;
+  private Long id = 0L;
+  @Column private String username = "Guest";
+  @Column private String password = "";
+  @Column private String name = "Guest";
+  @Column private String email = "";
 
-  public int getId() {
+  public User() {
+  }
+
+  public User(String username) {
+    this.username = username;
+  }
+
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

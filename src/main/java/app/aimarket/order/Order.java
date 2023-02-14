@@ -14,26 +14,42 @@ import java.time.LocalDate;
 public class Order implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  @Column private int userid;
+  private Long id;
+  @Column private Long userid;
   @Column private LocalDate date;
   @Column private String status;
+  @Column private String modelName;
+  @Column private String modelType;
+  @Column private double price;
 
   public Order() {
   }
 
-  public Order(int id, int userid, LocalDate date, String status) {
+  public Order(Long id, Long userid, LocalDate date, String status,
+               String modelName, String modelType, double price) {
     this.id = id;
     this.userid = userid;
     this.date = date;
     this.status = status;
+    this.modelName = modelName;
+    this.price = price;
+    this.modelType = modelType;
   }
 
-  public int getId() {
+  public Order(Long userid, LocalDate date, String status, String modelName, String modelType, double price) {
+    this.userid = userid;
+    this.date = date;
+    this.status = status;
+    this.modelName = modelName;
+    this.modelType = modelType;
+    this.price = price;
+  }
+
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -53,12 +69,36 @@ public class Order implements Serializable {
     this.status = status;
   }
 
-  public int getUserId() {
+  public Long getUserId() {
     return userid;
   }
 
-  public void setUserId(int userId) {
+  public void setUserId(Long userId) {
     this.userid = userId;
+  }
+
+  public String getModelName() {
+    return modelName;
+  }
+
+  public void setModelName(String modelName) {
+    this.modelName = modelName;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  public String getModelType() {
+    return modelType;
+  }
+
+  public void setModelType(String modelType) {
+    this.modelType = modelType;
   }
 
   @Override
@@ -68,6 +108,9 @@ public class Order implements Serializable {
         ", userid=" + userid +
         ", date=" + date +
         ", status='" + status + '\'' +
+        ", modelName='" + modelName + '\'' +
+        ", modelType='" + modelType + '\'' +
+        ", price=" + price +
         '}';
   }
 }

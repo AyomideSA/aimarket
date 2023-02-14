@@ -15,5 +15,5 @@ public interface OrderRepository extends
     JpaRepository<Order, Long> {
 
   @Query("select o from Order o where o.userid = ?#{[0]}")
-  List<Order> findByUserId(int id);
+  List<Order> findByUserId(Long id);
 }

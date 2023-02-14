@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>home</title>
-    <link rel="icon" type="image/x-icon" href="dna-solid.svg">
+    <link rel="icon" type="image/x-icon" href="/dna-solid.svg">
     <meta charset="UTF-8">
     <meta charset="utf-8">
     <link rel="stylesheet" th:href="@{/css/styling.css}">
@@ -13,11 +13,16 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
 </head>
-<body>
+<!--Very VERY Basic Layout of the product page-->
+<!--Hopefully we'll be able to generalise it such that the picture and-->
+<!--information change based on what product was clicked on.-->
 
+<!--No nav bar at the moment but there will be one.-->
+<!--The same code to write the nav bar will most likely be used on all pages-->
+<body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{home}"><i class="fa-solid fa-dna"></i>Arasaka</a>
+        <a class="navbar-brand" th:href="@{../../home}"><i class="fa-solid fa-dna"></i>Arasaka</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,7 +35,7 @@
             </div> <!--If someone knows how to maybe make this smaller feel free to-->
             <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{catalogue}">Catalogue</a>
+                    <a class="nav-link" th:href="@{../../catalogue}">Catalogue</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,7 +44,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Sign In</a></li> <!-- **** Jarek could do this-->
                         <li><a class="dropdown-item" href="#">Basket</a></li>
-                        <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
+                        <li><a class="dropdown-item" th:href="@{../../history}">Order History</a></li>
                     </ul>
                 </li>
             </ul>
@@ -48,21 +53,30 @@
 </nav>
 <br>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th scope="col">Order Id</th>
-            <th scope="col">Order Date</th>
-            <th scope="col">Order Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="order:${orders}">
-            <td th:text="${order.id}"></td>
-            <td th:text="${order.date}"></td>
-            <td th:text="${order.status}"></td>
-    </tbody>
-</table>
-
+<div class="row p-5">
+    <div class="col text-center p-5">
+        <img class="image-fluid" th:src="${aiModelPicPath}" height=700 width=700>
+        <br><br>
+        <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/trained/add (name=${name})}">
+            <button type="submit" name="price" th:value="${trainedPrice}"
+                    style="height:40px;width:500px"
+                    th:text="'Trained Price: €'+${trainedPrice}"></button>
+        </form>
+        <br>
+        <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/unTrained/add (name=${name})}">
+            <button type="submit" name="price" th:value="${untrainedPrice}"
+                    style="height:40px;width:500px"
+                    th:text="'Untrained Price: €'+${untrainedPrice}"></button>
+        </form>
+    </div>
+    <div class="col p-5">
+        <h1 style="font-size:70px;"> <span th:text="${name}"></span></h1>
+<!--        Info doesn't have to be a big paragraph like this. -->
+<!--        I just did it like this for now as it was the easiest filler text-->
+        <p style="font-size:27px;">
+            <span th:text="${aiModelDesc}"></span>
+        </p>
+    </div>
+</div>
 </body>
 </html>
