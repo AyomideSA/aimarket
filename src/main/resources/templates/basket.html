@@ -39,7 +39,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Sign In</a></li> <!-- **** Jarek could do this-->
-                        <li><a class="dropdown-item" href="#">Basket</a></li>
+                        <li><a class="dropdown-item" th:href="@{basket}">Basket</a></li>
                         <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
                     </ul>
                 </li>
@@ -57,7 +57,7 @@
         </div>
         <div class="col text-center my-auto">
             <h1 th:text="${order.modelName}">Name</h1>
-            <h1 th:text="${order.price}">Price</h1>
+            <h1 th:text="'€'+${order.price}">Price</h1>
             <label for="qty" class="text" data-inline="true">Qty</label>
             <select id="qty">
                 <option>1</option>
