@@ -46,7 +46,8 @@ public class MarketController {
         "arrived",
         "auto",
         "trained",
-        77.01)
+        77.01,
+        "/pictures/auto.jpg")
     );
     testOrders.add(new Order(
         2L,
@@ -55,8 +56,10 @@ public class MarketController {
         "arrived",
         "auto",
         "trained",
-        77.01)
+        77.01,
+        "/pictures/auto.jpg")
     );
+
     testOrders.add(new Order(
         3L,
         2L,
@@ -64,7 +67,8 @@ public class MarketController {
         "cancelled",
         "auto",
         "trained",
-        77.01)
+        77.01,
+        "/pictures/auto.jpg")
     );
     testOrders.add(new Order(
         4L,
@@ -73,7 +77,8 @@ public class MarketController {
         "cancelled",
         "auto",
         "trained",
-        77.01)
+        77.01,
+        "/pictures/auto.jpg")
     );
     orderService.saveAll(testOrders);
 
@@ -196,18 +201,21 @@ public class MarketController {
   }
 
   @PostMapping("/catalogue/product/{name}/{type}/add")
-  public String addToBasket(@PathVariable String name, @PathVariable String type, double price) {
-    if (!Objects.equals(user.getName(), "Guest")) {
+  public String addToBasket(@PathVariable String name, @PathVariable String type, double price, HttpSession session) {
+    setGuest(session);
+    if (Objects.equals(user.getName(), "Guest")) {
       AiModel aiModel = aiModelService.findByName(name);
       double modelPrice = Objects.equals(type, "trained") ?
           aiModel.getTrainedprice() : aiModel.getUntrainedprice();
-      shoppingBasket.add(new Order(user.getId(), LocalDate.now(), "new", name, type, price));
+      shoppingBasket.add(new Order(user.getId(), LocalDate.now(), "new", name, type, price, aiModel.getImagepath()));
     }
     return "redirect:/aimarket/catalogue";
   }
 
   @GetMapping("/basket")
-  public String getBasket() {
+  public String getBasket(Model model, HttpSession session) {
+    setGuest(session);
+    model.addAttribute("basket", shoppingBasket);
     return "basket.html";
   }
 
