@@ -74,6 +74,7 @@ public class MarketController {
       userService.save(user);
     } else {
       // Some error shows up on html page
+      return "registerError.html";
     }
     // Later will need to replace "Guest" with user's name
     return "redirect:/aimarket/home";
@@ -95,6 +96,11 @@ public class MarketController {
     System.out.println(models);
     model.addAttribute("aimodels", models);
     return "catalogue.html";
+  }
+
+  @PostMapping("aimarket/error")
+  public String returnError(){
+    return "redirect:/aimarket/home";
   }
 
 }
