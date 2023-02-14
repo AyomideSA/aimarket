@@ -50,14 +50,26 @@
 <br>
 
 <!--Setting up basic template for basket to be used with thymeleaf-->
-<div class="row">
-    <div class="col text-center">
-        <img src="/pictures/auto.jpg" alt="Ai" width=500 height=500>
-    </div>
-    <div class="col text-center">
-        <h1>Auto</h1>
-        <h1>99.99 Euro</h1>
-        <button></button>
+<div class="container" th:each="order: ${basket}">
+    <div class="row border">
+        <div class="col">
+            <img th:src=${order.imagePath} alt="Ai" width=384 height=216>
+        </div>
+        <div class="col text-center my-auto">
+            <h1 th:text="${order.modelName}">Name</h1>
+            <h1 th:text="${order.price}">Price</h1>
+            <label for="qty" class="text" data-inline="true">Qty</label>
+            <select id="qty">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+            <select id="modelType">
+                <option>Trained</option>
+                <option>UnTrained</option>
+            </select>
+            <button type="submit" data-inline="true">Delete</button>
+        </div>
     </div>
 </div>
 
