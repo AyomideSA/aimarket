@@ -17,6 +17,18 @@
 </head>
 <body onload="setUp()">
 
+<div id = "pW" style = "display: none;">
+	<p>Please input your details</p>
+	<div class="form-floating mb-3">
+	  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+	  <label for="floatingInput">Email address</label>
+	</div>
+	<div class="form-floating">
+	  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+	  <label for="floatingPassword">Password</label>
+	</div>
+</div>
+
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#87CEEB">
     <div class="container-fluid">
         <a class="navbar-brand navText" th:href="@{home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
@@ -46,7 +58,7 @@
 				<li class = "nav-item">
 					<a class = "nav-link navText" onclick = "openForm()">Sign in</a>
 
-					<div class = "form-popup" id = "signIn">
+					<div class = "form-popup" id = "myForm">
 					  <form class = "form-container">
 						<h3>Login</h3>
 						
@@ -75,17 +87,17 @@
         <h3 class="products">New Products</h3>
 <!--        Testing for passing input into Database-->
 <!--        will be moved when proper login window made-->
-        <form method = "POST" action="register">
-            Username: <br>
-            <input type = "text" name = "username"><br>
-            Password: <br>
-            <input type = "text" name = "password"><br>
-            name: <br>
-            <input type = "text" name = "name"><br>
-            Email: <br>
-            <input type = "text" name = "email"><br>
-            <button id="submit" type = "submit"> Sign Up </button>
-        </form>
+<!--        <form method = "POST" action="register">-->
+<!--            Username: <br>-->
+<!--            <input type = "text" name = "username"><br>-->
+<!--            Password: <br>-->
+<!--            <input type = "text" name = "password"><br>-->
+<!--            name: <br>-->
+<!--            <input type = "text" name = "name"><br>-->
+<!--            Email: <br>-->
+<!--            <input type = "text" name = "email"><br>-->
+<!--            <button id="submit" type = "submit"> Sign Up </button>-->
+<!--        </form>-->
 <!--        Testing for passing input into Database-->
         <p>Check out the latest models just in!</p> <!--Images should go in columns maybe? If someone has a better idea (which they probably will) feel free to lmk -Andrew -->
         <div class="col-lg-4">
@@ -122,11 +134,11 @@
 	}
 
 	function openForm() {
-	  document.getElementById("signIn").style.display = "block";
+	  document.getElementById("myForm").style.display = "block";
 	}
 
 	function closeForm() {
-	  document.getElementById("signIn").style.display = "none";
+	  document.getElementById("myForm").style.display = "none";
 	}
 </script>
 
