@@ -21,29 +21,33 @@ public class Order implements Serializable {
   @Column private String modelName;
   @Column private String modelType;
   @Column private double price;
+  @Column private String imagePath;
 
   public Order() {
   }
 
-  public Order(Long id, Long userid, LocalDate date, String status,
-               String modelName, String modelType, double price) {
+  public Order(Long id, Long userid, LocalDate date, String status, String modelName, String modelType, double price, String imagePath) {
     this.id = id;
     this.userid = userid;
     this.date = date;
     this.status = status;
     this.modelName = modelName;
-    this.price = price;
     this.modelType = modelType;
+    this.price = price;
+    this.imagePath = imagePath;
   }
 
-  public Order(Long userid, LocalDate date, String status, String modelName, String modelType, double price) {
+  public Order(Long userid, LocalDate date, String status, String modelName, String modelType, double price, String imagePath) {
     this.userid = userid;
     this.date = date;
     this.status = status;
     this.modelName = modelName;
     this.modelType = modelType;
     this.price = price;
+    this.imagePath = imagePath;
   }
+
+
 
   public Long getId() {
     return id;
@@ -101,6 +105,14 @@ public class Order implements Serializable {
     this.modelType = modelType;
   }
 
+  public String getImagePath() {
+    return imagePath;
+  }
+
+  public void setImagePath(String imagePath) {
+    this.imagePath = imagePath;
+  }
+
   @Override
   public String toString() {
     return "Order{" +
@@ -111,6 +123,7 @@ public class Order implements Serializable {
         ", modelName='" + modelName + '\'' +
         ", modelType='" + modelType + '\'' +
         ", price=" + price +
+        ", imagePath='" + imagePath + '\'' +
         '}';
   }
 }
