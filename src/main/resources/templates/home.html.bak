@@ -17,18 +17,6 @@
 </head>
 <body onload="setUp()">
 
-<div id = "pW" style = "display: none;">
-	<p>Please input your details</p>
-	<div class="form-floating mb-3">
-	  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-	  <label for="floatingInput">Email address</label>
-	</div>
-	<div class="form-floating">
-	  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-	  <label for="floatingPassword">Password</label>
-	</div>
-</div>
-
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#87CEEB">
     <div class="container-fluid">
         <a class="navbar-brand navText" th:href="@{home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
@@ -56,9 +44,9 @@
                     </ul>
                 </li>
 				<li class = "nav-item">
-					<a class = "nav-link navText" onclick = "openForm()">Sign in</a>
+					<a class = "nav-link navText" onclick = "openSIForm()">Sign in</a>
 
-					<div class = "form-popup" id = "myForm">
+					<div class = "form-popup" id = "signIn">
 					  <form class = "form-container">
 						<h3>Login</h3>
 						
@@ -66,9 +54,36 @@
 							<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
 							<label for="floatingInput">Email address</label>
 						</div>
-						<div class="form-floating">
+						<div class="form-floating mb-3">
 							<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
 							<label for="floatingPassword">Password</label>
+						</div>
+
+						<button type="submit" class="btn btn-success">Login</button>
+						<button type="button" class="btn cancel btn-warning" onclick="openSUForm()">Register</button>
+						<button type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
+					  </form>
+					</div>
+					
+					<div class = "form-popup" id = "signUp">
+					  <form class = "form-container">
+						<h3>Login</h3>
+						
+						<div class="form-floating mb-3">
+							<input type="username" class="form-control" id="floatingInput" placeholder="User Name">
+							<label for="floatingInput">User Name</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+							<label for="floatingPassword">Password</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="name" class="form-control" id="floatingInput" placeholder="Name">
+							<label for="floatingInput">Name</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+							<label for="floatingInput">Email address</label>
 						</div>
 
 						<button type="submit" class="btn btn-success">Login</button>
@@ -87,17 +102,17 @@
         <h3 class="products">New Products</h3>
 <!--        Testing for passing input into Database-->
 <!--        will be moved when proper login window made-->
-<!--        <form method = "POST" action="register">-->
-<!--            Username: <br>-->
-<!--            <input type = "text" name = "username"><br>-->
-<!--            Password: <br>-->
-<!--            <input type = "text" name = "password"><br>-->
-<!--            name: <br>-->
-<!--            <input type = "text" name = "name"><br>-->
-<!--            Email: <br>-->
-<!--            <input type = "text" name = "email"><br>-->
-<!--            <button id="submit" type = "submit"> Sign Up </button>-->
-<!--        </form>-->
+        <form method = "POST" action="register">
+            Username: <br>
+            <input type = "text" name = "username"><br>
+            Password: <br>
+            <input type = "text" name = "password"><br>
+            name: <br>
+            <input type = "text" name = "name"><br>
+            Email: <br>
+            <input type = "text" name = "email"><br>
+            <button id="submit" type = "submit"> Sign Up </button>
+        </form>
 <!--        Testing for passing input into Database-->
         <p>Check out the latest models just in!</p> <!--Images should go in columns maybe? If someone has a better idea (which they probably will) feel free to lmk -Andrew -->
         <div class="col-lg-4">
@@ -133,12 +148,19 @@
 		closeForm();
 	}
 
-	function openForm() {
-	  document.getElementById("myForm").style.display = "block";
+	function openSIForm() {
+		document.getElementById("signUp").style.display = "none";
+		document.getElementById("signIn").style.display = "block";
+	}
+	
+	function openSUForm() {
+		document.getElementById("signIn").style.display = "none";
+		document.getElementById("signUp").style.display = "block";
 	}
 
 	function closeForm() {
-	  document.getElementById("myForm").style.display = "none";
+		document.getElementById("signIn").style.display = "none";
+		document.getElementById("signUp").style.display = "none";
 	}
 </script>
 
