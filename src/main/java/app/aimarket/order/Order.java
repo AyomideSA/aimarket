@@ -3,6 +3,7 @@ package app.aimarket.order;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @author : ayoso
@@ -111,6 +112,19 @@ public class Order implements Serializable {
 
   public void setImagePath(String imagePath) {
     this.imagePath = imagePath;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Order)) return false;
+    Order order = (Order) o;
+    return modelName.equals(order.modelName) && modelType.equals(order.modelType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(modelName, modelType);
   }
 
   @Override

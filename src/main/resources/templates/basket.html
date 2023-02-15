@@ -50,14 +50,14 @@
 <br>
 
 <!--Setting up basic template for basket to be used with thymeleaf-->
-<div class="container" th:each="order: ${basket}">
+<div class="container" th:each="order, iStat: ${basket}">
     <div class="row border">
         <div class="col">
-            <img th:src=${order.imagePath} alt="Ai" width=384 height=216>
+            <img th:src=${order.key.imagePath} alt="Ai" width=384 height=216>
         </div>
         <div class="col text-center my-auto">
-            <h1 th:text="${order.modelName}">Name</h1>
-            <h1 th:text="'€'+${order.price}">Price</h1>
+            <h1 th:text="${order.key.modelName}">Name</h1>
+            <h1 th:text="'€'+${order.key.price}">Price</h1>
             <label for="qty" class="text" data-inline="true">Qty</label>
             <select id="qty">
                 <option>1</option>
@@ -65,10 +65,16 @@
                 <option>3</option>
             </select>
             <select id="modelType">
+                <option><span th:text="${order.key.modelType}"></span></option>
                 <option>Trained</option>
                 <option>UnTrained</option>
             </select>
-            <button type="submit" data-inline="true">Delete</button>
+            <form method="POST"
+                  th:action="@{basket/delete/{modelName}/{modelType}
+                  (modelName=${order.key.modelName},
+                  modelType=${order.key.modelType})}">
+                <button type="submit" th:value="${order.key}" data-inline="true">Delete</button>
+            </form>
         </div>
     </div>
 </div>

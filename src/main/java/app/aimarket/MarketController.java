@@ -4,6 +4,7 @@ import app.aimarket.aimodel.AiModel;
 import app.aimarket.aimodel.AiModelService;
 import app.aimarket.order.Order;
 import app.aimarket.order.OrderService;
+import app.aimarket.user.ShoppingBasket;
 import app.aimarket.user.User;
 import app.aimarket.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,14 +28,13 @@ public class MarketController {
   private final AiModelService aiModelService;
   private final ArrayList<Order> testOrders = new ArrayList<>();
   private User user = new User();
-  private final ArrayList<Order> shoppingBasket;
+  private final ShoppingBasket shoppingBasket = new ShoppingBasket();
 
   @Autowired
   public MarketController(UserService userService, OrderService orderService, AiModelService aiModelService) {
     this.userService = userService;
     this.orderService = orderService;
     this.aiModelService = aiModelService;
-    shoppingBasket = new ArrayList<>();
     createTestData();
   }
 
@@ -151,7 +152,6 @@ public class MarketController {
   @GetMapping("/home")
   public String viewHomePage(HttpSession session) {
     setGuest(session);
-    session.setAttribute("basket", shoppingBasket);
     return "home.html";
   }
 
@@ -216,15 +216,21 @@ public class MarketController {
   @GetMapping("/basket")
   public String getBasket(Model model, HttpSession session) {
     setGuest(session);
-    model.addAttribute("basket", shoppingBasket);
+    model.addAttribute("basket", shoppingBasket.getBasket());
     return "basket.html";
+  }
+
+  @PostMapping("/basket/delete/{modelName}/{modelType}")
+  public String deleteItem(Order deleted, Model model) {
+    shoppingBasket.remove(deleted);
+    return "redirect:/aimarket/basket";
   }
 
   // Sets user to guest for the first page that a non-logged-in user visits
   private void setGuest(HttpSession session) {
     if (session.getAttribute("user") == null) {
       session.setAttribute("user", user);
-      session.setAttribute("greeting", user.getUsername() + ", sign in");
+      //session.setAttribute("greeting", user.getUsername() + ", sign in");
     }
   }
 
