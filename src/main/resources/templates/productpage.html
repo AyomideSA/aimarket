@@ -63,7 +63,7 @@
                     th:text="'Trained Price: €'+${trainedPrice}"></button>
         </form>
         <br>
-        <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/unTrained/add (name=${name})}">
+        <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/untrained/add (name=${name})}">
             <button type="submit" name="price" th:value="${untrainedPrice}"
                     style="height:40px;width:500px"
                     th:text="'Untrained Price: €'+${untrainedPrice}"></button>

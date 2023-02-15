@@ -220,9 +220,32 @@ public class MarketController {
     return "basket.html";
   }
 
-  @PostMapping("/basket/delete/{modelName}/{modelType}")
-  public String deleteItem(Order deleted, Model model) {
+  @PostMapping("/basket/delete/{modelName}/{modelType}/{price}")
+  public String deleteItem(Order deleted) {
     shoppingBasket.remove(deleted);
+    return "redirect:/aimarket/basket";
+  }
+
+  @PostMapping("/basket/changeqty/{modelName}/{modelType}/{price}")
+  public String changeQuantity(@RequestParam int newQuantity,
+                               @PathVariable String modelName,
+                               @PathVariable String modelType,
+                               @PathVariable double price) {
+    String imagePath = aiModelService.findByName(modelName).getImagepath();
+    shoppingBasket.setQuantity(new Order(modelName, modelType, price, imagePath), newQuantity);
+    System.out.println(shoppingBasket);
+    return "redirect:/aimarket/basket";
+  }
+
+  @PostMapping("/basket/changetype/{modelName}/{modelType}/{price}")
+  public String changeType(@RequestParam String newType,
+                           @PathVariable String modelName,
+                           @PathVariable String modelType,
+                           @PathVariable double price) {
+    AiModel aiModel = aiModelService.findByName(modelName);
+    String imagePath = aiModel.getImagepath();
+    double newPrice = Objects.equals(newType, "trained") ? aiModel.getTrainedprice() : aiModel.getUntrainedprice();
+    shoppingBasket.setType(new Order(modelName, modelType, price, imagePath), newType, newPrice);
     return "redirect:/aimarket/basket";
   }
 

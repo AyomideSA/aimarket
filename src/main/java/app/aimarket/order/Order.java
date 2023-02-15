@@ -27,6 +27,13 @@ public class Order implements Serializable {
   public Order() {
   }
 
+  public Order(String modelName, String modelType, double price, String imagePath) {
+    this.modelName = modelName;
+    this.modelType = modelType;
+    this.price = price;
+    this.imagePath = imagePath;
+  }
+
   public Order(Long id, Long userid, LocalDate date, String status, String modelName, String modelType, double price, String imagePath) {
     this.id = id;
     this.userid = userid;
@@ -114,17 +121,18 @@ public class Order implements Serializable {
     this.imagePath = imagePath;
   }
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof Order)) return false;
     Order order = (Order) o;
-    return modelName.equals(order.modelName) && modelType.equals(order.modelType);
+    return Double.compare(order.price, price) == 0 && modelName.equals(order.modelName) && modelType.equals(order.modelType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(modelName, modelType);
+    return Objects.hash(modelName, modelType, price, imagePath);
   }
 
   @Override
