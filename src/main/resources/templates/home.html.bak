@@ -67,7 +67,7 @@
 					
 					<div class = "form-popup" id = "signUp">
 					  <form class = "form-container">
-						<h3>Register</h3>
+						<h3>Login</h3>
 						
 						<div class="form-floating mb-3">
 							<input type="username" class="form-control" id="floatingInput" placeholder="User Name">
