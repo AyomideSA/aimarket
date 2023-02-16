@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,13 +50,37 @@ public class UserService {
   }
 
   public boolean ValidUser(@ModelAttribute User user){
-    if(findUserByUsername(user.getUsername()) != null){
+    if(Objects.equals(user.getUsername(), "") ||findUserByUsername(user.getUsername()) != null){
+      System.out.println("the username name is: "+user.getUsername());
+      return false;
+    }
+    else if(Objects.equals(user.getPassword(), "")){
+      System.out.println("the password is: "+user.getPassword());
+      return false;
+    }
+    else if(Objects.equals(user.getName(), "")){
+      System.out.println("the name is: "+user.getName());
       return false;
     }
     else if(findUserByEmail(user.getEmail()) != null){
+      System.out.println("the email is 1: "+user.getEmail());
       return false;
     }
     else if(!isValidEmailAddress(user.getEmail())){
+      System.out.println("the email is 2: "+user.getEmail());
+      return false;
+    }
+
+    return true;
+  }
+
+  public boolean signinUserValid(@ModelAttribute User user){
+    if(Objects.equals(user.getEmail(), "") ||findUserByEmail(user.getEmail()) != null){
+      System.out.println("the email is: "+user.getEmail());
+      return false;
+    }
+    else if(Objects.equals(user.getPassword(), "")||findUserByPassword(user.getPassword())!=null){
+      System.out.println("the password is: "+user.getPassword());
       return false;
     }
 

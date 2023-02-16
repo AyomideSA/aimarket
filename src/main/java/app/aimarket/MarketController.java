@@ -172,6 +172,23 @@ public class MarketController {
     return "redirect:/aimarket/home";
   }
 
+  @PostMapping("/login")
+  public String signin(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password, HttpSession session) {
+    System.out.println(email+password);
+    if (true) {
+      System.out.println("Worked");
+      User user = userService.findUserByEmail(email);
+      this.user = user;
+      session.setAttribute("user", user);
+      loggedIn = true;
+    } else {
+      // Some error shows up on html page
+      loggedIn = false;
+      System.out.println("did not log in");
+    }
+    return "redirect:/aimarket/home";
+  }
+
   @GetMapping("/history")
   public String getHistory(Model model, HttpSession session) {
     setGuest(session);
