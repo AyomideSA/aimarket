@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,8 +27,9 @@ public class MarketController {
   private final OrderService orderService;
   private final AiModelService aiModelService;
   private final ArrayList<Order> testOrders = new ArrayList<>();
-  private User user = new User();
+  private User user = new User("Guest");
   private final ShoppingBasket shoppingBasket = new ShoppingBasket();
+  private boolean loggedIn = false;
 
   @Autowired
   public MarketController(UserService userService, OrderService orderService, AiModelService aiModelService) {
@@ -160,6 +160,9 @@ public class MarketController {
   public String signup(User user, HttpSession session) {
     if (userService.ValidUser(user)) {
       userService.save(user);
+      this.user = user;
+      session.setAttribute("user", user);
+      loggedIn = true;
     } else {
       // Some error shows up on html page
       return "registerError.html";
@@ -172,7 +175,7 @@ public class MarketController {
   @GetMapping("/history")
   public String getHistory(Model model, HttpSession session) {
     setGuest(session);
-    if (!Objects.equals(user.getUsername(), "Guest")) {
+    if (loggedIn) {
       List<Order> userOrders = orderService.findByUserId(user.getId());
       model.addAttribute("orders", userOrders);
       return "orderHistory.html";
@@ -205,20 +208,24 @@ public class MarketController {
   @PostMapping("/catalogue/product/{name}/{type}/add")
   public String addToBasket(@PathVariable String name, @PathVariable String type, double price, HttpSession session) {
     setGuest(session);
-    if (Objects.equals(user.getName(), "Guest")) {
+    if (loggedIn) {
       AiModel aiModel = aiModelService.findByName(name);
       double modelPrice = Objects.equals(type, "trained") ?
           aiModel.getTrainedprice() : aiModel.getUntrainedprice();
       shoppingBasket.add(new Item(name, type, price, aiModel.getImagepath()));
     }
-    return "redirect:/aimarket/catalogue";
+    return "redirect:/aimarket/home";
   }
 
   @GetMapping("/basket")
   public String getBasket(Model model, HttpSession session) {
     setGuest(session);
-    model.addAttribute("basket", shoppingBasket.getBasket());
-    return "basket.html";
+    if (loggedIn) {
+      model.addAttribute("basket", shoppingBasket.getBasket());
+      return "basket.html";
+    } else {
+      return "redirect:/aimarket/home";
+    }
   }
 
   @PostMapping("/basket/delete/{modelName}/{modelType}/{price}")
@@ -251,9 +258,8 @@ public class MarketController {
 
   // Sets user to guest for the first page that a non-logged-in user visits
   private void setGuest(HttpSession session) {
-    if (session.getAttribute("user") == null) {
+    if (!loggedIn) {
       session.setAttribute("user", user);
-      //session.setAttribute("greeting", user.getUsername() + ", sign in");
     }
   }
 
