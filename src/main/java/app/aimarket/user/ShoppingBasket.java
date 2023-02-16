@@ -9,6 +9,7 @@ import java.util.Objects;
  * @since : 14/02/2023, Tuesday
  **/
 public class ShoppingBasket {
+  private int test=0;
   private HashMap<Item, Integer> basket = new HashMap<>();
 
   public void add(Item item) {
@@ -18,6 +19,14 @@ public class ShoppingBasket {
 
   public HashMap<Item, Integer> getBasket() {
     return basket;
+  }
+
+  public int getTest() {
+    return test;
+  }
+
+  public void setTest(int test) {
+    this.test = test;
   }
 
   public void setBasket(HashMap<Item, Integer> basket) {
@@ -47,6 +56,22 @@ public class ShoppingBasket {
       }
       basket.remove(oldItem);
     }
+  }
+
+  public int totalItems() {
+    int total=0;
+    for (Integer qty : basket.values()) {
+      total += qty;
+    }
+    return total;
+  }
+
+  public double totalPrice() {
+    double total=0;
+    for (Item item : basket.keySet()) {
+        total+=item.getPrice()*basket.get(item);
+    }
+    return total;
   }
 
   @Override

@@ -223,7 +223,7 @@ public class MarketController {
   public String getBasket(Model model, HttpSession session) {
     setGuest(session);
     if (loggedIn) {
-      model.addAttribute("basket", shoppingBasket.getBasket());
+      model.addAttribute("basket", shoppingBasket);
       return "basket.html";
     } else {
       return "redirect:/aimarket/home";
