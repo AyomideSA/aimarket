@@ -15,13 +15,18 @@ import java.util.ArrayList;
 public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id = 0L;
-  @Column private String username = "Guest";
-  @Column private String password = "";
-  @Column private String name = "Guest";
-  @Column private String email = "";
+  private Long id;
+  @Column private String username;
+  @Column private String password;
+  @Column private String name;
+  @Column private String email;
 
   public User() {
+  }
+
+  public User(String username, String name) {
+    this.username = username;
+    this.name = name;
   }
 
   public User(String username) {
