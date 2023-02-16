@@ -223,7 +223,6 @@ public class MarketController {
 
   @PostMapping("/basket/delete/{modelName}/{modelType}/{price}")
   public String deleteItem(Item item) {
-    System.out.println(item);
     shoppingBasket.remove(item);
     return "redirect:/aimarket/basket";
   }
@@ -235,7 +234,6 @@ public class MarketController {
                                @PathVariable double price) {
     String imagePath = aiModelService.findByName(modelName).getImagepath();
     shoppingBasket.setQuantity(new Item(modelName, modelType, price, imagePath), newQuantity);
-    System.out.println(shoppingBasket);
     return "redirect:/aimarket/basket";
   }
 
@@ -246,8 +244,7 @@ public class MarketController {
                            @PathVariable double price) {
     AiModel aiModel = aiModelService.findByName(modelName);
     String imagePath = aiModel.getImagepath();
-    double newPrice = Objects.equals(newType, "trained") ?
-        aiModel.getTrainedprice() : aiModel.getUntrainedprice();
+    double newPrice = Objects.equals(newType, "trained") ? aiModel.getTrainedprice() : aiModel.getUntrainedprice();
     shoppingBasket.setType(new Item(modelName, modelType, price, imagePath), newType, newPrice);
     return "redirect:/aimarket/basket";
   }

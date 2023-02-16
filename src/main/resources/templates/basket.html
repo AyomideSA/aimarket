@@ -57,7 +57,7 @@
         </div>
         <div class="col text-center my-auto">
             <h1 th:text="${item.key.modelName}">Name</h1>
-            <h1 th:text="'€'+${item.key.price}">Price</h1>
+            <h1 th:text="'€'+${item.key.price * item.value}">Price</h1>
             <label for="qty" class="text" data-inline="true">Qty</label>
             <form method="POST"
                   th:action="@{basket/changeqty/{modelName}/{modelType}/{price}
@@ -65,12 +65,7 @@
                   modelType=${item.key.modelType},
                   price=${item.key.price},
                   imagePath=${item.key.imagePath})}">
-                <select id="qty" onchange="this.form.submit()" name="newQuantity">
-                    <option><span th:text="${item.value}"></span></option>
-                    <option th:value="1">1</option>
-                    <option th:value="2">2</option>
-                    <option th:value="3">3</option>
-                </select>
+                <input id="qty" type="number" th:value="${item.value}" name="newQuantity" min="1" max="20" onchange="this.form.submit()">
             </form>
             <form method="POST"
                   th:action="@{basket/changetype/{modelName}/{modelType}/{price}
@@ -79,9 +74,12 @@
                   price=${item.key.price},
                   imagePath=${item.key.imagePath})}">
                 <select id="modelType" onchange="this.form.submit()"  name="newType">
-                    <option><span th:text="${item.key.modelType}"></span></option>
-                    <option th:value="trained">Trained</option>
-                    <option th:value="untrained">Untrained</option>
+<!--                    <option><span th:text="${item.key.modelType}"></span></option>-->
+                    <option th:if="${item.key.modelType == 'trained'}" th:value="trained">Trained</option>
+                    <option th:if="${item.key.modelType == 'trained'}" th:value="untrained">Untrained</option>
+
+                    <option th:if="${item.key.modelType == 'untrained'}" th:value="untrained">Untrained</option>
+                    <option th:if="${item.key.modelType == 'untrained'}" th:value="trained">Trained</option>
                 </select>
             </form>
             <form method="POST"
