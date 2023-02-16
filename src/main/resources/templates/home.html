@@ -55,19 +55,19 @@
 
 <div class = "container shadow p-3 mb-5 bg-light rounded-3 position-fixed top-5 end-0" style = "max-width: 500px;" id = "loginBox">
 	<div class = "form-popup" id = "signIn">
-		<form class = "form-container">
+		<form class = "form-container" method="POST" action="login">
 			<h3>Login</h3>
 			
 			<div class="form-floating mb-3">
-				<input type="email" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="name@example.com">
+				<input type="email" th:name="email" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="name@example.com">
 				<label for="floatingInput">Email address</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type="password" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
+				<input type="password" th:name="password" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
 				<label for="floatingPassword">Password</label>
 			</div>
 
-			<button type="button" class="btn btn-success">Login</button>
+			<button type="submit" class="btn btn-success">Login</button>
 			<button type="button" class="btn cancel btn-warning" onclick="openSUForm()">Register</button>
 			<button type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
 		</form>
@@ -77,19 +77,19 @@
 		<form class = "form-container" method="POST" action="register">
 			<h3>Register</h3>
 			<div class="form-floating mb-3">
-				<input type = "text" name = "username" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="User Name">
+				<input type = "text" name = "username" class="form-control" style = " max-width: 500px;" id="floatingUsername" placeholder="User Name">
 				<label for="floatingInput">User Name</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type = "password" name = "password" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
+				<input type = "password" name = "password" class="form-control" style = " max-width: 500px;" id="floatingPassword1" placeholder="Password">
 				<label for="floatingPassword">Password</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type="text" name="name" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="Name">
+				<input type="text" name="name" class="form-control" style = " max-width: 500px;" id="floatingName" placeholder="Name">
 				<label for="floatingInput">Name</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type="text" name = "email" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="name@example.com">
+				<input type="text" name = "email" class="form-control" style = " max-width: 500px;" id="floatingEmail" placeholder="name@example.com">
 				<label for="floatingInput">Email address</label>
 			</div>
 
@@ -105,19 +105,6 @@
         <br>
         <br>
         <h3 class="products">New Products</h3>
-<!--        Testing for passing input into Database-->
-<!--        will be moved when proper login window made-->
-        <form method = "POST" action="register">
-            Username: <br>
-            <input type = "text" name = "username"><br>
-            Password: <br>
-            <input type = "text" name = "password"><br>
-            name: <br>
-            <input type = "text" name = "email"><br>
-            Email: <br>
-            <input type = "text" name = "email"><br>
-            <button id="submit" type = "submit"> Sign Up </button>
-        </form>
 <!--        Testing for passing input into Database-->
         <p>Check out the latest models just in!</p> <!--Images should go in columns maybe? If someone has a better idea (which they probably will) feel free to lmk -Andrew -->
         <div class="col-lg-4">
