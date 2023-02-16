@@ -213,8 +213,10 @@ public class MarketController {
       double modelPrice = Objects.equals(type, "trained") ?
           aiModel.getTrainedprice() : aiModel.getUntrainedprice();
       shoppingBasket.add(new Item(name, type, price, aiModel.getImagepath()));
+      return "redirect:/aimarket/catalogue";
+    } else {
+      return "redirect:/aimarket/home";
     }
-    return "redirect:/aimarket/home";
   }
 
   @GetMapping("/basket")
