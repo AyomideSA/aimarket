@@ -8,12 +8,13 @@
 
 /*Popup menu*/
 .form-popup {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgb(255, 255, 255);
 	display: none;
 	bottom: 0;
 	right: 15px;
 	border: 3px solid #f1f1f1;
 	z-index: 9;
+	float: left;
 }
 
 /*Container details*/
@@ -25,7 +26,7 @@
 
 /*Input fields*/
 .form-container input[type=text], .form-container input[type=password] {
-	width: 100%;
+	width: 200px;
 	padding: 15px;
 	margin: 5px 0 22px 0;
 	border: none;
@@ -38,7 +39,7 @@
 	outline: none;
 }
 
-/*Login button*/
+/*Buttons*/
 .form-container .btn {
 	background-color: #04AA6D;
 	color: white;
