@@ -73,27 +73,27 @@
 	</div>
 		
 	<div class = "form-popup" id = "signUp">
-		<form class = "form-container">
+		<form class = "form-container" method="POST" action="register">
 			<h3>Register</h3>
-			
 			<div class="form-floating mb-3">
-				<input type="username" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="User Name">
+				<input type = "text" name = "username" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="User Name">
 				<label for="floatingInput">User Name</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type="password" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
+				<input type = "password" name = "password" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
 				<label for="floatingPassword">Password</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type="name" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="Name">
+				<input type="text" name="name" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="Name">
 				<label for="floatingInput">Name</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type="email" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="name@example.com">
+				<input type="text" name = "email" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="name@example.com">
 				<label for="floatingInput">Email address</label>
 			</div>
 
-			<button type="button" class="btn btn-success" >Login</button>
+			<button type="submit" class="btn btn-success" >Register</button>
+            <button type="button" class="btn cancel btn-warning" onclick="openSIForm()">Login</button>
 			<button id="button" type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
 		</form>
 	</div>
@@ -112,7 +112,7 @@
             Password: <br>
             <input type = "text" name = "password"><br>
             name: <br>
-            <input type = "text" name = "name"><br>
+            <input type = "text" name = "email"><br>
             Email: <br>
             <input type = "text" name = "email"><br>
             <button id="submit" type = "submit"> Sign Up </button>
