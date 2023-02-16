@@ -12,7 +12,6 @@ public class ShoppingBasket {
   private HashMap<Item, Integer> basket = new HashMap<>();
 
   public void add(Item item) {
-    System.out.println(item);
     basket.putIfAbsent(item, 0);
     basket.put(item, basket.get(item)+1);
   }
