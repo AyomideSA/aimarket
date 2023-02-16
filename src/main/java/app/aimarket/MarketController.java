@@ -4,6 +4,7 @@ import app.aimarket.aimodel.AiModel;
 import app.aimarket.aimodel.AiModelService;
 import app.aimarket.order.Order;
 import app.aimarket.order.OrderService;
+import app.aimarket.user.Item;
 import app.aimarket.user.ShoppingBasket;
 import app.aimarket.user.User;
 import app.aimarket.user.UserService;
@@ -208,7 +209,7 @@ public class MarketController {
       AiModel aiModel = aiModelService.findByName(name);
       double modelPrice = Objects.equals(type, "trained") ?
           aiModel.getTrainedprice() : aiModel.getUntrainedprice();
-      shoppingBasket.add(new Order(user.getId(), LocalDate.now(), "new", name, type, price, aiModel.getImagepath()));
+      shoppingBasket.add(new Item(name, type, price, aiModel.getImagepath()));
     }
     return "redirect:/aimarket/catalogue";
   }
@@ -221,8 +222,9 @@ public class MarketController {
   }
 
   @PostMapping("/basket/delete/{modelName}/{modelType}/{price}")
-  public String deleteItem(Order deleted) {
-    shoppingBasket.remove(deleted);
+  public String deleteItem(Item item) {
+    System.out.println(item);
+    shoppingBasket.remove(item);
     return "redirect:/aimarket/basket";
   }
 
@@ -232,7 +234,7 @@ public class MarketController {
                                @PathVariable String modelType,
                                @PathVariable double price) {
     String imagePath = aiModelService.findByName(modelName).getImagepath();
-    shoppingBasket.setQuantity(new Order(modelName, modelType, price, imagePath), newQuantity);
+    shoppingBasket.setQuantity(new Item(modelName, modelType, price, imagePath), newQuantity);
     System.out.println(shoppingBasket);
     return "redirect:/aimarket/basket";
   }
@@ -244,8 +246,9 @@ public class MarketController {
                            @PathVariable double price) {
     AiModel aiModel = aiModelService.findByName(modelName);
     String imagePath = aiModel.getImagepath();
-    double newPrice = Objects.equals(newType, "trained") ? aiModel.getTrainedprice() : aiModel.getUntrainedprice();
-    shoppingBasket.setType(new Order(modelName, modelType, price, imagePath), newType, newPrice);
+    double newPrice = Objects.equals(newType, "trained") ?
+        aiModel.getTrainedprice() : aiModel.getUntrainedprice();
+    shoppingBasket.setType(new Item(modelName, modelType, price, imagePath), newType, newPrice);
     return "redirect:/aimarket/basket";
   }
 
