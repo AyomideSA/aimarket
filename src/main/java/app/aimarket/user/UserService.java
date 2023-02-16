@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.validation.constraints.Null;
-import java.sql.SQLOutput;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author : ayoso
@@ -44,14 +42,10 @@ public class UserService {
   }
 
   public static boolean isValidEmailAddress(String email) {
-    boolean result = true;
-    try {
-      InternetAddress emailAddr = new InternetAddress(email);
-      emailAddr.validate();
-    } catch (AddressException ex) {
-      result = false;
-    }
-    return result;
+    String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(email);
+    return matcher.matches();
   }
 
   public boolean ValidUser(@ModelAttribute User user){
@@ -61,7 +55,7 @@ public class UserService {
     else if(findUserByEmail(user.getEmail()) != null){
       return false;
     }
-    else if(isValidEmailAddress(user.getEmail())){
+    else if(!isValidEmailAddress(user.getEmail())){
       return false;
     }
 
