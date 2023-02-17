@@ -1,9 +1,9 @@
 package app.aimarket.order;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * @author : ayoso
@@ -19,43 +19,18 @@ public class Order implements Serializable {
   @Column private Long userid;
   @Column private LocalDate date;
   @Column private String status;
-  @Column private String modelName;
-  @Column private String modelType;
-  @Column private double price;
-  @Column private String imagePath;
+  @Size(max = 1400)
+  @Column private String orderDetails;
 
   public Order() {
   }
 
-  public Order(String modelName, String modelType, double price, String imagePath) {
-    this.modelName = modelName;
-    this.modelType = modelType;
-    this.price = price;
-    this.imagePath = imagePath;
-  }
-
-  public Order(Long id, Long userid, LocalDate date, String status, String modelName, String modelType, double price, String imagePath) {
-    this.id = id;
+  public Order(Long userid, LocalDate date, String status, String orderDetails) {
     this.userid = userid;
     this.date = date;
     this.status = status;
-    this.modelName = modelName;
-    this.modelType = modelType;
-    this.price = price;
-    this.imagePath = imagePath;
+    this.orderDetails = orderDetails;
   }
-
-  public Order(Long userid, LocalDate date, String status, String modelName, String modelType, double price, String imagePath) {
-    this.userid = userid;
-    this.date = date;
-    this.status = status;
-    this.modelName = modelName;
-    this.modelType = modelType;
-    this.price = price;
-    this.imagePath = imagePath;
-  }
-
-
 
   public Long getId() {
     return id;
@@ -89,50 +64,12 @@ public class Order implements Serializable {
     this.userid = userId;
   }
 
-  public String getModelName() {
-    return modelName;
+  public String getOrderDetails() {
+    return orderDetails;
   }
 
-  public void setModelName(String modelName) {
-    this.modelName = modelName;
-  }
-
-  public double getPrice() {
-    return price;
-  }
-
-  public void setPrice(double price) {
-    this.price = price;
-  }
-
-  public String getModelType() {
-    return modelType;
-  }
-
-  public void setModelType(String modelType) {
-    this.modelType = modelType;
-  }
-
-  public String getImagePath() {
-    return imagePath;
-  }
-
-  public void setImagePath(String imagePath) {
-    this.imagePath = imagePath;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Order)) return false;
-    Order order = (Order) o;
-    return Double.compare(order.price, price) == 0 && modelName.equals(order.modelName) && modelType.equals(order.modelType);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(modelName, modelType, price, imagePath);
+  public void setOrderDetails(String orderDetails) {
+    this.orderDetails = orderDetails;
   }
 
   @Override
@@ -142,10 +79,6 @@ public class Order implements Serializable {
         ", userid=" + userid +
         ", date=" + date +
         ", status='" + status + '\'' +
-        ", modelName='" + modelName + '\'' +
-        ", modelType='" + modelType + '\'' +
-        ", price=" + price +
-        ", imagePath='" + imagePath + '\'' +
         '}';
   }
 }

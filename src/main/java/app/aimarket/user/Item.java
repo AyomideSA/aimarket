@@ -71,11 +71,6 @@ public class Item implements Serializable {
 
   @Override
   public String toString() {
-    return "Item{" +
-        "modelName='" + modelName + '\'' +
-        ", modelType='" + modelType + '\'' +
-        ", price=" + price +
-        ", imagePath='" + imagePath + '\'' +
-        '}';
+    return modelName + "_" + modelType + "_" + price;
   }
 }

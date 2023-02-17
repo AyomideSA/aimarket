@@ -41,49 +41,6 @@ public class MarketController {
 
   // for testing
   public void createTestData() {
-    testOrders.add(new Order(
-        1L,
-        1L,
-        LocalDate.of(2002, Month.DECEMBER,21),
-        "arrived",
-        "auto",
-        "trained",
-        77.01,
-        "/pictures/auto.jpg")
-    );
-    testOrders.add(new Order(
-        2L,
-        2L,
-        LocalDate.of(2002, Month.DECEMBER,21),
-        "arrived",
-        "auto",
-        "trained",
-        77.01,
-        "/pictures/auto.jpg")
-    );
-
-    testOrders.add(new Order(
-        3L,
-        2L,
-        LocalDate.of(2002, Month.DECEMBER,21),
-        "cancelled",
-        "auto",
-        "trained",
-        77.01,
-        "/pictures/auto.jpg")
-    );
-    testOrders.add(new Order(
-        4L,
-        1L,
-        LocalDate.of(2002, Month.DECEMBER,21),
-        "cancelled",
-        "auto",
-        "trained",
-        77.01,
-        "/pictures/auto.jpg")
-    );
-    orderService.saveAll(testOrders);
-
     AiModel auto = new AiModel(
         1L,
         "Auto",
@@ -138,6 +95,30 @@ public class MarketController {
         true,
         "/pictures/ultron.jpg"
     );
+
+    testOrders.add(new Order(
+        1L,
+        LocalDate.now(),
+        "arrived",
+        "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
+    ));
+    testOrders.add(new Order(
+        2L,
+        LocalDate.now(),        "arrived",
+        "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
+    ));
+
+    testOrders.add(new Order(
+        2L,
+        LocalDate.now(),        "cancelled",
+        "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
+    ));
+    testOrders.add(new Order(
+        1L,
+        LocalDate.now(),        "cancelled",
+        "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
+    ));
+    orderService.saveAll(testOrders);
     aiModelService.saveAll(List.of(auto, cortana, irobot, jarvis, stockai, ultron));
   }
 
@@ -230,6 +211,7 @@ public class MarketController {
       double modelPrice = Objects.equals(type, "trained") ?
           aiModel.getTrainedprice() : aiModel.getUntrainedprice();
       shoppingBasket.add(new Item(name, type, price, aiModel.getImagepath()));
+      System.out.println(shoppingBasket);
       return "redirect:/aimarket/catalogue";
     } else {
       return "redirect:/aimarket/home";
