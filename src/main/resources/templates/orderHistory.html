@@ -52,6 +52,7 @@
     <thead>
         <tr>
             <th scope="col">Order Id</th>
+            <th scope="col">Items</th>
             <th scope="col">Order Date</th>
             <th scope="col">Order Status</th>
         </tr>
@@ -59,6 +60,17 @@
     <tbody>
         <tr th:each="order:${orders}">
             <td th:text="${order.id}"></td>
+            <td>
+                <span th:each="item: ${#strings.arraySplit(order.orderDetails, '-')}">
+                    <span th:with="details=${#strings.arraySplit(item, '_')}">
+                        <span th:text="${details[0]+','}"></span>
+                        <span th:text="${details[1]+','}"></span>
+                        <span th:text="${'€'+details[2]}"></span>
+                        <span th:text="${'Quantity:'+details[3]}"></span>
+                        <br>
+                    </span>
+                </span>
+            </td>
             <td th:text="${order.date}"></td>
             <td th:text="${order.status}"></td>
     </tbody>
