@@ -104,24 +104,31 @@
 
 <!--Setting up basic template for basket to be used with thymeleaf-->
 <div class="container">
+    <div class="row border justify-content-end">
+        <div class="col-lg-6"></div>
+        <div class="col-lg-6 text-center">
+            <h4 th:text="'Subtotal (' + ${basket.totalItems()} + ' items): ' + ${basket.totalPrice()}">Subtotal</h4>
+            <a href="#"><button class="btn btn-warning">Checkout</button></a>
+        </div>
+    </div>
     <div class="row border"  th:each="item: ${basket.basket}">
         <div class="col-lg-6">
             <img th:src=${item.key.imagePath} alt="Ai" width=100%>
         </div>
-        <div class="col-lg-6 my-auto">
-            <h1 style="text-align:left;float:left;" class="text-start" th:text="${item.key.modelName}">Name</h1>
+        <div class="col-lg-6">
+            <h2 style="text-align:left;float:left;" class="text-start" th:text="${item.key.modelName}">Name</h2>
             <h2 style="text-align:right;float:right" class="text-end" th:text="'€'+${item.key.price * item.value}">Price</h2>
-            <br>
-            <label for="qty" class="text" data-inline="true">Qty</label>
-            <form method="POST"
+            <br><br>
+            <label style="color:grey;" for="qty" class="text">Qty</label>
+            <form style="display:inline;" method="POST"
                   th:action="@{basket/changeqty/{modelName}/{modelType}/{price}
                   (modelName=${item.key.modelName},
                   modelType=${item.key.modelType},
                   price=${item.key.price},
                   imagePath=${item.key.imagePath})}">
-                <input id="qty" type="number" th:value="${item.value}" name="newQuantity" min="1" max="20" onchange="this.form.submit()">
+                <input style="height:24px;" id="qty" type="number" th:value="${item.value}" name="newQuantity" min="1" max="20" onchange="this.form.submit()">
             </form>
-            <form method="POST"
+            <form style="display:inline;" method="POST"
                   th:action="@{basket/changetype/{modelName}/{modelType}/{price}
                   (modelName=${item.key.modelName},
                   modelType=${item.key.modelType},
@@ -136,21 +143,15 @@
                     <option th:if="${item.key.modelType == 'untrained'}" th:value="trained">Trained</option>
                 </select>
             </form>
+            <br>
             <form method="POST"
                   th:action="@{basket/delete/{modelName}/{modelType}/{price}
                   (modelName=${item.key.modelName},
                   modelType=${item.key.modelType},
                   price=${item.key.price},
                   imagePath=${item.key.imagePath})}">
-                <button type="submit" th:value="${item.key}" data-inline="true">Delete</button>
+                <button  style="height:24px;font-size:12px" type="submit" th:value="${item.key}" data-inline="true">Delete</button>
             </form>
-        </div>
-    </div>
-    <div class="row border justify-content-end">
-        <div class="col-lg-6"></div>
-        <div class="col-lg-6 text-center">
-            <h4 th:text="'Subtotal (' + ${basket.totalItems()} + ' items): ' + ${basket.totalPrice()}">Subtotal</h4>
-            <a href="#"><button class="btn btn-warning">Checkout</button></a>
         </div>
     </div>
 </div>
