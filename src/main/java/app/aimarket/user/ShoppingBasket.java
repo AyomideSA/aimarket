@@ -1,6 +1,7 @@
 package app.aimarket.user;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -47,8 +48,6 @@ public class ShoppingBasket {
       String imagePath = oldItem.getImagePath();
       Item newItem = new Item(modelName, newType, newPrice, imagePath);
       int oldItemQty = basket.get(oldItem);
-      System.out.println(newItem);
-      System.out.println(basket);
       if (basket.containsKey(newItem)) {
         basket.put(newItem, basket.get(newItem)+oldItemQty);
       } else {
@@ -76,9 +75,11 @@ public class ShoppingBasket {
 
   @Override
   public String toString() {
-    return "ShoppingBasket{" +
-        "basket=" + basket +
-        '}';
+    StringBuilder s = new StringBuilder();
+    for (Map.Entry<Item, Integer> entry: basket.entrySet()) {
+      s.append(entry.getKey().toString()).append('_').append(entry.getValue()).append('-');
+    }
+    return s.toString().substring(0, s.length()-1);
   }
 
 }
