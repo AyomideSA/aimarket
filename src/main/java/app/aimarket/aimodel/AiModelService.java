@@ -25,8 +25,16 @@ public class AiModelService {
     return aiModelRepository.getAvailableModels();
   }
 
+  public List<AiModel> getAllModels() {
+    return aiModelRepository.getAllModels();
+  }
+
   public AiModel findByName(String name) {
     return aiModelRepository.findByName(name);
+  }
+
+  public void save(AiModel model) {
+    aiModelRepository.save(model);
   }
 
   public void saveAll(List<AiModel> models) {
