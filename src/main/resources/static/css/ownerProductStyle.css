@@ -1,0 +1,43 @@
+.anybutton {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    z-index: 2;
+    background: orange;
+}
+
+
+.open-button {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    z-index: 2;
+    background: orange;
+}
+
+
+.img-fluid {
+    width: 30%;
+    height: auto;
+    padding: 1%;
+}
+
+#sp {
+    left: 45%;
+    top: 7%
+}
+
+#hp {
+    left: 75%;
+    top: 7%;
+}
+
+#cp {
+    left: 45%;
+    top: 25%;
+}
+
+#cd {
+    left: 75%;
+    top: 25%;
+}
