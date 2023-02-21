@@ -1,9 +1,6 @@
 package app.aimarket.user;
-import app.aimarket.aimodel.AiModel;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * @author : ayoso
