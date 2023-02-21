@@ -4,10 +4,7 @@ import app.aimarket.aimodel.AiModel;
 import app.aimarket.aimodel.AiModelService;
 import app.aimarket.order.Order;
 import app.aimarket.order.OrderService;
-import app.aimarket.user.Item;
-import app.aimarket.user.ShoppingBasket;
-import app.aimarket.user.User;
-import app.aimarket.user.UserService;
+import app.aimarket.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -131,8 +127,22 @@ public class MarketController {
   to a register page/popup.
    */
 
+  // Used for faster login for testing
+  public void autoAdminLogin(HttpSession session) {
+    user = new User("admin", "admin");
+    loggedIn = true;
+    session.setAttribute("user", user);
+  }
+
+  public void setUserTest(HttpSession session) {
+    user = new User("sdddf4", "Ayo");
+    loggedIn = true;
+    session.setAttribute("user", user);
+  }
+
   @GetMapping("/home")
   public String viewHomePage(HttpSession session) {
+    System.out.println(this.user);
     setGuest(session);
     return "home.html";
   }
@@ -186,7 +196,12 @@ public class MarketController {
   @GetMapping("/catalogue")
   public String getCatalogue(Model model, HttpSession session) {
     setGuest(session);
-    List<AiModel> models = aiModelService.getAvailableModels();
+    List<AiModel> models;
+    if (user.getUsername().equals("admin")) {
+      models = aiModelService.getAllModels();
+    } else {
+      models = aiModelService.getAvailableModels();
+    }
     model.addAttribute("aimodels", models);
     return "catalogue.html";
   }
@@ -200,7 +215,19 @@ public class MarketController {
     model.addAttribute("aiModelPicPath", currentModel.getImagepath());
     model.addAttribute("trainedPrice", currentModel.getTrainedprice());
     model.addAttribute("untrainedPrice", currentModel.getUntrainedprice());
-    return "productpage.html";
+    if (user.getUsername().equals("admin")) {
+      return "ownerpage.html";
+    } else {
+      return "productpage.html";
+    }
+  }
+
+  @PostMapping("/catalogue/product/{name}/{availability}")
+  public String changeProductAvailability(Model model, @PathVariable String name, @PathVariable String availability) {
+    AiModel aiModel = aiModelService.findByName(name);
+    aiModel.setAvailability(availability.equals("available"));
+    aiModelService.save(aiModel);
+    return "redirect:/aimarket/catalogue/product/" + name;
   }
 
   @PostMapping("/catalogue/product/{name}/{type}/add")
