@@ -196,11 +196,19 @@ public class MarketController {
 
   @GetMapping("/history")
   public String getHistory(Model model, HttpSession session) {
+    boolean adminLoggedIn=false;
     setGuest(session);
     session.setAttribute("loggedin", loggedIn);
     if (loggedIn) {
       User user = (User) session.getAttribute("user");
-      List<Order> userOrders = orderService.findByUserId(user.getId());
+      List<Order> userOrders;
+      if (Objects.equals(user.getUsername(), "Admin")) {
+        adminLoggedIn=true;
+        userOrders=orderService.getOrders();
+      } else {
+        userOrders = orderService.findByUserId(user.getId());
+      }
+      model.addAttribute("isAdmin", adminLoggedIn);
       model.addAttribute("orders", userOrders);
       return "orderHistory.html";
     } else {

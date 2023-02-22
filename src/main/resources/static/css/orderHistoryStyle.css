@@ -1,0 +1,22 @@
+.orderTable {
+	font-family: Arial;
+	border-collapse: collapse;
+}
+
+.orderTable td, .orderTable th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+.orderTable tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.orderTable tr:hover{
+	background-color:#ddd;
+}
+
+.orderTable th {
+	background-color:#87CEEB !important;
+	color:white;
+}
