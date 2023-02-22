@@ -164,50 +164,5 @@
     </div>
 </div>
 
-<!--    <div class="row border"  th:each="item: ${basket.basket}">-->
-<!--        <div class="col-lg-6">-->
-<!--            <img th:src=${item.key.imagePath} alt="Ai" width=100%>-->
-<!--        </div>-->
-<!--        <div class="col-lg-6">-->
-<!--            <h2 style="text-align:left;float:left;" class="text-start" th:text="${item.key.modelName}">Name</h2>-->
-<!--            <h2 style="text-align:right;float:right" class="text-end" th:text="'€'+${item.key.price * item.value}">Price</h2>-->
-<!--            <br><br>-->
-<!--            <label style="color:grey;" for="qty" class="text">Qty</label>-->
-<!--            <form style="display:inline;" method="POST"-->
-<!--                  th:action="@{basket/changeqty/{modelName}/{modelType}/{price}-->
-<!--                  (modelName=${item.key.modelName},-->
-<!--                  modelType=${item.key.modelType},-->
-<!--                  price=${item.key.price},-->
-<!--                  imagePath=${item.key.imagePath})}">-->
-<!--                <input style="height:24px;" id="qty" type="number" th:value="${item.value}" name="newQuantity" min="1" max="20" onchange="this.form.submit()">-->
-<!--            </form>-->
-<!--            <form style="display:inline;" method="POST"-->
-<!--                  th:action="@{basket/changetype/{modelName}/{modelType}/{price}-->
-<!--                  (modelName=${item.key.modelName},-->
-<!--                  modelType=${item.key.modelType},-->
-<!--                  price=${item.key.price},-->
-<!--                  imagePath=${item.key.imagePath})}">-->
-<!--                <select id="modelType" onchange="this.form.submit()"  name="newType">-->
-<!--&lt;!&ndash;                    <option><span th:text="${item.key.modelType}"></span></option>&ndash;&gt;-->
-<!--                    <option th:if="${item.key.modelType == 'trained'}" th:value="trained">Trained</option>-->
-<!--                    <option th:if="${item.key.modelType == 'trained'}" th:value="untrained">Untrained</option>-->
-
-<!--                    <option th:if="${item.key.modelType == 'untrained'}" th:value="untrained">Untrained</option>-->
-<!--                    <option th:if="${item.key.modelType == 'untrained'}" th:value="trained">Trained</option>-->
-<!--                </select>-->
-<!--            </form>-->
-<!--            <br>-->
-<!--            <form method="POST"-->
-<!--                  th:action="@{basket/delete/{modelName}/{modelType}/{price}-->
-<!--                  (modelName=${item.key.modelName},-->
-<!--                  modelType=${item.key.modelType},-->
-<!--                  price=${item.key.price},-->
-<!--                  imagePath=${item.key.imagePath})}">-->
-<!--                <button  style="height:24px;font-size:12px" type="submit" th:value="${item.key}" data-inline="true">Delete</button>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 </body>
 </html>
