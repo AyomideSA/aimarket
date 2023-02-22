@@ -23,7 +23,6 @@ public class MarketController {
   private final OrderService orderService;
   private final AiModelService aiModelService;
   private final ArrayList<Order> testOrders = new ArrayList<>();
-  private User user = new User("Guest");
   private final ShoppingBasket shoppingBasket = new ShoppingBasket();
   private boolean loggedIn = false;
 
@@ -93,7 +92,7 @@ public class MarketController {
     );
 
     testOrders.add(new Order(
-        1L,
+        5L,
         LocalDate.now(),
         "arrived",
         "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
@@ -110,12 +109,15 @@ public class MarketController {
         "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
     ));
     testOrders.add(new Order(
-        1L,
+        4L,
         LocalDate.now(),        "cancelled",
         "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
     ));
     orderService.saveAll(testOrders);
     aiModelService.saveAll(List.of(auto, cortana, irobot, jarvis, stockai, ultron));
+
+    User admin = new User("Admin", "adminpass", "Admin", "admin@admin.com");
+    userService.save(admin);
   }
 
   /*
@@ -129,20 +131,21 @@ public class MarketController {
 
   // Used for faster login for testing
   public void autoAdminLogin(HttpSession session) {
-    user = new User("admin", "admin");
+    User user = new User("Admin", "Admin");
     loggedIn = true;
     session.setAttribute("user", user);
+    session.setAttribute("loggedin", loggedIn);
   }
 
   public void setUserTest(HttpSession session) {
-    user = new User("sdddf4", "Ayo");
+    User user = new User("sdddf4", "Ayo");
     loggedIn = true;
     session.setAttribute("user", user);
+    session.setAttribute("loggedin", loggedIn);
   }
 
   @GetMapping("/home")
   public String viewHomePage(HttpSession session) {
-    System.out.println(this.user);
     setGuest(session);
     return "home.html";
   }
@@ -151,9 +154,9 @@ public class MarketController {
   public String signup(User user, HttpSession session) {
     if (userService.ValidUser(user)) {
       userService.save(user);
-      this.user = user;
       session.setAttribute("user", user);
       loggedIn = true;
+      session.setAttribute("loggedin", loggedIn);
     } else {
       // Some error shows up on html page
       return "registerError.html";
@@ -170,9 +173,10 @@ public class MarketController {
       System.out.println("Worked");
       //User user = userService.findUserByEmail(email);
       user = userService.findUserByEmail(email);
-      this.user = user;
+      System.out.println(user);
       session.setAttribute("user", user);
       loggedIn = true;
+      session.setAttribute("loggedin", loggedIn);
     } else {
       // Some error shows up on html page
       loggedIn = false;
@@ -182,10 +186,20 @@ public class MarketController {
     return "redirect:/aimarket/home";
   }
 
+  @GetMapping("/logout")
+  public String logout(HttpSession session) {
+    loggedIn = false;
+    session.setAttribute("loggedin", loggedIn);
+    shoppingBasket.clear();
+    return "redirect:/aimarket/home";
+  }
+
   @GetMapping("/history")
   public String getHistory(Model model, HttpSession session) {
     setGuest(session);
+    session.setAttribute("loggedin", loggedIn);
     if (loggedIn) {
+      User user = (User) session.getAttribute("user");
       List<Order> userOrders = orderService.findByUserId(user.getId());
       model.addAttribute("orders", userOrders);
       return "orderHistory.html";
@@ -198,8 +212,10 @@ public class MarketController {
   @GetMapping("/catalogue")
   public String getCatalogue(Model model, HttpSession session) {
     setGuest(session);
+    session.setAttribute("loggedin", loggedIn);
     List<AiModel> models;
-    if (user.getUsername().equals("admin")) {
+    User user = (User) session.getAttribute("user");
+    if (user.getUsername().equals("Admin")) {
       models = aiModelService.getAllModels();
     } else {
       models = aiModelService.getAvailableModels();
@@ -211,13 +227,15 @@ public class MarketController {
   @GetMapping("/catalogue/product/{name}")
   public String getProduct(Model model, @PathVariable String name, HttpSession session) {
     setGuest(session);
+    session.setAttribute("loggedin", loggedIn);
     AiModel currentModel = aiModelService.findByName(name);
     model.addAttribute("aiModelName", name);
     model.addAttribute("aiModelDesc", currentModel.getDescription());
     model.addAttribute("aiModelPicPath", currentModel.getImagepath());
     model.addAttribute("trainedPrice", currentModel.getTrainedprice());
     model.addAttribute("untrainedPrice", currentModel.getUntrainedprice());
-    if (user.getUsername().equals("admin")) {
+    User user = (User) session.getAttribute("user");
+    if (user.getUsername().equals("Admin")) {
       return "ownerpage.html";
     } else {
       return "productpage.html";
@@ -250,6 +268,7 @@ public class MarketController {
   @GetMapping("/basket")
   public String getBasket(Model model, HttpSession session) {
     setGuest(session);
+    session.setAttribute("loggedin", loggedIn);
     if (loggedIn) {
       model.addAttribute("basket", shoppingBasket);
       return "basket.html";
@@ -289,7 +308,8 @@ public class MarketController {
   // Sets user to guest for the first page that a non-logged-in user visits
   private void setGuest(HttpSession session) {
     if (!loggedIn) {
-      session.setAttribute("user", user);
+      session.setAttribute("user", new User("Guest"));
+      session.setAttribute("loggedin", loggedIn);
     }
   }
 
