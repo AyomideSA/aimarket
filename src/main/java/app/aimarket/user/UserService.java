@@ -74,12 +74,12 @@ public class UserService {
     return true;
   }
 
-  public boolean signinUserValid(@ModelAttribute User user){
-    if(Objects.equals(user.getEmail(), "") ||findUserByEmail(user.getEmail()) != null){
+  public boolean signinUserValid(@ModelAttribute User user, String email, String password){
+    if(Objects.equals(email, "") ||findUserByEmail(email) == null){
       System.out.println("the email is: "+user.getEmail());
       return false;
     }
-    else if(Objects.equals(user.getPassword(), "")||findUserByPassword(user.getPassword())!=null){
+    else if(Objects.equals(password, "")||findUserByPassword(password)==null){
       System.out.println("the password is: "+user.getPassword());
       return false;
     }

@@ -164,11 +164,12 @@ public class MarketController {
   }
 
   @PostMapping("/login")
-  public String signin(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password, HttpSession session) {
+  public String signin(User user, @RequestParam(value = "email") String email, @RequestParam(value = "password") String password, HttpSession session) {
     System.out.println(email+password);
-    if (true) {
+    if (userService.signinUserValid(user, email, password)) {
       System.out.println("Worked");
-      User user = userService.findUserByEmail(email);
+      //User user = userService.findUserByEmail(email);
+      user = userService.findUserByEmail(email);
       this.user = user;
       session.setAttribute("user", user);
       loggedIn = true;
@@ -176,6 +177,7 @@ public class MarketController {
       // Some error shows up on html page
       loggedIn = false;
       System.out.println("did not log in");
+      return "registerError.html";
     }
     return "redirect:/aimarket/home";
   }
