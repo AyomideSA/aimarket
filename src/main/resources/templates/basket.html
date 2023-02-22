@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Catalogue</title>
+    <title>Basket</title>
     <link rel="icon" type="image/x-icon" href="/dna-solid.svg">
     <meta charset="UTF-8">
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styling.css}">
     <link rel="stylesheet" th:href="@{/css/generalStyle.css}">
-    <script src="/js/navbar.js"></script>
+    <script src="../static/js/navbar.js"></script>
 </head>
 <body onload="setUp()">
 
@@ -41,7 +41,7 @@
                         Hello <span th:text="${session.user.username}"></span>
                     </a>
                     <ul style="z-index:10;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{basket}">Basket</a></li>
+                        <li><a class="dropdown-item" th:href="@{catalogue}">Basket</a></li>
                         <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
                     </ul>
                 </li>

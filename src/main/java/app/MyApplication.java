@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // For command line, go to project source (aimarket folder) and then use the following command
 //  mvn spring-boot:run
 
-// 2. Go to this link: http://localhost:8080/animarket/home.  A webpage should appear there now.
+// 2. Go to this link: localhost:8080/aimarket/home.  A webpage should appear there now.
 
 @SpringBootApplication
 public class MyApplication {
