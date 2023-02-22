@@ -118,7 +118,7 @@
     </div>
     <br>
     <div class="row text-center">
-        <h3 class="products">Popular Products</h3>
+        <h3 th:style="${session.invalidUser} ? 'color: red' :''"  class="products">Popular Products</h3>
         <p>Popular among other users. . .</p>
         <div class="col-lg-4">
             <img src="/pictures/stockai.jpg" class="img-thumbnail image" alt="T-800">
