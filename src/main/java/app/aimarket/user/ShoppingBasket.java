@@ -73,6 +73,10 @@ public class ShoppingBasket {
     return total;
   }
 
+  public void clear() {
+    basket.clear();
+  }
+
   @Override
   public String toString() {
     StringBuilder s = new StringBuilder();

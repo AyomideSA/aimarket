@@ -23,3 +23,11 @@
 .signUp:hover{
     cursor:pointer;
 }
+
+.image {
+	transition: transform .2s;
+}
+
+.image:hover {
+	transform: scale(1.2);
+}
