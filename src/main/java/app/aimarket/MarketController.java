@@ -152,6 +152,7 @@ public class MarketController {
 
   @PostMapping("/register")
   public String signup(User user, HttpSession session) {
+    boolean checkValid = false;
     if (userService.ValidUser(user)) {
       userService.save(user);
       session.setAttribute("user", user);
@@ -159,8 +160,11 @@ public class MarketController {
       session.setAttribute("loggedin", loggedIn);
     } else {
       // Some error shows up on html page
-      return "registerError.html";
+      checkValid= true;
+
+      //return "registerError.html";
     }
+    session.setAttribute("checkValid", checkValid);
     // Later will need to replace "Guest" with user's name
     // Maybe navigate to some success page and then redirect?
     return "redirect:/aimarket/home";

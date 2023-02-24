@@ -95,8 +95,9 @@
 					<label for = "floatingInput">Name</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type = "email" name = "email" class="form-control" style = " max-width: 500px;" id="floatingEmail" placeholder="name@example.com">
+					<input type = "email" name = "email" th:classappend="${session.checkValid} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingEmail" placeholder="name@example.com">
 					<label fo r= "floatingInput">Email address</label>
+					<p class="invalid" th:if="${session.checkValid}">Wrong Email</p>
 				</div>
 				<button type="submit" class="btn btn-success" >Register</button>
 				<button type="button" class="btn cancel btn-warning" onclick="openSIForm()">Login</button>

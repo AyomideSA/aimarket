@@ -1,5 +1,12 @@
 function setUp() {
-    closeForm();
+    var element = document.getElementById("floatingEmail");
+    if(element.classList.contains("invalid")){
+        openSUForm();
+    }
+    else{
+        closeForm();
+    }
+    //closeForm();
 }
 
 function openSIForm() {
@@ -16,7 +23,7 @@ document.getElementById("loginBox").style.display = "block";
 
 function closeForm() {
     document.getElementById("loginBox").style.display = "none";
-    document.getElementById("signIn").style.display = "none";
+    document.getElementById("signIn").style.display = "none";i
     document.getElementById("signUp").style.display = "none";
 }
 
