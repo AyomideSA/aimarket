@@ -20,6 +20,10 @@
     outline: 1px solid red;
     color: red;
 }
+.invalid-text{
+    text-color: red;
+    color: red;
+}
 
 .signUp:hover{
     cursor:pointer;

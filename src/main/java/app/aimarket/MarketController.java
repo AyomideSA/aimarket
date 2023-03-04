@@ -152,19 +152,41 @@ public class MarketController {
 
   @PostMapping("/register")
   public String signup(User user, HttpSession session) {
-    boolean checkValid = false;
-    if (userService.ValidUser(user)) {
+    boolean checkValidUsername = false;
+    boolean checkValidPassword = false;
+    boolean checkValidName = false;
+    boolean checkValidEmail = false;
+    //boolean checkValid = false;
+    int checkCorrect = userService.ValidUser(user);
+    if (checkCorrect == 0) {
       userService.save(user);
       session.setAttribute("user", user);
       loggedIn = true;
       session.setAttribute("loggedin", loggedIn);
     } else {
       // Some error shows up on html page
-      checkValid= true;
+      if(checkCorrect == 1){
+        checkValidUsername = true;
+      }
+      else if(checkCorrect == 2){
+        checkValidPassword = true;
+      }
+      else if(checkCorrect == 3){
+        checkValidName = true;
+      }
+      else if(checkCorrect == 4){
+        checkValidEmail = true;
+      }
+
+      //checkValid= true;
 
       //return "registerError.html";
     }
-    session.setAttribute("checkValid", checkValid);
+    session.setAttribute("checkValidUsername", checkValidUsername);
+    session.setAttribute("checkValidPassword", checkValidPassword);
+    session.setAttribute("checkValidName", checkValidName);
+    session.setAttribute("checkValidEmail", checkValidEmail);
+    //session.setAttribute("checkValid", checkValid);
     // Later will need to replace "Guest" with user's name
     // Maybe navigate to some success page and then redirect?
     return "redirect:/aimarket/home";
@@ -172,8 +194,11 @@ public class MarketController {
 
   @PostMapping("/login")
   public String signin(User user, @RequestParam(value = "email") String email, @RequestParam(value = "password") String password, HttpSession session) {
-    System.out.println(email+password);
-    if (userService.signinUserValid(user, email, password)) {
+
+    boolean checkLogEmail = false;
+    boolean checkLogPassword = false;
+    int checkCorrect = userService.signinUserValid(user, email, password);
+    if (checkCorrect == 0) {
       System.out.println("Worked");
       //User user = userService.findUserByEmail(email);
       user = userService.findUserByEmail(email);
@@ -184,9 +209,20 @@ public class MarketController {
     } else {
       // Some error shows up on html page
       loggedIn = false;
-      System.out.println("did not log in");
-      return "registerError.html";
+
+      if(checkCorrect == 1){
+        checkLogEmail = true;
+      }
+      else if(checkCorrect == 2){
+        checkLogPassword = true;
+      }
+
+      /*System.out.println("did not log in");
+      return "registerError.html";*/
     }
+
+    session.setAttribute("checkLogEmail", checkLogEmail);
+    session.setAttribute("checkLogPassword", checkLogPassword);
     return "redirect:/aimarket/home";
   }
 

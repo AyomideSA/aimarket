@@ -49,42 +49,42 @@ public class UserService {
     return matcher.matches();
   }
 
-  public boolean ValidUser(@ModelAttribute User user){
+  public int ValidUser(@ModelAttribute User user){
     if(Objects.equals(user.getUsername(), "") ||findUserByUsername(user.getUsername()) != null){
       System.out.println("the username name is: "+user.getUsername());
-      return false;
+      return 1;
     }
     else if(Objects.equals(user.getPassword(), "")){
       System.out.println("the password is: "+user.getPassword());
-      return false;
+      return 2;
     }
     else if(Objects.equals(user.getName(), "")){
       System.out.println("the name is: "+user.getName());
-      return false;
+      return 3;
     }
     else if(findUserByEmail(user.getEmail()) != null){
       System.out.println("the email is 1: "+user.getEmail());
-      return false;
+      return 4;
     }
     else if(!isValidEmailAddress(user.getEmail())){
       System.out.println("the email is 2: "+user.getEmail());
-      return false;
+      return 4;
     }
 
-    return true;
+    return 0;
   }
 
-  public boolean signinUserValid(@ModelAttribute User user, String email, String password){
+  public int signinUserValid(@ModelAttribute User user, String email, String password){
     if(Objects.equals(email, "") ||findUserByEmail(email) == null){
       System.out.println("the email is: "+user.getEmail());
-      return false;
+      return 1;
     }
     else if(Objects.equals(password, "")||findUserByPassword(password)==null){
       System.out.println("the password is: "+user.getPassword());
-      return false;
+      return 2;
     }
 
-    return true;
+    return 0;
   }
 
 }
