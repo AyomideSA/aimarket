@@ -1,35 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-  <head>
+<head>
+    <title>Arasaka - Owner Product Page</title>
+    <link rel="icon" type="image/x-icon" href="/dna-solid.svg">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>owner page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/generalStyle.css}">
+    <script src="https://kit.fontawesome.com/407709a987.js" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/ownerProductStyle.css}">
-  </head>
-  <body>
-    
-    <img th:src="${aiModelPicPath}" class="img-fluid" alt="...">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="/js/ownerproductpage.js"></script>
+</head>
+<body onload="setUp()">
 
+<div class="position-fixed top-0 w-100">
+    <nav class="navbar navbar-expand-lg navbar-light w-100" style="background-color:#87CEEB">
+        <div class="container-fluid">
+            <a class="navbar-brand navText" th:href="@{../../home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarScroll">
+                <div class="input-group rounded">
+                    <input type="search" class="form-control rounded" placeholder="Search Arasaka" aria-label="Search"
+                           aria-describedby="search-addon"/>
+                    <span class="input-group-text border-0" id="search-addon">
+						<i class="fas fa-search"></i>
+					</span>
+                </div> <!--If someone knows how to maybe make this smaller feel free to-->
+                <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link navText" th:href="@{../../catalogue}">Catalogue</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle navText" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Hello <span th:text="${session.user.username}"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" th:href="@{../../basket}">Basket</a></li>
+                            <li><a class="dropdown-item" th:href="@{../../history}">Order History</a></li>
+                        </ul>
+                    </li>
+                    <li th:if="${session.loggedin == false}" class="nav-item">
+                        <div style="min-width: 65px;">
+                            <a class="nav-link navText signUp" onclick="openSIForm()">Sign in</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<br><br><br>
 
-<form method="POST" th:action="@{/aimarket/catalogue/product/{name}/available (name=${name})}">
-  <button type="submit" class="anybutton" id="sp">Show Product</button>
-</form>
-<form method="POST" th:action="@{/aimarket/catalogue/product/{name}/unavailable (name=${name})}">
-  <button type="submit" class="anybutton"id="hp">Hide product</button>
-</form>
-<button type="button" class="open-button" onclick="openForm()" id="cp">change price</button>
-<button type="button" class="anybutton" id="cd">change description</button>
+<div class = "container p-3 mb-5 bg-light rounded-3 position-absolute" style = "top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;" id="priceBox">
+    <div class="form-popup" id="enterPrice">
+        <form class = "form-container" method="POST" th:action="@{/aimarket/catalogue/product/changePrice/{name} (name=${name})}">
+            <h3>Enter New Price</h3>
+            <div class="form-floating mb-3">
+                <input type="number" step=".01" name="newUntrainedPrice" class="form-control" style="max-width: 200px;" id="untrainedprice">
+                <label for="untrainedprice">New Untrained Price(€)</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" step=".01" name="newTrainedPrice" class="form-control" style="max-width: 200px;" id="trainedprice">
+                <label for="trainedprice">New trained Price(€)</label>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="button" class="btn cancel btn-danger" onclick="closePriceForm()">Close</button>
+        </form>
+    </div>
+</div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-    function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-    </script>
-  </body>
+<div class = "container p-3 mb-5 bg-light rounded-3 position-absolute" style = "top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;" id="detailsBox">
+    <div class="form-popup" id="enterDetails">
+        <form class = "form-container" method="POST" th:action="@{/aimarket/catalogue/product/editDescription/{name} (name=${aiModelName})}">
+            <h3>Edit Details</h3>
+            <div class="form-floating mb-3">
+                <input type="text" name="newDescription" th:value="${aiModelDesc}" class="form-control" style="max-width: 200px;" id="description">
+                <label for="description"></label>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="button" class="btn cancel btn-danger" onclick="closeDetailsForm()">Close</button>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row p-5">
+        <div class="col">
+            <div class="row p-5">
+                <div class="col">
+                    <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/change/available (name=${name})}">
+                        <button type="submit" class="anybutton">Show Product</button>
+                    </form>
+                </div>
+                <div class="col">
+                    <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/change/unavailable (name=${name})}">
+                        <button type="submit" class="anybutton">Hide product</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row p-5">
+                <div class="col">
+                    <button type="button" class="openbutton" onclick="openPriceForm()">change price</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="anybutton" onclick="openDetailsForm()">change description</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <img th:src="${aiModelPicPath}" class="img-fluid" alt="...">
+        </div>
+    </div>
+</div>
+</body>
 </html>

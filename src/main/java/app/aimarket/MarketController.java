@@ -282,15 +282,45 @@ public class MarketController {
     model.addAttribute("aiModelPicPath", currentModel.getImagepath());
     model.addAttribute("trainedPrice", currentModel.getTrainedprice());
     model.addAttribute("untrainedPrice", currentModel.getUntrainedprice());
+    System.out.println(model);
     User user = (User) session.getAttribute("user");
     if (user.getUsername().equals("Admin")) {
+      System.out.println("ADMIN");
+      System.out.println("WHU");
       return "ownerpage.html";
     } else {
       return "productpage.html";
     }
   }
 
-  @PostMapping("/catalogue/product/{name}/{availability}")
+  @PostMapping("/catalogue/product/changePrice/{name}")
+  public String changeProductPrice(@PathVariable String name, Double newTrainedPrice, Double newUntrainedPrice) {
+    AiModel aiModel = aiModelService.findByName(name);
+    System.out.println(aiModel);
+    if (newUntrainedPrice != null) {
+      aiModel.setUntrainedprice(newUntrainedPrice);
+    }
+    if (newTrainedPrice != null) {
+      aiModel.setTrainedprice(newTrainedPrice);
+    }
+    System.out.println(aiModel);
+    aiModelService.save(aiModel);
+    return "redirect:/aimarket/catalogue/product/" + name;
+  }
+
+  @PostMapping("/catalogue/product/editDescription/{name}")
+  public String changeProductDescription(@PathVariable String name, String newDescription) {
+    AiModel aiModel = aiModelService.findByName(name);
+    System.out.println(aiModel);
+    if (newDescription != null) {
+      aiModel.setDescription(newDescription);
+    }
+    System.out.println(aiModel);
+    aiModelService.save(aiModel);
+    return "redirect:/aimarket/catalogue/product/" + name;
+  }
+
+  @PostMapping("/catalogue/product/{name}/change/{availability}")
   public String changeProductAvailability(Model model, @PathVariable String name, @PathVariable String availability) {
     AiModel aiModel = aiModelService.findByName(name);
     aiModel.setAvailability(availability.equals("available"));
