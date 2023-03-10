@@ -16,8 +16,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/styling.css}">
     <link rel="stylesheet" th:href="@{/css/generalStyle.css}">
     <script src="/js/navbar.js"></script>
+    <script src="/js/checkout.js"></script>
 </head>
-<body onload="setUp()">
+<body onload="setUp(); closeCheckout();">
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#87CEEB">
     <div class="container-fluid">
@@ -45,9 +46,14 @@
                         <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
                     </ul>
                 </li>
-                <li class = "nav-item">
+                <li th:if="${session.loggedin == false}" class = "nav-item">
                     <div style = "min-width: 65px;">
-                        <a class = "nav-link navText" onclick = "openSIForm()">Sign in</a>
+                        <a class = "nav-link navText signUp" onclick = "openSIForm()">Sign in</a>
+                    </div>
+                </li>
+                <li th:if="${session.loggedin == true}" class = "nav-item">
+                    <div style = "min-width: 65px;">
+                        <a href="logout" class="nav-link navText">LogOut</a>
                     </div>
                 </li>
             </ul>
@@ -56,20 +62,22 @@
 </nav>
 
 <div class = "container shadow p-3 mb-5 bg-light rounded-3 position-fixed top-5 end-0" style = "max-width: 500px;" id = "loginBox">
-    <div class = "form-popup" id = "signIn">
-        <form class = "form-container">
+    <div class = "form-popup"  id = "signIn">
+        <form class = "form-container" method="POST" action="login" >
             <h3>Login</h3>
 
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <input type = "email" th:name="email" th:classappend="${session.checkLogEmail} ? 'invalid': ''" class="form-control" style = "max-width: 500px;" id="floatingInput" placeholder="name@example.com">
+                <label for = "floatingInput">Email address</label>
+                <p class="invalid-text" th:if="${session.checkLogEmail}">Incorrect Email</p>
             </div>
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                <input type = "password" th:name="password" th:classappend="${session.checkLogPassword} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
+                <label for = "floatingPassword">Password</label>
+                <p class="invalid-text" th:if="${session.checkLogPassword}">Incorrect Password</p>
             </div>
 
-            <button type="button" class="btn btn-success">Login</button>
+            <button type="submit" class="btn btn-success">Login</button>
             <button type="button" class="btn cancel btn-warning" onclick="openSUForm()">Register</button>
             <button type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
         </form>
@@ -79,22 +87,25 @@
         <form class = "form-container" method="POST" action="register">
             <h3>Register</h3>
             <div class="form-floating mb-3">
-                <input type = "text" name = "username" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="User Name">
+                <input type = "text" name = "username" th:classappend="${session.checkValidUsername} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingUsername" placeholder="User Name">
                 <label for="floatingInput">User Name</label>
+                <p class="invalid-text" th:if="${session.checkValidUsername}">Wrong Username</p>
             </div>
             <div class="form-floating mb-3">
-                <input type = "password" name = "password" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                <input type = "password" name = "password" th:classappend="${session.checkValidPassword} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingPassword1" placeholder="Password">
+                <label for = "floatingPassword">Password</label>
+                <p class="invalid-text" th:if="${session.checkValidPassword}">Wrong Password</p>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" name="name" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="Name">
-                <label for="floatingInput">Name</label>
+                <input type = "text" name="name" th:classappend="${session.checkValidName} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingName" placeholder="Name">
+                <label for = "floatingInput">Name</label>
+                <p class="invalid-text" th:if="${session.checkValidName}">Wrong Name</p>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" name = "email" class="form-control" style = " max-width: 500px;" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <input type = "email" name = "email" th:classappend="${session.checkValidEmail} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingEmail" placeholder="name@example.com">
+                <label for= "floatingInput">Email address</label>
+                <p class="invalid-text" th:if="${session.checkValidEmail}">Wrong Email</p>
             </div>
-
             <button type="submit" class="btn btn-success" >Register</button>
             <button type="button" class="btn cancel btn-warning" onclick="openSIForm()">Login</button>
             <button id="button" type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
@@ -151,9 +162,36 @@
         <div style="border-left: 1px solid black" class="col-lg-3 text-center">
             <div style="z-index:1" class="sticky-top">
                 <h4 th:text="'Subtotal (' + ${basket.totalItems()} + ' items): €' + ${basket.totalPrice()}">Subtotal</h4>
-                <a href="#"><button class="btn btn-warning">Checkout</button></a>
+                <a href="#"><button class="btn btn-warning" onclick="openCheckout()">Checkout</button></a>
                 <h5>More items</h5>
-                <img width="100%" height="100%" src="/pictures/ultron.jpg" alt="ultron">
+                <div>
+                    <img width="100%" height="100%" src="/pictures/ultron.jpg" alt="ultron">
+                </div>
+                <div class = "container p-3 mb-5 bg-light rounded-3 position-absolute" style = "max-width: 500px; z-index: 10;" id="checkoutBox">
+                    <div class="form-popup" id="enterCheckoutDetails">
+                        <form class = "form-container" method="POST" action="submitDetails">
+                            <h3>Checkout</h3>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="cardHolderName" class="form-control" id="cardHolderName">
+                                <label for="cardHolderName">Card Holder Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="cardNumber" minlength="16" maxlength="19" class="form-control" id="cardNumber">
+                                <label for="cardNumber">Card Number</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="cvv" minlength="3" maxlength="3" class="form-control" id="cvv">
+                                <label for="cvv">cvv</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="address" class="form-control" id="address">
+                                <label for="address">Payment Address</label>
+                            </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="button" class="btn cancel btn-danger" onclick="closeCheckout()">Close</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
