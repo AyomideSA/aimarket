@@ -45,7 +45,7 @@ document.getElementById("loginBox").style.display = "block";
 
 function closeForm() {
     document.getElementById("loginBox").style.display = "none";
-    document.getElementById("signIn").style.display = "none";i
+    document.getElementById("signIn").style.display = "none";
     document.getElementById("signUp").style.display = "none";
 }
 

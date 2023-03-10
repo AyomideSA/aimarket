@@ -57,13 +57,13 @@
     <div class="col text-center p-5">
         <img class="image-fluid" th:src="${aiModelPicPath}" height=700 width=700>
         <br><br>
-        <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/trained/add (name=${name})}">
+        <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/trained/add (name=${aiModelName})}">
             <button type="submit" name="price" th:value="${trainedPrice}"
                     style="height:40px;width:500px"
                     th:text="'Trained Price: €'+${trainedPrice}"></button>
         </form>
         <br>
-        <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/untrained/add (name=${name})}">
+        <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/untrained/add (name=${aiModelName})}">
             <button type="submit" name="price" th:value="${untrainedPrice}"
                     style="height:40px;width:500px"
                     th:text="'Untrained Price: €'+${untrainedPrice}"></button>
