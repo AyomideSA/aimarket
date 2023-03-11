@@ -73,7 +73,25 @@
                 </span>
             </td>
             <td th:text="${order.date}"></td>
-            <td th:text="${order.status}"></td>
+            <td th:if="${!isAdmin}" th:text="${order.status}"></td>
+            <td th:if="${isAdmin}" style="text-align: center; vertical-align: middle;">
+                <form style="display:inline;" method="POST"
+                      th:action="@{history/changeStatus/{id} (id=${order.id})}">
+                    <select id="orderStatus" onchange="this.form.submit()"  name="newStatus">
+                        <option th:if="${order.status == 'new'}" value="new">New</option>
+                        <option th:if="${order.status == 'new'}" value="arrived">Arrived</option>
+                        <option th:if="${order.status == 'new'}" value="cancelled">Cancelled</option>
+
+                        <option th:if="${order.status == 'arrived'}" value="arrived">Arrived</option>
+                        <option th:if="${order.status == 'arrived'}" value="new">New</option>
+                        <option th:if="${order.status == 'arrived'}" value="cancelled">Cancelled</option>
+
+                        <option th:if="${order.status == 'cancelled'}" value="cancelled">Cancelled</option>
+                        <option th:if="${order.status == 'cancelled'}" value="arrived">Arrived</option>
+                        <option th:if="${order.status == 'cancelled'}" value="new">New</option>
+                    </select>
+                </form>
+            </td>
     </tbody>
 </table>
 
