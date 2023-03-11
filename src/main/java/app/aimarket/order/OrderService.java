@@ -30,6 +30,10 @@ public class OrderService {
     orderRepository.save(new Order(userId, LocalDate.now(), "new", shoppingBasket.toString()));
   }
 
+  public Order findById(long id) {
+    return orderRepository.findById(id);
+  }
+
   public List<Order> getOrders() {
     return orderRepository.findAll();
   }

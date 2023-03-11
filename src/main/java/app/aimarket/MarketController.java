@@ -5,6 +5,7 @@ import app.aimarket.aimodel.AiModelService;
 import app.aimarket.order.Order;
 import app.aimarket.order.OrderService;
 import app.aimarket.user.*;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -303,6 +304,14 @@ public class MarketController {
     }
   }
 
+  @PostMapping("/history/changeStatus/{id}")
+  public String changeOrderStatus(@RequestParam String newStatus, @PathVariable Long id) {
+    Order order = orderService.findById(id);
+    order.setStatus(newStatus);
+    orderService.save(order);
+    return "redirect:/aimarket/history";
+  }
+
   @GetMapping("/catalogue")
   public String getCatalogue(Model model, HttpSession session) {
     setGuest(session);
@@ -393,7 +402,8 @@ public class MarketController {
   public String getBasket(Model model, HttpSession session) {
     setGuest(session);
     session.setAttribute("loggedin", loggedIn);
-    if (loggedIn) {
+    User user = (User) session.getAttribute("user");
+    if (loggedIn && !Objects.equals(user.getUsername(), "Admin")) {
       model.addAttribute("basket", shoppingBasket);
       return "basket.html";
     } else {

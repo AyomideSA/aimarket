@@ -1,6 +1,7 @@
 package app.aimarket.order;
 
 import app.aimarket.order.Order;
+import app.aimarket.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,4 +17,6 @@ public interface OrderRepository extends
 
   @Query("select o from Order o where o.userid = ?#{[0]}")
   List<Order> findByUserId(Long id);
+
+  Order findById(long id);
 }
