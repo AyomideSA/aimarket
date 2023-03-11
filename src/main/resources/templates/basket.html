@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Basket</title>
+    <title>Arasaka - Basket</title>
     <link rel="icon" type="image/x-icon" href="/dna-solid.svg">
     <meta charset="UTF-8">
     <meta charset="utf-8">
@@ -169,7 +169,7 @@
                 </div>
                 <div class = "container p-3 mb-5 bg-light rounded-3 position-absolute" style = "max-width: 500px; z-index: 10;" id="checkoutBox">
                     <div class="form-popup" id="enterCheckoutDetails">
-                        <form class = "form-container" method="POST" action="submitDetails">
+                        <form class = "form-container">
                             <h3>Checkout</h3>
                             <div class="form-floating mb-3">
                                 <input type="text" name="cardHolderName" class="form-control" id="cardHolderName">
@@ -187,7 +187,7 @@
                                 <input type="text" name="address" class="form-control" id="address">
                                 <label for="address">Payment Address</label>
                             </div>
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-success" th:onclick="receipt([[${basket.totalPrice()}]])">Submit</button>
                             <button type="button" class="btn cancel btn-danger" onclick="closeCheckout()">Close</button>
                         </form>
                     </div>
@@ -201,6 +201,41 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript">
+ function receipt(total) {
+    console.log("The function is called");
+    var name = document.getElementById('cardHolderName');
+    var paymentaddress = document.getElementById('address');
+    var date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth();
+    let year = date.getYear();
 
+    let data =
+        '----====Arasaka Order Receipt====----\r\n ' +
+        'Name: ' + name.value + ' \r\n ' +
+        'Total: €' + total + '.00 \r\n ' +
+        'Payment Address: ' + paymentaddress.value + ' \r\n ' +
+        'Date: ' + day + '-' + month + '-' + year + ' \r\n' +
+        '----=============================----';
+
+    var textToBLOB = new Blob([data], { type: 'text/plain' });
+    var newReceipt = 'Arasaka_Order_Receipt.txt';
+
+    let downloadLink = document.createElement("a");
+    downloadLink.download = newReceipt;
+
+    if (window.webkitURL != null) {
+        downloadLink.href = window.webkitURL.createObjectURL(textToBLOB);
+    }
+    else {
+        downloadLink.href = window.URL.createObjectURL(textToBLOB);
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+    }
+    // LIWIA LOOK HERE: THIS FINAL LINE IS WHERE IT PERFORMS THE DOWNLOAD, don't do this or don't call the function at all if the details are invalid
+    downloadLink.click();
+ }
+</script>
 </body>
 </html>

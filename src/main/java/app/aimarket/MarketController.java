@@ -38,57 +38,103 @@ public class MarketController {
   public void createTestData() {
     AiModel auto = new AiModel(
         1L,
-        "Auto",
+        "AUTO",
         50.00,
         70.00,
-        "A pretty good ai",
+        "All aboard, Captain!  AUTO (Short for AutoPilot) is an AI model designed for navigation.  For those who are piloting boats or aircraft, AUTO is a good AI model to help you with your journey.\n" +
+                "Designed with advanced navigation and mapping systems, AUTO should be able to help guide you through your journey no matter where you are.  He can be purchased with extensive training and experience in the field of travel and being a crew member.  He can offer suggestions, intel as well as status reports.  Perfect for those who embark on regular journeys!",
         true,
         "/pictures/auto.jpg"
     );
     AiModel cortana = new AiModel(
         2L,
-        "cortana",
+        "Cortana",
         51.00,
         71.00,
-        "A really good ai",
+        "A very loyal and smart model, CTN-0453-0 (Cortana for short) is one of our most advanced AI models.  Serving as your companion, she can offer you advice, analysis and even strategic recommendations for tasks.\n" +
+                "Cortana is more of an extension to the client, rather than a tool.  With this AI model, you truly will be unstoppable with whatever tasks await you.  And you might just make a new friend!",
         true,
         "/pictures/cortana.jpeg"
     );
     AiModel irobot = new AiModel(
         3L,
-        "irobot",
+        "Sonny",
         22.00,
         33.00,
-        "A really good ai model",
+        "Strong, Agile and Stylish.  NS-5 (Otherwise known as Sonny) is a newer model compared to his predecessors.  He's very smart and has a sleek design, perfect for anyone looking for a modern day AI model.\n" +
+                "Sonny is a top of the line model and has an excellent personality, a good AI for all clients",
         true,
         "/pictures/irobot.png"
     );
     AiModel jarvis = new AiModel(
         4L,
-        "jarvis",
+        "J.A.R.I.S.",
         30.00,
         40.00,
-        "The Best AI model",
+        "Just another really intelligent system! J.A.R.V.I.S. is a model made for helping engineers with designing new products or designs.  He's got a witty sense of humour and provides great companionship.  He'll be able to help you design any of your engineering needs, providing schematics, sizes as well as suggestions and tips.\n" +
+                "His quick analysis and data finding skills make him stand out from any other software in the engineering industry.",
         true,
         "/pictures/jarvis.png"
     );
     AiModel stockai = new AiModel(
         5L,
-        "stockai",
+        "SkyNet",
         30.00,
         40.00,
-        "The Best AI stock",
+        "Looking for an AI that has advanced strategic analysis along with coordination and an advanced learning processor?  Than look no further than the SkyNet model.  This is one of our more unique models in the sense of the tasks it can complete.  A highly valued asset for anyone looking to make big plans for their business.\n" +
+                "The advanced learning processor means that it can stay up to date with all the latest news, intel and advancements in the industry of your preference, ensuring you'll never fall behind.",
         true,
         "/pictures/stockai.jpg"
     );
     AiModel ultron = new AiModel(
         6L,
-        "ultron",
+        "Ultron",
         40.00,
         50.00,
-        "ULTRON",
+        "If you're not too interested in the companionship and personalities of the other models, then the Ultron model is the one for you.  Designed solely for peek performance and assistance, he'll get the job done exactly as you intend with no questions asked. \n" +
+                "The Ultron model is a good option for those who know exactly what they want and how they want it.",
         true,
         "/pictures/ultron.jpg"
+    );
+    AiModel kitt = new AiModel(
+            7L,
+            "KITT",
+            51.00,
+            71.00,
+            "KITT (Short for Knight Industries Two Thousand) is an AI model designed for integration with automobiles.  He features an extensive map system that allows him to help the driver navigate the quickest and most efficient route to their destination. \n" +
+                    "If you're looking for a companion for those long drives or even your daily ones then look no further than the KITT series!  Guaranteed to get you where you need to be, and home in time for dinner!",
+            true,
+            "/pictures/kitt.png"
+    );
+    AiModel connor = new AiModel(
+            8L,
+            "Connor",
+            51.00,
+            71.00,
+            "Connor (RK800) is another unique AI model we have for purchase.  Don't let looks deceive you, this model is designed to help you with your culinary needs!\n" +
+                    "Preparing a meal for the family?  Looking for a tasty meal after a long day?  Or perhaps it's just a hobby of yours.  Whatever the case, Connor can help you with the food or drinks you prepare.  Featuring countless recipes as well as knowledge on what taste different ingredients might bring, Connor is able to help you with preparing your next meal and even offer option advice!",
+            true,
+            "/pictures/connor.png"
+    );
+    AiModel baymax = new AiModel(
+            9L,
+            "Baymax",
+            51.00,
+            71.00,
+            "'On a scale of one to ten, how would you rate your pain?'  Baymax is a fan beloved AI model, and extremely useful!\n" +
+                    "Baymax features advanced knowledge on healthcare, medical assistance both, treatments for illnesses both physical and mental as well as an all-round friendly personality!  He is designed to help you with any kind of accidents you might have or illnesses you might suffer from.  He can also assist Doctors and Nurses in aiding patients.  He has a direct contact link with emergency services and can navigate to the closest Hospital or medical centre.",
+            true,
+            "/pictures/baymax.png"
+    );
+    AiModel friday = new AiModel(
+            2L,
+            "Friday",
+            51.00,
+            71.00,
+            "Organise meetings, schedule tasks, inform you of what's going on in the world, Friday might just be the model you're looking for!  This model is designed to act as a personal assistant for users and offer help in planning and scheduling your day.\n" +
+                    "Featuring a unique and loyal personality, she can offer great help and assistance with countless daily tasks!",
+            true,
+            "/pictures/friday.png"
     );
 
     testOrders.add(new Order(
@@ -114,7 +160,7 @@ public class MarketController {
         "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
     ));
     orderService.saveAll(testOrders);
-    aiModelService.saveAll(List.of(auto, cortana, irobot, jarvis, stockai, ultron));
+    aiModelService.saveAll(List.of(auto, cortana, irobot, jarvis, stockai, ultron, kitt, connor, baymax, friday));
 
     User admin = new User("Admin", "adminpass", "Admin", "admin@admin.com");
     userService.save(admin);
