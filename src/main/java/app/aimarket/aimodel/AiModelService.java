@@ -41,4 +41,8 @@ public class AiModelService {
     aiModelRepository.saveAll(models);
   }
 
+  public void deleteById(long id) {
+    aiModelRepository.deleteById(id);
+  }
+
 }

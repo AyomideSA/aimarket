@@ -367,8 +367,7 @@ public class MarketController {
     }
     User user = (User) session.getAttribute("user");
     if (user.getUsername().equals("Admin")) {
-      System.out.println("ADMIN");
-      System.out.println("WHU");
+      model.addAttribute("id", currentModel.getId());
       return "ownerpage.html";
     } else {
       return "productpage.html";
@@ -426,6 +425,12 @@ public class MarketController {
     } else {
       return "redirect:/aimarket/home";
     }
+  }
+
+  @PostMapping("/catalogue/product/delete/{id}")
+  public String addToBasket(@PathVariable String id) {
+    aiModelService.deleteById(Long.parseLong(id));
+    return "redirect:/aimarket/home";
   }
 
   @GetMapping("/basket")

@@ -112,6 +112,13 @@
                     <button type="button" class="anybutton" onclick="openDetailsForm()">change description</button>
                 </div>
             </div>
+            <div class="row p-5">
+                <div class="col">
+                    <form method="POST" th:action="@{/aimarket/catalogue/product/delete/{id}(id=${id})}">
+                        <button type="submit" class="anybutton">Delete Product</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="col">
             <img th:src="${aiModelPicPath}" class="img-fluid" alt="...">
