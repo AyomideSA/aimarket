@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +32,7 @@ public class MarketController {
     this.userService = userService;
     this.orderService = orderService;
     this.aiModelService = aiModelService;
-    createTestData();
+    //createTestData();
   }
 
   // for testing
