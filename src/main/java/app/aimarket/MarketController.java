@@ -32,7 +32,6 @@ public class MarketController {
     this.userService = userService;
     this.orderService = orderService;
     this.aiModelService = aiModelService;
-    //createTestData();
   }
 
   // for testing
