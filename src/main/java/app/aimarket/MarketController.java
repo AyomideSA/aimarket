@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +46,8 @@ public class MarketController {
         "All aboard, Captain!  AUTO (Short for AutoPilot) is an AI model designed for navigation.  For those who are piloting boats or aircraft, AUTO is a good AI model to help you with your journey.\n" +
                 "Designed with advanced navigation and mapping systems, AUTO should be able to help guide you through your journey no matter where you are.  He can be purchased with extensive training and experience in the field of travel and being a crew member.  He can offer suggestions, intel as well as status reports.  Perfect for those who embark on regular journeys!",
         true,
-        "/pictures/auto.jpg"
+        "/pictures/auto.jpg",
+        LocalDate.now()
     );
     AiModel cortana = new AiModel(
         2L,
@@ -55,7 +57,8 @@ public class MarketController {
         "A very loyal and smart model, CTN-0453-0 (Cortana for short) is one of our most advanced AI models.  Serving as your companion, she can offer you advice, analysis and even strategic recommendations for tasks.\n" +
                 "Cortana is more of an extension to the client, rather than a tool.  With this AI model, you truly will be unstoppable with whatever tasks await you.  And you might just make a new friend!",
         true,
-        "/pictures/cortana.jpeg"
+        "/pictures/cortana.jpeg",
+        LocalDate.now()
     );
     AiModel irobot = new AiModel(
         3L,
@@ -65,7 +68,8 @@ public class MarketController {
         "Strong, Agile and Stylish.  NS-5 (Otherwise known as Sonny) is a newer model compared to his predecessors.  He's very smart and has a sleek design, perfect for anyone looking for a modern day AI model.\n" +
                 "Sonny is a top of the line model and has an excellent personality, a good AI for all clients",
         true,
-        "/pictures/irobot.png"
+        "/pictures/irobot.png",
+        LocalDate.now()
     );
     AiModel jarvis = new AiModel(
         4L,
@@ -75,7 +79,8 @@ public class MarketController {
         "Just another really intelligent system! J.A.R.V.I.S. is a model made for helping engineers with designing new products or designs.  He's got a witty sense of humour and provides great companionship.  He'll be able to help you design any of your engineering needs, providing schematics, sizes as well as suggestions and tips.\n" +
                 "His quick analysis and data finding skills make him stand out from any other software in the engineering industry.",
         true,
-        "/pictures/jarvis.png"
+        "/pictures/jarvis.png",
+        LocalDate.now()
     );
     AiModel stockai = new AiModel(
         5L,
@@ -85,7 +90,8 @@ public class MarketController {
         "Looking for an AI that has advanced strategic analysis along with coordination and an advanced learning processor?  Than look no further than the SkyNet model.  This is one of our more unique models in the sense of the tasks it can complete.  A highly valued asset for anyone looking to make big plans for their business.\n" +
                 "The advanced learning processor means that it can stay up to date with all the latest news, intel and advancements in the industry of your preference, ensuring you'll never fall behind.",
         true,
-        "/pictures/stockai.jpg"
+        "/pictures/stockai.jpg",
+        LocalDate.now()
     );
     AiModel ultron = new AiModel(
         6L,
@@ -95,7 +101,8 @@ public class MarketController {
         "If you're not too interested in the companionship and personalities of the other models, then the Ultron model is the one for you.  Designed solely for peek performance and assistance, he'll get the job done exactly as you intend with no questions asked. \n" +
                 "The Ultron model is a good option for those who know exactly what they want and how they want it.",
         true,
-        "/pictures/ultron.jpg"
+        "/pictures/ultron.jpg",
+        LocalDate.now()
     );
     AiModel kitt = new AiModel(
             7L,
@@ -105,7 +112,8 @@ public class MarketController {
             "KITT (Short for Knight Industries Two Thousand) is an AI model designed for integration with automobiles.  He features an extensive map system that allows him to help the driver navigate the quickest and most efficient route to their destination. \n" +
                     "If you're looking for a companion for those long drives or even your daily ones then look no further than the KITT series!  Guaranteed to get you where you need to be, and home in time for dinner!",
             true,
-            "/pictures/kitt.png"
+            "/pictures/kitt.png",
+        LocalDate.now()
     );
     AiModel connor = new AiModel(
             8L,
@@ -115,7 +123,8 @@ public class MarketController {
             "Connor (RK800) is another unique AI model we have for purchase.  Don't let looks deceive you, this model is designed to help you with your culinary needs!\n" +
                     "Preparing a meal for the family?  Looking for a tasty meal after a long day?  Or perhaps it's just a hobby of yours.  Whatever the case, Connor can help you with the food or drinks you prepare.  Featuring countless recipes as well as knowledge on what taste different ingredients might bring, Connor is able to help you with preparing your next meal and even offer option advice!",
             true,
-            "/pictures/connor.png"
+            "/pictures/connor.png",
+        LocalDate.now()
     );
     AiModel baymax = new AiModel(
             9L,
@@ -125,7 +134,8 @@ public class MarketController {
             "'On a scale of one to ten, how would you rate your pain?'  Baymax is a fan beloved AI model, and extremely useful!\n" +
                     "Baymax features advanced knowledge on healthcare, medical assistance both, treatments for illnesses both physical and mental as well as an all-round friendly personality!  He is designed to help you with any kind of accidents you might have or illnesses you might suffer from.  He can also assist Doctors and Nurses in aiding patients.  He has a direct contact link with emergency services and can navigate to the closest Hospital or medical centre.",
             true,
-            "/pictures/baymax.png"
+            "/pictures/baymax.png",
+        LocalDate.now()
     );
     AiModel friday = new AiModel(
             2L,
@@ -135,7 +145,8 @@ public class MarketController {
             "Organise meetings, schedule tasks, inform you of what's going on in the world, Friday might just be the model you're looking for!  This model is designed to act as a personal assistant for users and offer help in planning and scheduling your day.\n" +
                     "Featuring a unique and loyal personality, she can offer great help and assistance with countless daily tasks!",
             true,
-            "/pictures/friday.png"
+            "/pictures/friday.png",
+        LocalDate.now()
     );
 
     testOrders.add(new Order(
@@ -192,8 +203,19 @@ public class MarketController {
   }
 
   @GetMapping("/home")
-  public String viewHomePage(HttpSession session) {
+  public String viewHomePage(HttpSession session, Model model) {
     setGuest(session);
+    List<AiModel> models1 = aiModelService.getAvailableModels();
+    models1.sort((m1, m2) -> (int) (m2.getVisitNumber() - m1.getVisitNumber()));
+    model.addAttribute("popmodel0", models1.get(0));
+    model.addAttribute("popmodel1", models1.get(1));
+    model.addAttribute("popmodel2", models1.get(2));
+
+    List<AiModel> models2 = aiModelService.getAvailableModels();
+    models2.sort((m1, m2) -> (m2.getDateAdded().compareTo(m1.getDateAdded())));
+    model.addAttribute("newmodel0", models2.get(0));
+    model.addAttribute("newmodel1", models2.get(1));
+    model.addAttribute("newmodel2", models2.get(2));
     return "home.html";
   }
 
@@ -267,7 +289,9 @@ public class MarketController {
       /*System.out.println("did not log in");
       return "registerError.html";*/
     }
-
+    if (user != null && user.getUsername() != null && user.getUsername().equals("Admin")) {
+      session.setAttribute("isAdmin", true);
+    }
     session.setAttribute("checkLogEmail", checkLogEmail);
     session.setAttribute("checkLogPassword", checkLogPassword);
     return "redirect:/aimarket/home";
@@ -277,6 +301,7 @@ public class MarketController {
   public String logout(HttpSession session) {
     loggedIn = false;
     session.setAttribute("loggedin", loggedIn);
+    session.setAttribute("isAdmin", false);
     shoppingBasket.clear();
     return "redirect:/aimarket/home";
   }
@@ -295,7 +320,6 @@ public class MarketController {
       } else {
         userOrders = orderService.findByUserId(user.getId());
       }
-      model.addAttribute("isAdmin", adminLoggedIn);
       model.addAttribute("orders", userOrders);
       return "orderHistory.html";
     } else {
@@ -328,7 +352,7 @@ public class MarketController {
   }
 
   @GetMapping("/catalogue/product/{name}")
-  public String getProduct(Model model, @PathVariable String name, HttpSession session) {
+  public String getProduct(Model model, @RequestParam(required=false) String requestSource, @PathVariable String name, HttpSession session) {
     setGuest(session);
     session.setAttribute("loggedin", loggedIn);
     AiModel currentModel = aiModelService.findByName(name);
@@ -337,7 +361,10 @@ public class MarketController {
     model.addAttribute("aiModelPicPath", currentModel.getImagepath());
     model.addAttribute("trainedPrice", currentModel.getTrainedprice());
     model.addAttribute("untrainedPrice", currentModel.getUntrainedprice());
-    System.out.println(model);
+    if (Objects.equals(requestSource, "button")) {
+      currentModel.incrementVisitNumber();
+      aiModelService.save(currentModel);
+    }
     User user = (User) session.getAttribute("user");
     if (user.getUsername().equals("Admin")) {
       System.out.println("ADMIN");
@@ -379,6 +406,9 @@ public class MarketController {
   public String changeProductAvailability(Model model, @PathVariable String name, @PathVariable String availability) {
     AiModel aiModel = aiModelService.findByName(name);
     aiModel.setAvailability(availability.equals("available"));
+    if (availability.equals("available")) {
+      aiModel.setDateAdded(LocalDate.now());
+    }
     aiModelService.save(aiModel);
     return "redirect:/aimarket/catalogue/product/" + name;
   }
@@ -411,6 +441,15 @@ public class MarketController {
     }
   }
 
+  @PostMapping("/basket/checkout")
+  public String checkout(@RequestParam String cardHolderName,
+                         @RequestParam String cardNumber,
+                         @RequestParam String cvv,
+                         @RequestParam String address, HttpSession session) {
+    System.out.println(cardHolderName + " " + cardNumber + " " + cvv + " " + address);
+    return "redirect:/aimarket/basket";
+  }
+
   @PostMapping("/basket/delete/{modelName}/{modelType}/{price}")
   public String deleteItem(Item item) {
     shoppingBasket.remove(item);
@@ -437,6 +476,45 @@ public class MarketController {
     double newPrice = Objects.equals(newType, "trained") ? aiModel.getTrainedprice() : aiModel.getUntrainedprice();
     shoppingBasket.setType(new Item(modelName, modelType, price, imagePath), newType, newPrice);
     return "redirect:/aimarket/basket";
+  }
+
+  @GetMapping("/addModel")
+  public String addModelPage(Model model, HttpSession session) {
+    User user = (User) session.getAttribute("user");
+    if (!user.getUsername().equals("Admin")) {
+      return "redirect:/aimarket/home";
+    } else {
+      return "addModel.html";
+    }
+  }
+
+  @PostMapping("/addModel")
+  public String addModel(@RequestParam String modelName,
+                         @RequestParam double untrainedPrice,
+                         @RequestParam double trainedPrice,
+                         @RequestParam String description,
+                         @RequestParam String imageName,
+                         @RequestParam String availability,
+                         Model model, HttpSession session) {
+    User user = (User) session.getAttribute("user");
+    if (!user.getUsername().equals("Admin")) {
+      return "redirect:/aimarket/home";
+    }
+    if (imageName == null || imageName.isEmpty()) {
+      imageName = "stockai.jpg";
+    }
+    System.out.println(modelName + " " + untrainedPrice + " " + trainedPrice + " " + description + " " + imageName + " " + availability);
+    AiModel newModel = new AiModel(
+        modelName,
+        untrainedPrice,
+        trainedPrice,
+        description,
+        availability.equals("available"),
+        "/pictures/"+imageName,
+        LocalDate.now()
+    );
+    aiModelService.save(newModel);
+    return "addModel.html";
   }
 
   // Sets user to guest for the first page that a non-logged-in user visits
