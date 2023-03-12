@@ -24,7 +24,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light w-100" style="background-color:#87CEEB">
     <div class="container-fluid">
-        <a class="navbar-brand navText" th:href="@{home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
+        <a class="navbar-brand navText" th:href="@{../../home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,15 +37,16 @@
             </div> <!--If someone knows how to maybe make this smaller feel free to-->
             <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link navText" th:href="@{catalogue}">Catalogue</a>
+                    <a class="nav-link navText" th:href="@{../../catalogue}">Catalogue</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle navText" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Hello <span th:text="${session.user.username}"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{basket}">Basket</a></li>
-                        <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
+                        <li><a class="dropdown-item" th:href="@{../../basket}">Basket</a></li>
+                        <li><a class="dropdown-item" th:href="@{../../history}">Order History</a></li>
+                        <li><a class="dropdown-item" th:if="${session.isAdmin}" th:href="@{../../addModel}">Add Model</a></li>
                     </ul>
                 </li>
                 <li th:if="${session.loggedin == false}" class = "nav-item">
@@ -65,7 +66,7 @@
 
 <div class = "container p-3 mb-5 bg-light rounded-3 position-absolute" style = " right: 0;max-width: 500px;" id = "loginBox">
     <div class = "form-popup"  id = "signIn">
-        <form class = "form-container" method="POST" action="login" >
+        <form class = "form-container" method="POST" action="../../login" >
             <h3>Login</h3>
 
             <div class="form-floating mb-3">
@@ -86,7 +87,7 @@
     </div>
 
     <div class = "form-popup" id = "signUp">
-        <form class = "form-container" method="POST" action="register">
+        <form class = "form-container" method="POST" action="../../register">
             <h3>Register</h3>
             <div class="form-floating mb-3">
                 <input type = "text" name = "username" th:classappend="${session.checkValidUsername} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingUsername" placeholder="User Name">

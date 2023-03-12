@@ -41,6 +41,7 @@
                         <li><a class="dropdown-item" href="#">Sign In</a></li> <!-- **** Jarek could do this-->
                         <li><a class="dropdown-item" th:href="@{basket}">Basket</a></li>
                         <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
+                        <li><a class="dropdown-item" th:if="${session.isAdmin}" th:href="@{addModel}">Add Model</a></li>
                     </ul>
                 </li>
             </ul>
@@ -52,7 +53,7 @@
 <table class="table table-bordered orderTable">
     <tr>
         <th style="background-color:#87CEEB;" scope="col">Order Id</th>
-        <th th:if="${isAdmin}" scope="col">User Id</th>
+        <th th:if="${session.isAdmin}" scope="col">User Id</th>
         <th scope="col">Items</th>
         <th scope="col">Order Date</th>
         <th scope="col">Order Status</th>
@@ -60,7 +61,7 @@
     <tbody>
         <tr th:each="order:${orders}">
             <td th:text="${order.id}"></td>
-            <td th:if="${isAdmin}" th:text="${order.userId}"></td>
+            <td th:if="${session.isAdmin}" th:text="${order.userId}"></td>
             <td>
                 <span th:each="item: ${#strings.arraySplit(order.orderDetails, '-')}">
                     <span th:with="details=${#strings.arraySplit(item, '_')}">
@@ -73,8 +74,8 @@
                 </span>
             </td>
             <td th:text="${order.date}"></td>
-            <td th:if="${!isAdmin}" th:text="${order.status}"></td>
-            <td th:if="${isAdmin}" style="text-align: center; vertical-align: middle;">
+            <td th:if="${!session.isAdmin}" th:text="${order.status}"></td>
+            <td th:if="${session.isAdmin}" style="text-align: center; vertical-align: middle;">
                 <form style="display:inline;" method="POST"
                       th:action="@{history/changeStatus/{id} (id=${order.id})}">
                     <select id="orderStatus" onchange="this.form.submit()"  name="newStatus">

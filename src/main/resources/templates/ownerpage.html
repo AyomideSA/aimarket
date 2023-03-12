@@ -43,6 +43,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" th:href="@{../../basket}">Basket</a></li>
                             <li><a class="dropdown-item" th:href="@{../../history}">Order History</a></li>
+                            <li><a class="dropdown-item" th:if="${session.isAdmin}" th:href="@{../../addModel}">Add Model</a></li>
                         </ul>
                     </li>
                     <li th:if="${session.loggedin == false}" class="nav-item">

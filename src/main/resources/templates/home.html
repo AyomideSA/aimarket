@@ -41,6 +41,7 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<li><a class="dropdown-item" th:href="@{basket}">Basket</a></li>
 							<li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
+							<li><a class="dropdown-item" th:if="${session.isAdmin}" th:href="@{addModel}">Add Model</a></li>
 						</ul>
 					</li>
                     <li th:if="${session.loggedin == false}" class = "nav-item">
@@ -119,13 +120,19 @@
 <!--        Testing for passing input into Database-->
         <p>Check out the latest models just in!</p> <!--Images should go in columns maybe? If someone has a better idea (which they probably will) feel free to lmk -Andrew -->
         <div class="col-lg-4">
-            <img src="/pictures/cortana.jpeg" class="img-thumbnail" alt="CTN 0453-0">
+			<a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel0.name})}">
+            	<img th:src="${newmodel0.imagepath}" class="img-thumbnail" alt="CTN 0453-0">
+			</a>
         </div>
         <div class="col-lg-4">
-            <img src="/pictures/ultron.jpg" class="img-thumbnail" alt="Ultron">
+			<a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel1.name})}">
+				<img th:src="${newmodel1.imagepath}" class="img-thumbnail" alt="CTN 0453-0">
+			</a>
         </div>
         <div class="col-lg-4">
-            <img src="/pictures/jarvis.png" class="img-thumbnail" alt="J.A.R.V.I.S.">
+			<a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel2.name})}">
+				<img th:src="${newmodel2.imagepath}" class="img-thumbnail" alt="CTN 0453-0">
+			</a>
         </div>
     </div>
     <br>
@@ -133,13 +140,19 @@
         <h3 th:style="${session.invalidUser} ? 'color: red' :''"  class="products">Popular Products</h3>
         <p>Popular among other users. . .</p>
         <div class="col-lg-4">
-            <img src="/pictures/stockai.jpg" class="img-thumbnail" alt="T-800">
+			<a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel0.name})}">
+            	<img th:src="${popmodel0.imagepath}" class="img-thumbnail" alt="mostpopular">
+			</a>
         </div>
         <div class="col-lg-4">
-            <img src="/pictures/auto.jpg" class="img-thumbnail" alt="A-113">
+			<a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel1.name})}">
+            	<img th:src="${popmodel1.imagepath}" class="img-thumbnail" alt="secondpopular">
+			</a>
         </div>
         <div class="col-lg-4">
-            <img src="/pictures/irobot.png" class="img-thumbnail" alt="NS-5">
+			<a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel2.name})}">
+            	<img th:src="${popmodel2.imagepath}" class="img-thumbnail" alt="thirdpopular">
+			</a>
         </div>
     </div>
     <br>
