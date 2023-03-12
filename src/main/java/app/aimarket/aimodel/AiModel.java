@@ -2,6 +2,7 @@ package app.aimarket.aimodel;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 /**
  * @author : ayoso
@@ -21,6 +22,8 @@ public class AiModel {
   @Column private String description;
   @Column private boolean availability;
   @Column private String imagepath;
+  @Column LocalDate dateAdded;
+  @Column private long visitNumber = 0L;
 
   public AiModel() {
   }
@@ -30,7 +33,8 @@ public class AiModel {
                  Double trainedprice,
                  String description,
                  boolean availability,
-                 String imagepath) {
+                 String imagepath,
+                 LocalDate dateAdded) {
     this.id = id;
     this.name = name;
     this.untrainedprice = untrainedprice;
@@ -38,6 +42,17 @@ public class AiModel {
     this.description = description;
     this.availability = availability;
     this.imagepath = imagepath;
+    this.dateAdded = dateAdded;
+  }
+
+  public AiModel(String name, Double untrainedprice, Double trainedprice, String description, boolean availability, String imagepath, LocalDate dateAdded) {
+    this.name = name;
+    this.untrainedprice = untrainedprice;
+    this.trainedprice = trainedprice;
+    this.description = description;
+    this.availability = availability;
+    this.imagepath = imagepath;
+    this.dateAdded = dateAdded;
   }
 
   public Long getId() {
@@ -96,6 +111,22 @@ public class AiModel {
     this.imagepath = imagepath;
   }
 
+  public long getVisitNumber() {
+    return visitNumber;
+  }
+
+  public void incrementVisitNumber() {
+    this.visitNumber++;
+  }
+
+  public LocalDate getDateAdded() {
+    return dateAdded;
+  }
+
+  public void setDateAdded(LocalDate dateAdded) {
+    this.dateAdded = dateAdded;
+  }
+
   @Override
   public String toString() {
     return "AiModel{" +
@@ -103,9 +134,10 @@ public class AiModel {
         ", name='" + name + '\'' +
         ", untrainedprice=" + untrainedprice +
         ", trainedprice=" + trainedprice +
-        ", description='" + description + '\'' +
         ", availability=" + availability +
-        ", imageurl='" + imagepath + '\'' +
+        ", imagepath='" + imagepath + '\'' +
+        ", dateAdded=" + dateAdded +
+        ", visitNumber=" + visitNumber +
         '}';
   }
 }
