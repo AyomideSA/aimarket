@@ -461,9 +461,11 @@ public class MarketController {
                          @RequestParam String address, HttpSession session, Model model) {
     // LIWIA
     // CHECK IF CARD NUMBER AND CVV ARE NUMBERS
-    boolean validDetails = true;
-    if (validDetails) {
+    boolean validCardNumber = true;
+    boolean validCvv = true;
+    if (validCardNumber && validCvv) {
       model.addAttribute("items", shoppingBasket.getBasket());
+      model.addAttribute("basket", shoppingBasket);
       model.addAttribute("name", cardHolderName);
       model.addAttribute("paymentAddress", address);
       model.addAttribute("date", LocalDate.now());
