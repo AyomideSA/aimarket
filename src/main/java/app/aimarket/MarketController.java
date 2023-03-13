@@ -221,6 +221,8 @@ public class MarketController {
 
   @PostMapping("/register")
   public String signup(User user, HttpSession session) {
+    session.setAttribute("checkLogEmail", false);
+    session.setAttribute("checkLogPassword", false);
     boolean checkValidUsername = false;
     boolean checkValidPassword = false;
     boolean checkValidName = false;
@@ -263,7 +265,10 @@ public class MarketController {
 
   @PostMapping("/login")
   public String signin(User user, @RequestParam(value = "email") String email, @RequestParam(value = "password") String password, HttpSession session) {
-
+    session.setAttribute("checkValidUsername", false);
+    session.setAttribute("checkValidPassword", false);
+    session.setAttribute("checkValidName", false);
+    session.setAttribute("checkValidEmail", false);
     boolean checkLogEmail = false;
     boolean checkLogPassword = false;
     int checkCorrect = userService.signinUserValid(user, email, password);
