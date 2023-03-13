@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     <!--    <script src="../static/js/navbar.js"></script> for local testing -->
     <script src="/js/navbar.js"></script>
+    <link rel="stylesheet" th:href="@{/css/orderHistoryStyle.css}">
 </head>
 <body onload="setUp()">
 
@@ -111,23 +112,19 @@
         </div>
     </div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
 <div class="container">
+    <br><br><br>
     <div class="row">
         <div class="col lg-12">
-            <h1>Order confirmed!  Thank you for your purchase.</h1>
+            <h1><i class="fa-solid fa-check"></i> Order confirmed!  Thank you for your purchase.</h1>
             <p>Your order has now been confirmed, please find below the details of the order.</p>
             <p>You can find this information again via the receipt that should have been downloaded to your computer.</p>
         </div>
     </div>
     <div class="row">
         <div class="col lg-12">
-            <p th:text="'Name :'+${name}"></p>
-            <table>
+            <p><b>Name: </b> <span th:text="${name}"></span></p>
+            <table class="orderTable">
                 <tr>
                     <th scope="col">Item</th>
                     <th scope="col">Type</th>
@@ -137,12 +134,13 @@
                 <tr th:each="item:${items}">
                     <td th:text="${item.key.modelName}"></td>
                     <td th:text="${item.key.modelType}"></td>
-                    <td th:text="${item.key.price}"></td>
+                    <td th:text="'€' + ${item.key.price}"></td>
                 </tr>
                 </tbody>
             </table>
-            <p th:text="'Payment Address: '+${paymentAddress}"></p>
-            <p th:text="'Date: '+${date}"></p>
+            <br>
+            <p><b>Payment Address: </b> <span th:text="${paymentAddress}"></span></p>
+            <p><b>Date: </b> <span th:text="${date}"></span></p>
         </div>
     </div>
 </div>
