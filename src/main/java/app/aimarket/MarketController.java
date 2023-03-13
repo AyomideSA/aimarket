@@ -73,7 +73,7 @@ public class MarketController {
     );
     AiModel jarvis = new AiModel(
         4L,
-        "J.A.R.I.S.",
+        "J.A.R.V.I.S.",
         30.00,
         40.00,
         "Just another really intelligent system! J.A.R.V.I.S. is a model made for helping engineers with designing new products or designs.  He's got a witty sense of humour and provides great companionship.  He'll be able to help you design any of your engineering needs, providing schematics, sizes as well as suggestions and tips.\n" +
@@ -441,6 +441,9 @@ public class MarketController {
   @GetMapping("/basket")
   public String getBasket(Model model, HttpSession session) {
     setGuest(session);
+    List<AiModel> models1 = aiModelService.getAvailableModels();
+    models1.sort((m1, m2) -> (int) (m2.getVisitNumber() - m1.getVisitNumber()));
+    model.addAttribute("popmodel0", models1.get(0));
     session.setAttribute("loggedin", loggedIn);
     User user = (User) session.getAttribute("user");
     if (loggedIn && !Objects.equals(user.getUsername(), "Admin")) {

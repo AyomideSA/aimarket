@@ -28,7 +28,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarScroll">
                 <div class="input-group rounded">
-                    <input type="search" class="form-control rounded" placeholder="Search Arasaka" aria-label="Search" aria-describedby="search-addon" />
+                    <input type="search" class="form-control rounded" id="mySearch" placeholder="Search Arasaka" aria-label="Search" aria-describedby="search-addon" />
                     <span class="input-group-text border-0" id="search-addon">
 						<i class="fas fa-search"></i>
 					</span>
@@ -114,10 +114,9 @@
         </div>
     </div>
 </div>
-<br>
-<br>
-<br>
 <!--  shopping produts -->
+<div class="container">
+    <br><br><br><br>
 <th:block th:with="partitions=${T(org.apache.commons.collections4.ListUtils).partition(aimodels, 3)}">
     <div class="row" th:each="partition: ${partitions}">
         <div class="col" th:each="model: ${partition}">
@@ -132,6 +131,7 @@
         </div>
     </div>
 </th:block>
+</div>
 
 </body>
 </html>
