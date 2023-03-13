@@ -31,8 +31,10 @@
 
 .image {
 	transition: transform .2s;
+	z-index: -1;
 }
 
 .image:hover {
 	transform: scale(1.2);
+	z-index:-1;
 }

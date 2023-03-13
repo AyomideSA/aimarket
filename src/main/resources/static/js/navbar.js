@@ -49,4 +49,3 @@ function closeForm() {
     document.getElementById("signUp").style.display = "none";
 }
 
-
