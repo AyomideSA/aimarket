@@ -138,7 +138,7 @@ public class MarketController {
         LocalDate.now()
     );
     AiModel friday = new AiModel(
-            2L,
+            10L,
             "Friday",
             51.00,
             71.00,
