@@ -458,8 +458,17 @@ public class MarketController {
   public String checkout(@RequestParam String cardHolderName,
                          @RequestParam String cardNumber,
                          @RequestParam String cvv,
-                         @RequestParam String address, HttpSession session) {
-    System.out.println(cardHolderName + " " + cardNumber + " " + cvv + " " + address);
+                         @RequestParam String address, HttpSession session, Model model) {
+    // LIWIA
+    // CHECK IF CARD NUMBER AND CVV ARE NUMBERS
+    boolean validDetails = true;
+    if (validDetails) {
+      model.addAttribute("items", shoppingBasket.getBasket());
+      model.addAttribute("name", cardHolderName);
+      model.addAttribute("paymentAddress", address);
+      model.addAttribute("date", LocalDate.now());
+      return "confirmorder.html";
+    }
     return "redirect:/aimarket/basket";
   }
 

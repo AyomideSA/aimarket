@@ -20,7 +20,7 @@
 <div class = "position-fixed top-0 w-100">
     <nav class="navbar navbar-expand-lg navbar-light w-100" style="background-color:#87CEEB">
         <div class="container-fluid">
-            <a class="navbar-brand navText" th:href="@{home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
+            <a class="navbar-brand navText" th:href="@{../home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,15 +33,15 @@
                 </div> <!--If someone knows how to maybe make this smaller feel free to-->
                 <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link navText" th:href="@{catalogue}">Catalogue</a>
+                        <a class="nav-link navText" th:href="@{../catalogue}">Catalogue</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle navText" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Hello <span th:text="${session.user.username}"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{basket}">Basket</a></li>
-                            <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
+                            <li><a class="dropdown-item" th:href="@{../basket}">Basket</a></li>
+                            <li><a class="dropdown-item" th:href="@{../history}">Order History</a></li>
                         </ul>
                     </li>
                     <li th:if="${session.loggedin == false}" class = "nav-item">
@@ -112,7 +112,10 @@
     </div>
 </div>
 <br>
-
+<br>
+<br>
+<br>
+<br>
 <div class="container">
     <div class="row">
         <div class="col lg-12">
@@ -123,7 +126,7 @@
     </div>
     <div class="row">
         <div class="col lg-12">
-            <p th:text="Name: ${name}"></p>
+            <p th:text="'Name :'+${name}"></p>
             <table>
                 <tr>
                     <th scope="col">Item</th>
@@ -132,14 +135,14 @@
                 </tr>
                 <tbody>
                 <tr th:each="item:${items}">
-                    <td th:text="${item.modelName}"></td>
-                    <td th:text="${item.modelType}"></td>
-                    <td th:text="${item.price}"></td>
+                    <td th:text="${item.key.modelName}"></td>
+                    <td th:text="${item.key.modelType}"></td>
+                    <td th:text="${item.key.price}"></td>
                 </tr>
                 </tbody>
             </table>
-            <p th:text="Payment Address: ${paymentAddress}"></p>
-            <p th:text="Date: ${date}"></p>
+            <p th:text="'Payment Address: '+${paymentAddress}"></p>
+            <p th:text="'Date: '+${date}"></p>
         </div>
     </div>
 </div>
