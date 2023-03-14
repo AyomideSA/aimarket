@@ -51,6 +51,11 @@
                             <a class="nav-link navText signUp" onclick="openSIForm()">Sign in</a>
                         </div>
                     </li>
+                    <li th:if="${session.loggedin == true}" class="nav-item">
+                        <div style="min-width: 65px;">
+                            <a href="logout" class="nav-link navText">LogOut</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

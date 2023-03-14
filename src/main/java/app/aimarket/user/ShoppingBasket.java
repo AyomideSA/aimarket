@@ -83,7 +83,7 @@ public class ShoppingBasket {
     for (Map.Entry<Item, Integer> entry: basket.entrySet()) {
       s.append(entry.getKey().toString()).append('_').append(entry.getValue()).append('-');
     }
-    return s.toString().substring(0, s.length()-1);
+    return s.substring(0, s.length()-1);
   }
 
 }
