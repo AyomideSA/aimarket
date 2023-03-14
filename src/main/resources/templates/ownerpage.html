@@ -61,9 +61,8 @@
         </div>
     </nav>
 </div>
-<br><br><br>
 
-<div class = "container p-3 mb-5 bg-light rounded-3 position-absolute" style = "top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;" id="priceBox">
+<div class = "container p-3 mb-5 bg-light rounded-3 position-fixed" style = "border-top: 2px solid #87CEEB; top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;" id="priceBox">
     <div class="form-popup" id="enterPrice">
         <form class = "form-container" method="POST" th:action="@{/aimarket/catalogue/product/changePrice/{name} (name=${name})}">
             <h3>Enter New Price</h3>
@@ -81,7 +80,7 @@
     </div>
 </div>
 
-<div class = "container p-3 mb-5 bg-light rounded-3 position-absolute" style = "top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;" id="detailsBox">
+<div class = "container p-3 mb-5 bg-light rounded-3 position-fixed" style = "border-top: 2px solid #87CEEB; top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;" id="detailsBox">
     <div class="form-popup" id="enterDetails">
         <form class = "form-container" method="POST" th:action="@{/aimarket/catalogue/product/editDescription/{name} (name=${aiModelName})}">
             <h3>Edit Details</h3>
@@ -94,7 +93,9 @@
         </form>
     </div>
 </div>
+
 <div class="container">
+    <br><br>
     <div class="row p-5">
         <div class="col">
             <div class="row p-5">
