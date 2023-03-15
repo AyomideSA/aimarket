@@ -17,7 +17,7 @@ spring.jpa.database-platform=org.hibernate.dialect.H2Dialect <br>
 spring.h2.console.enabled=true <br>
 spring.jpa.hibernate.ddl-auto=create <br>
 
-Run the project with the MyApplication class as your main class
+Run the project with the MyApplication class as your main class 
 
 
 ## Directions to run with a local SQL database (Through IDE)
@@ -38,6 +38,13 @@ spring.jpa.hibernate.ddl-auto=update <br>
 - Replace [DBname], [DBusername] and [DBpassword] with the corresponding credentials.
 
 Run the project with the MyApplication class as your main class
+
+# Accessing the site
+Once you have the app running in the background by following one of the above set of steps, visit http://localhost:8080/aimarket/home
+
+Admin Credentials:
+- email: admin@admin.com 
+- password: adminpass
 
 
 
