@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @RequestMapping(path="/aimarket")
@@ -464,11 +461,14 @@ public class MarketController {
     boolean validCardNumber = true;
     boolean validCvv = true;
     if (validCardNumber && validCvv) {
-      model.addAttribute("items", shoppingBasket.getBasket());
-      model.addAttribute("basket", shoppingBasket);
+      HashMap<Item, Integer> postBasket = new HashMap<>();
+      postBasket=new HashMap<Item, Integer>(shoppingBasket.getBasket());
+      model.addAttribute("items", postBasket);
+      model.addAttribute("totalPrice", shoppingBasket.totalPrice());
       model.addAttribute("name", cardHolderName);
       model.addAttribute("paymentAddress", address);
       model.addAttribute("date", LocalDate.now());
+      shoppingBasket.clear();
       return "confirmorder.html";
     }
     return "redirect:/aimarket/basket";
