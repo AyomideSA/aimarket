@@ -254,7 +254,6 @@ public class MarketController {
     session.setAttribute("checkValidPassword", checkValidPassword);
     session.setAttribute("checkValidName", checkValidName);
     session.setAttribute("checkValidEmail", checkValidEmail);
-    //session.setAttribute("checkValid", checkValid);
     // Later will need to replace "Guest" with user's name
     // Maybe navigate to some success page and then redirect?
     return "redirect:/aimarket/home";
@@ -270,10 +269,7 @@ public class MarketController {
     boolean checkLogPassword = false;
     int checkCorrect = userService.signinUserValid(user, email, password);
     if (checkCorrect == 0) {
-      System.out.println("Worked");
-      //User user = userService.findUserByEmail(email);
       user = userService.findUserByEmail(email);
-      System.out.println(user);
       session.setAttribute("user", user);
       loggedIn = true;
       session.setAttribute("loggedin", loggedIn);
@@ -287,9 +283,6 @@ public class MarketController {
       else if(checkCorrect == 2){
         checkLogPassword = true;
       }
-
-      /*System.out.println("did not log in");
-      return "registerError.html";*/
     }
     if (user != null && user.getUsername() != null && user.getUsername().equals("Admin")) {
       session.setAttribute("isAdmin", true);
@@ -379,14 +372,12 @@ public class MarketController {
   @PostMapping("/catalogue/product/changePrice/{name}")
   public String changeProductPrice(@PathVariable String name, Double newTrainedPrice, Double newUntrainedPrice) {
     AiModel aiModel = aiModelService.findByName(name);
-    System.out.println(aiModel);
     if (newUntrainedPrice != null) {
       aiModel.setUntrainedprice(newUntrainedPrice);
     }
     if (newTrainedPrice != null) {
       aiModel.setTrainedprice(newTrainedPrice);
     }
-    System.out.println(aiModel);
     aiModelService.save(aiModel);
     return "redirect:/aimarket/catalogue/product/" + name;
   }
@@ -394,11 +385,9 @@ public class MarketController {
   @PostMapping("/catalogue/product/editDescription/{name}")
   public String changeProductDescription(@PathVariable String name, String newDescription) {
     AiModel aiModel = aiModelService.findByName(name);
-    System.out.println(aiModel);
     if (newDescription != null) {
       aiModel.setDescription(newDescription);
     }
-    System.out.println(aiModel);
     aiModelService.save(aiModel);
     return "redirect:/aimarket/catalogue/product/" + name;
   }
@@ -422,7 +411,6 @@ public class MarketController {
       double modelPrice = Objects.equals(type, "trained") ?
           aiModel.getTrainedprice() : aiModel.getUntrainedprice();
       shoppingBasket.add(new Item(name, type, price, aiModel.getImagepath()));
-      System.out.println(shoppingBasket);
       return "redirect:/aimarket/catalogue";
     } else {
       session.setAttribute("checkLogEmail", true);
@@ -543,7 +531,6 @@ public class MarketController {
     if (imageName == null || imageName.isEmpty()) {
       imageName = "stockai.jpg";
     }
-    System.out.println(modelName + " " + untrainedPrice + " " + trainedPrice + " " + description + " " + imageName + " " + availability);
     AiModel newModel = new AiModel(
         modelName,
         untrainedPrice,
