@@ -87,4 +87,22 @@ public class UserService {
     return 0;
   }
 
+  public int checkoutValidation(String cardNo, String cvv){
+    //Check if cardNo and CVV are all numbers.
+
+    for(int i=0;i<cardNo.length();i++){
+      int toInt = cardNo.charAt(i);
+      if(toInt<49 || toInt> 57){
+        return 1;
+      }
+    }
+    for(int i=0;i<cvv.length();i++){
+      int toInt = cvv.charAt(i);
+      if(toInt<49 || toInt> 57){
+        return 2;
+      }
+    }
+    return 0;
+  }
+
 }
