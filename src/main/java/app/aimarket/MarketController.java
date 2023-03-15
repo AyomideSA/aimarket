@@ -428,7 +428,8 @@ public class MarketController {
       System.out.println(shoppingBasket);
       return "redirect:/aimarket/catalogue";
     } else {
-      return "redirect:/aimarket/home";
+      session.setAttribute("checkLogEmail", true);
+      return "redirect:/aimarket/catalogue/product/" + name;
     }
   }
 
