@@ -198,14 +198,16 @@
                                 <label for="cardHolderName">Card Holder Name</label>
                             </div>
                             <div class="form-floating">
-                                <input type="text" name="cardNumber" minlength="16" maxlength="19" class="form-control"
+                                <input type="text" name="cardNumber" minlength="16" maxlength="19" th:classappend="${session.checkValidCardNo} ? 'invalid': ''" class="form-control"
                                        id="cardNumber" required>
                                 <label for="cardNumber">Card Number</label>
+                                <p class="invalid-text" th:if="${session.checkValidCardNo}">Wrong Card Number</p>
                             </div>
                             <div class="form-floating">
-                                <input type="text" name="cvv" minlength="3" maxlength="3" class="form-control" id="cvv"
+                                <input type="text" name="cvv" minlength="3" maxlength="3" th:classappend="${session.checkValidCVV} ? 'invalid': ''" class="form-control" id="cvv"
                                        required>
                                 <label for="cvv">cvv</label>
+                                <p class="invalid-text" th:if="${session.checkValidCVV}">Wrong CVV</p>
                             </div>
                             <div class="form-floating">
                                 <input type="text" minlength="1" name="address" class="form-control" id="address"

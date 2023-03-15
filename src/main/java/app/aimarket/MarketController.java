@@ -458,9 +458,13 @@ public class MarketController {
                          @RequestParam String address, HttpSession session, Model model) {
     // LIWIA
     // CHECK IF CARD NUMBER AND CVV ARE NUMBERS
-    boolean validCardNumber = true;
-    boolean validCvv = true;
-    if (validCardNumber && validCvv) {
+    session.setAttribute("checkValidCardNo", false);
+    session.setAttribute("checkValidCVV", false);
+    boolean validCardNumber = false;
+    boolean validCvv = false;
+
+    int checkCorrect = userService.checkoutValidation(cardNumber, cvv);
+    if (checkCorrect == 0) {
       HashMap<Item, Integer> postBasket = new HashMap<>();
       postBasket=new HashMap<Item, Integer>(shoppingBasket.getBasket());
       model.addAttribute("items", postBasket);
@@ -471,6 +475,17 @@ public class MarketController {
       shoppingBasket.clear();
       return "confirmorder.html";
     }
+    else{
+      if(checkCorrect == 1){
+        validCardNumber = true;
+      }
+      else{
+        validCvv = true;
+      }
+
+    }
+    session.setAttribute("checkValidCardNo", validCardNumber);
+    session.setAttribute("checkValidCVV", validCvv);
     return "redirect:/aimarket/basket";
   }
 
