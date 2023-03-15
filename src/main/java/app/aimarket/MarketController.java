@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @RequestMapping(path="/aimarket")
@@ -461,16 +458,34 @@ public class MarketController {
                          @RequestParam String address, HttpSession session, Model model) {
     // LIWIA
     // CHECK IF CARD NUMBER AND CVV ARE NUMBERS
-    boolean validCardNumber = true;
-    boolean validCvv = true;
-    if (validCardNumber && validCvv) {
-      model.addAttribute("items", shoppingBasket.getBasket());
-      model.addAttribute("basket", shoppingBasket);
+    session.setAttribute("checkValidCardNo", false);
+    session.setAttribute("checkValidCVV", false);
+    boolean validCardNumber = false;
+    boolean validCvv = false;
+
+    int checkCorrect = userService.checkoutValidation(cardNumber, cvv);
+    if (checkCorrect == 0) {
+      HashMap<Item, Integer> postBasket = new HashMap<>();
+      postBasket=new HashMap<Item, Integer>(shoppingBasket.getBasket());
+      model.addAttribute("items", postBasket);
+      model.addAttribute("totalPrice", shoppingBasket.totalPrice());
       model.addAttribute("name", cardHolderName);
       model.addAttribute("paymentAddress", address);
       model.addAttribute("date", LocalDate.now());
+      shoppingBasket.clear();
       return "confirmorder.html";
     }
+    else{
+      if(checkCorrect == 1){
+        validCardNumber = true;
+      }
+      else{
+        validCvv = true;
+      }
+
+    }
+    session.setAttribute("checkValidCardNo", validCardNumber);
+    session.setAttribute("checkValidCVV", validCvv);
     return "redirect:/aimarket/basket";
   }
 

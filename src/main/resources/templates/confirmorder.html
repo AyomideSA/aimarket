@@ -16,7 +16,7 @@
     <script src="/js/navbar.js"></script>
     <link rel="stylesheet" th:href="@{/css/orderHistoryStyle.css}">
 </head>
-<body th:onload="setUp(); receipt([[${basket.totalPrice()}]])">
+<body th:onload="setUp(); receipt([[${totalPrice}]])">
 
 <div class = "position-fixed top-0 w-100">
     <nav class="navbar navbar-expand-lg navbar-light w-100" style="background-color:#87CEEB">
@@ -147,7 +147,7 @@
     <input type="text" th:value="${paymentAddress}" id="address" hidden>
 </div>
 <script th:inline="javascript">
- function receipt(total) {
+ function receipt(totalPrice) {
     console.log("The function is called");
     var name = document.getElementById('cardHolderName');
     var paymentaddress = document.getElementById('address');
@@ -159,7 +159,7 @@
     let data =
         '----====Arasaka Order Receipt====----\r\n ' +
         'Name: ' + name.value + ' \r\n ' +
-        'Total: €' + total + '.00 \r\n ' +
+        'Total: €' + totalPrice + '.00 \r\n ' +
         'Payment Address: ' + paymentaddress.value + ' \r\n ' +
         'Date: ' + day + '-' + month + '-' + year + ' \r\n' +
         '----=============================----';
@@ -178,7 +178,6 @@
         downloadLink.style.display = "none";
         document.body.appendChild(downloadLink);
     }
-    // LIWIA LOOK HERE: THIS FINAL LINE IS WHERE IT PERFORMS THE DOWNLOAD, don't do this or don't call the function at all if the details are invalid
     downloadLink.click();
  }
 
