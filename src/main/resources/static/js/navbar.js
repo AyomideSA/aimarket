@@ -7,9 +7,6 @@ function setUp() {
     var elementLogEmail = document.getElementById("floatingInput");
     var elementLogPassword = document.getElementById("floatingPassword");
 
-    //var elementCardNo = document.getElementById("cardNumber");
-    //var elementCVV = document.getElementById("cvv");
-
     if(elementUsername.classList.contains("invalid")){
         openSUForm();
     }
@@ -28,9 +25,6 @@ function setUp() {
     else if(elementLogPassword.classList.contains("invalid")){
        openSIForm();
     }
-    /*else if(elementCardNo.classList.contains("invalid")){
-        openSUForm
-    }*/
     else{
         closeForm();
     }
