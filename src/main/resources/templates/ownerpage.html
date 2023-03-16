@@ -7,10 +7,13 @@
     <link rel="stylesheet" th:href="@{/css/generalStyle.css}">
     <script src="https://kit.fontawesome.com/407709a987.js" crossorigin="anonymous"></script>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/ownerProductStyle.css}">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+            crossorigin="anonymous"></script>
     <script src="/js/ownerproductpage.js"></script>
 </head>
 <body onload="setUp()">
@@ -43,7 +46,8 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" th:href="@{../../basket}">Basket</a></li>
                             <li><a class="dropdown-item" th:href="@{../../history}">Order History</a></li>
-                            <li><a class="dropdown-item" th:if="${session.isAdmin}" th:href="@{../../addModel}">Add Model</a></li>
+                            <li><a class="dropdown-item" th:if="${session.isAdmin}" th:href="@{../../addModel}">Add
+                                Model</a></li>
                         </ul>
                     </li>
                     <li th:if="${session.loggedin == false}" class="nav-item">
@@ -62,16 +66,21 @@
     </nav>
 </div>
 
-<div class = "container p-3 mb-5 bg-light rounded-3 position-fixed" style = "border-top: 2px solid #87CEEB; top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;" id="priceBox">
+<div class="container p-3 mb-5 bg-light rounded-3 position-fixed"
+     style="border-top: 2px solid #87CEEB; top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;"
+     id="priceBox">
     <div class="form-popup" id="enterPrice">
-        <form class = "form-container" method="POST" th:action="@{/aimarket/catalogue/product/changePrice/{name} (name=${name})}">
+        <form class="form-container" method="POST"
+              th:action="@{/aimarket/catalogue/product/changePrice/{name} (name=${name})}">
             <h3>Enter New Price</h3>
             <div class="form-floating mb-3">
-                <input type="number" step=".01" name="newUntrainedPrice" class="form-control" style="max-width: 200px;" id="untrainedprice">
+                <input type="number" step=".01" name="newUntrainedPrice" class="form-control" style="max-width: 200px;"
+                       id="untrainedprice">
                 <label for="untrainedprice">New Untrained Price(€)</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="number" step=".01" name="newTrainedPrice" class="form-control" style="max-width: 200px;" id="trainedprice">
+                <input type="number" step=".01" name="newTrainedPrice" class="form-control" style="max-width: 200px;"
+                       id="trainedprice">
                 <label for="trainedprice">New trained Price(€)</label>
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
@@ -80,12 +89,16 @@
     </div>
 </div>
 
-<div class = "container p-3 mb-5 bg-light rounded-3 position-fixed" style = "border-top: 2px solid #87CEEB; top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;" id="detailsBox">
+<div class="container p-3 mb-5 bg-light rounded-3 position-fixed"
+     style="border-top: 2px solid #87CEEB; top: 50%; transform: translate(0, -50%);left: 50%; text-align: center; max-width: 500px; z-index: 10;"
+     id="detailsBox">
     <div class="form-popup" id="enterDetails">
-        <form class = "form-container" method="POST" th:action="@{/aimarket/catalogue/product/editDescription/{name} (name=${aiModelName})}">
+        <form class="form-container" method="POST"
+              th:action="@{/aimarket/catalogue/product/editDescription/{name} (name=${aiModelName})}">
             <h3>Edit Details</h3>
             <div class="form-floating mb-3">
-                <input type="text" name="newDescription" th:value="${aiModelDesc}" class="form-control" style="max-width: 200px;" id="description">
+                <input type="text" name="newDescription" th:value="${aiModelDesc}" class="form-control"
+                       style="max-width: 200px;" id="description">
                 <label for="description"></label>
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
@@ -100,12 +113,14 @@
         <div class="col">
             <div class="row p-5">
                 <div class="col">
-                    <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/change/available (name=${name})}">
+                    <form method="POST"
+                          th:action="@{/aimarket/catalogue/product/{name}/change/available (name=${name})}">
                         <button type="submit" class="anybutton">Show Product</button>
                     </form>
                 </div>
                 <div class="col">
-                    <form method="POST" th:action="@{/aimarket/catalogue/product/{name}/change/unavailable (name=${name})}">
+                    <form method="POST"
+                          th:action="@{/aimarket/catalogue/product/{name}/change/unavailable (name=${name})}">
                         <button type="submit" class="anybutton">Hide product</button>
                     </form>
                 </div>

@@ -2,156 +2,176 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Arasaka - Home</title>
-	<link rel="icon" type="image/x-icon" th:href="@{/pictures/dna-solid.svg}">
+    <link rel="icon" type="image/x-icon" th:href="@{/pictures/dna-solid.svg}">
     <meta charset="utf-8">
     <link rel="stylesheet" th:href="@{/css/generalStyle.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/407709a987.js" crossorigin="anonymous"></script>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-	<!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
-<!--    <script src="../static/js/navbar.js"></script> for local testing -->
-	<script src="/js/navbar.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+            crossorigin="anonymous"></script>
+    <!--    <script src="../static/js/navbar.js"></script> for local testing -->
+    <script src="/js/navbar.js"></script>
 </head>
 <body onload="setUp()">
 
-<div class = "position-fixed top-0 w-100" style = "z-index: 100;">
-	<nav class="navbar navbar-expand-lg navbar-light w-100" style="background-color:#87CEEB">
-		<div class="container-fluid">
-			<a class="navbar-brand navText" th:href="@{home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-end" id="navbarScroll">
-				<div class="input-group rounded">
-					<input type="search" class="form-control rounded" placeholder="Search Arasaka" aria-label="Search" aria-describedby="search-addon" />
-					<span class="input-group-text border-0" id="search-addon">
+<div class="position-fixed top-0 w-100" style="z-index: 100;">
+    <nav class="navbar navbar-expand-lg navbar-light w-100" style="background-color:#87CEEB">
+        <div class="container-fluid">
+            <a class="navbar-brand navText" th:href="@{home}"><i class="fa-solid fa-dna"></i> Arasaka</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarScroll">
+                <div class="input-group rounded">
+                    <input type="search" class="form-control rounded" placeholder="Search Arasaka" aria-label="Search"
+                           aria-describedby="search-addon"/>
+                    <span class="input-group-text border-0" id="search-addon">
 						<i class="fas fa-search"></i>
 					</span>
-				</div>
-				<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
-					<li class="nav-item">
-						<a class="nav-link navText" th:href="@{catalogue}">Catalogue</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle navText" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Hello <span th:text="${session.user.username}"></span>
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" th:href="@{basket}">Basket</a></li>
-							<li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
-							<li><a class="dropdown-item" th:if="${session.isAdmin}" th:href="@{addModel}">Add Model</a></li>
-						</ul>
-					</li>
-                    <li th:if="${session.loggedin == false}" class = "nav-item">
-                        <div style = "min-width: 65px;">
-                            <a class = "nav-link navText signUp" onclick = "openSIForm()">Sign in</a>
+                </div>
+                <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link navText" th:href="@{catalogue}">Catalogue</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle navText" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Hello <span th:text="${session.user.username}"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" th:href="@{basket}">Basket</a></li>
+                            <li><a class="dropdown-item" th:href="@{history}">Order History</a></li>
+                            <li><a class="dropdown-item" th:if="${session.isAdmin}" th:href="@{addModel}">Add Model</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li th:if="${session.loggedin == false}" class="nav-item">
+                        <div style="min-width: 65px;">
+                            <a class="nav-link navText signUp" onclick="openSIForm()">Sign in</a>
                         </div>
                     </li>
-                    <li th:if="${session.loggedin == true}" class = "nav-item">
-                        <div style = "min-width: 65px;">
+                    <li th:if="${session.loggedin == true}" class="nav-item">
+                        <div style="min-width: 65px;">
                             <a href="logout" class="nav-link navText">LogOut</a>
                         </div>
                     </li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-	<div class = "container p-3 mb-5 bg-light rounded-3 position-absolute" style = " right: 0;max-width: 500px;" id = "loginBox">
-		<div class = "form-popup"  id = "signIn">
-			<form class = "form-container" method="POST" action="login" >
-				<h3>Login</h3>
+    <div class="container p-3 mb-5 bg-light rounded-3 position-absolute" style=" right: 0;max-width: 500px;"
+         id="loginBox">
+        <div class="form-popup" id="signIn">
+            <form class="form-container" method="POST" action="login">
+                <h3>Login</h3>
 
-				<div class="form-floating mb-3">
-					<input type = "email" th:name="email" th:classappend="${session.checkLogEmail} ? 'invalid': ''" class="form-control" style = "max-width: 500px;" id="floatingInput" placeholder="name@example.com">
-					<label for = "floatingInput">Email address</label>
-					<p class="invalid-text" th:if="${session.checkLogEmail}">Incorrect Email</p>
-				</div>
-				<div class="form-floating mb-3">
-					<input type = "password" th:name="password" th:classappend="${session.checkLogPassword} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingPassword" placeholder="Password">
-					<label for = "floatingPassword">Password</label>
-					<p class="invalid-text" th:if="${session.checkLogPassword}">Incorrect Password</p>
-				</div>
+                <div class="form-floating mb-3">
+                    <input type="email" th:name="email" th:classappend="${session.checkLogEmail} ? 'invalid': ''"
+                           class="form-control" style="max-width: 500px;" id="floatingInput"
+                           placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                    <p class="invalid-text" th:if="${session.checkLogEmail}">Incorrect Email</p>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" th:name="password"
+                           th:classappend="${session.checkLogPassword} ? 'invalid': ''" class="form-control"
+                           style=" max-width: 500px;" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                    <p class="invalid-text" th:if="${session.checkLogPassword}">Incorrect Password</p>
+                </div>
 
-				<button type="submit" class="btn btn-success">Login</button>
-				<button type="button" class="btn cancel btn-warning" onclick="openSUForm()">Register</button>
-				<button type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
-			</form>
-		</div>
+                <button type="submit" class="btn btn-success">Login</button>
+                <button type="button" class="btn cancel btn-warning" onclick="openSUForm()">Register</button>
+                <button type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
+            </form>
+        </div>
 
-		<div class = "form-popup" id = "signUp">
-			<form class = "form-container" method="POST" action="register">
-				<h3>Register</h3>
-				<div class="form-floating mb-3">
-					<input type = "text" name = "username" th:classappend="${session.checkValidUsername} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingUsername" placeholder="User Name">
-					<label for="floatingInput">User Name</label>
-					<p class="invalid-text" th:if="${session.checkValidUsername}">Wrong Username</p>
-				</div>
-				<div class="form-floating mb-3">
-					<input type = "password" name = "password" th:classappend="${session.checkValidPassword} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingPassword1" placeholder="Password">
-					<label for = "floatingPassword">Password</label>
-					<p class="invalid-text" th:if="${session.checkValidPassword}">Wrong Password</p>
-				</div>
-				<div class="form-floating mb-3">
-					<input type = "text" name="name" th:classappend="${session.checkValidName} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingName" placeholder="Name">
-					<label for = "floatingInput">Name</label>
-					<p class="invalid-text" th:if="${session.checkValidName}">Wrong Name</p>
-				</div>
-				<div class="form-floating mb-3">
-					<input type = "email" name = "email" th:classappend="${session.checkValidEmail} ? 'invalid': ''" class="form-control" style = " max-width: 500px;" id="floatingEmail" placeholder="name@example.com">
-					<label for= "floatingInput">Email address</label>
-					<p class="invalid-text" th:if="${session.checkValidEmail}">Wrong Email</p>
-				</div>
-				<button type="submit" class="btn btn-success" >Register</button>
-				<button type="button" class="btn cancel btn-warning" onclick="openSIForm()">Login</button>
-				<button id="button" type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
-			</form>
-		</div>
-	</div>
+        <div class="form-popup" id="signUp">
+            <form class="form-container" method="POST" action="register">
+                <h3>Register</h3>
+                <div class="form-floating mb-3">
+                    <input type="text" name="username" th:classappend="${session.checkValidUsername} ? 'invalid': ''"
+                           class="form-control" style=" max-width: 500px;" id="floatingUsername"
+                           placeholder="User Name">
+                    <label for="floatingInput">User Name</label>
+                    <p class="invalid-text" th:if="${session.checkValidUsername}">Wrong Username</p>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" name="password"
+                           th:classappend="${session.checkValidPassword} ? 'invalid': ''" class="form-control"
+                           style=" max-width: 500px;" id="floatingPassword1" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                    <p class="invalid-text" th:if="${session.checkValidPassword}">Wrong Password</p>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" name="name" th:classappend="${session.checkValidName} ? 'invalid': ''"
+                           class="form-control" style=" max-width: 500px;" id="floatingName" placeholder="Name">
+                    <label for="floatingInput">Name</label>
+                    <p class="invalid-text" th:if="${session.checkValidName}">Wrong Name</p>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" name="email" th:classappend="${session.checkValidEmail} ? 'invalid': ''"
+                           class="form-control" style=" max-width: 500px;" id="floatingEmail"
+                           placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                    <p class="invalid-text" th:if="${session.checkValidEmail}">Wrong Email</p>
+                </div>
+                <button type="submit" class="btn btn-success">Register</button>
+                <button type="button" class="btn cancel btn-warning" onclick="openSIForm()">Login</button>
+                <button id="button" type="button" class="btn cancel btn-danger" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+    </div>
 </div>
 <br>
 <div class="container">
-	<br><br>
+    <br><br>
     <div class="row text-center">
         <h3 class="products">New Products</h3>
-<!--        Testing for passing input into Database-->
-        <p>Check out the latest models just in!</p> <!--Images should go in columns maybe? If someone has a better idea (which they probably will) feel free to lmk -Andrew -->
+        <!--        Testing for passing input into Database-->
+        <p>Check out the latest models just in!</p>
+        <!--Images should go in columns maybe? If someone has a better idea (which they probably will) feel free to lmk -Andrew -->
         <div class="col-lg-4">
-			<a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel0.name})}">
-            	<img th:src="${newmodel0.imagepath}" class="img-thumbnail image" alt="CTN 0453-0">
-			</a>
+            <a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel0.name})}">
+                <img th:src="${newmodel0.imagepath}" class="img-thumbnail image" alt="CTN 0453-0">
+            </a>
         </div>
         <div class="col-lg-4">
-			<a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel1.name})}">
-				<img th:src="${newmodel1.imagepath}" class="img-thumbnail image" alt="CTN 0453-0">
-			</a>
+            <a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel1.name})}">
+                <img th:src="${newmodel1.imagepath}" class="img-thumbnail image" alt="CTN 0453-0">
+            </a>
         </div>
         <div class="col-lg-4">
-			<a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel2.name})}">
-				<img th:src="${newmodel2.imagepath}" class="img-thumbnail image" alt="CTN 0453-0">
-			</a>
+            <a th:href="@{/aimarket/catalogue/product/{name} (name=${newmodel2.name})}">
+                <img th:src="${newmodel2.imagepath}" class="img-thumbnail image" alt="CTN 0453-0">
+            </a>
         </div>
     </div>
     <br>
     <div class="row text-center">
-        <h3 th:style="${session.invalidUser} ? 'color: red' :''"  class="products">Popular Products</h3>
+        <h3 th:style="${session.invalidUser} ? 'color: red' :''" class="products">Popular Products</h3>
         <p>Popular among other users. . .</p>
         <div class="col-lg-4">
-			<a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel0.name})}">
-            	<img th:src="${popmodel0.imagepath}" class="img-thumbnail image" alt="mostpopular">
-			</a>
+            <a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel0.name})}">
+                <img th:src="${popmodel0.imagepath}" class="img-thumbnail image" alt="mostpopular">
+            </a>
         </div>
         <div class="col-lg-4">
-			<a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel1.name})}">
-            	<img th:src="${popmodel1.imagepath}" class="img-thumbnail image" alt="secondpopular">
-			</a>
+            <a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel1.name})}">
+                <img th:src="${popmodel1.imagepath}" class="img-thumbnail image" alt="secondpopular">
+            </a>
         </div>
         <div class="col-lg-4">
-			<a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel2.name})}">
-            	<img th:src="${popmodel2.imagepath}" class="img-thumbnail image" alt="thirdpopular">
-			</a>
+            <a th:href="@{/aimarket/catalogue/product/{name} (name=${popmodel2.name})}">
+                <img th:src="${popmodel2.imagepath}" class="img-thumbnail image" alt="thirdpopular">
+            </a>
         </div>
     </div>
     <br>

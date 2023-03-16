@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/407709a987.js" crossorigin="anonymous"></script>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+            crossorigin="anonymous"></script>
     <script src="/js/navbar.js"></script>
 </head>
 <body th:onload="setUp()">
@@ -138,10 +141,10 @@
         <th scope="col">Order Status</th>
     </tr>
     <tbody>
-        <tr th:each="order:${orders}">
-            <td th:text="${order.id}"></td>
-            <td th:if="${session.isAdmin}" th:text="${order.userId}"></td>
-            <td>
+    <tr th:each="order:${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:if="${session.isAdmin}" th:text="${order.userId}"></td>
+        <td>
                 <span th:each="item: ${#strings.arraySplit(order.orderDetails, '-')}">
                     <span th:with="details=${#strings.arraySplit(item, '_')}">
                         <span th:text="${details[0]+','}"></span>
@@ -151,27 +154,27 @@
                         <br>
                     </span>
                 </span>
-            </td>
-            <td th:text="${order.date}"></td>
-            <td th:if="${session.isAdmin != true}" th:text="${order.status}"></td>
-            <td th:if="${session.isAdmin}" style="text-align: center; vertical-align: middle;">
-                <form style="display:inline;" method="POST"
-                      th:action="@{history/changeStatus/{id} (id=${order.id})}">
-                    <select id="orderStatus" onchange="this.form.submit()"  name="newStatus">
-                        <option th:if="${order.status == 'new'}" value="new">New</option>
-                        <option th:if="${order.status == 'new'}" value="arrived">Arrived</option>
-                        <option th:if="${order.status == 'new'}" value="cancelled">Cancelled</option>
+        </td>
+        <td th:text="${order.date}"></td>
+        <td th:if="${session.isAdmin != true}" th:text="${order.status}"></td>
+        <td th:if="${session.isAdmin}" style="text-align: center; vertical-align: middle;">
+            <form style="display:inline;" method="POST"
+                  th:action="@{history/changeStatus/{id} (id=${order.id})}">
+                <select id="orderStatus" onchange="this.form.submit()" name="newStatus">
+                    <option th:if="${order.status == 'new'}" value="new">New</option>
+                    <option th:if="${order.status == 'new'}" value="arrived">Arrived</option>
+                    <option th:if="${order.status == 'new'}" value="cancelled">Cancelled</option>
 
-                        <option th:if="${order.status == 'arrived'}" value="arrived">Arrived</option>
-                        <option th:if="${order.status == 'arrived'}" value="new">New</option>
-                        <option th:if="${order.status == 'arrived'}" value="cancelled">Cancelled</option>
+                    <option th:if="${order.status == 'arrived'}" value="arrived">Arrived</option>
+                    <option th:if="${order.status == 'arrived'}" value="new">New</option>
+                    <option th:if="${order.status == 'arrived'}" value="cancelled">Cancelled</option>
 
-                        <option th:if="${order.status == 'cancelled'}" value="cancelled">Cancelled</option>
-                        <option th:if="${order.status == 'cancelled'}" value="arrived">Arrived</option>
-                        <option th:if="${order.status == 'cancelled'}" value="new">New</option>
-                    </select>
-                </form>
-            </td>
+                    <option th:if="${order.status == 'cancelled'}" value="cancelled">Cancelled</option>
+                    <option th:if="${order.status == 'cancelled'}" value="arrived">Arrived</option>
+                    <option th:if="${order.status == 'cancelled'}" value="new">New</option>
+                </select>
+            </form>
+        </td>
     </tbody>
 </table>
 

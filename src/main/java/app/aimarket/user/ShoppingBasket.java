@@ -10,12 +10,12 @@ import java.util.Objects;
  * @since : 14/02/2023, Tuesday
  **/
 public class ShoppingBasket {
-  private int test=0;
+  private int test = 0;
   private HashMap<Item, Integer> basket = new HashMap<>();
 
   public void add(Item item) {
     basket.putIfAbsent(item, 0);
-    basket.put(item, basket.get(item)+1);
+    basket.put(item, basket.get(item) + 1);
   }
 
   public HashMap<Item, Integer> getBasket() {
@@ -49,7 +49,7 @@ public class ShoppingBasket {
       Item newItem = new Item(modelName, newType, newPrice, imagePath);
       int oldItemQty = basket.get(oldItem);
       if (basket.containsKey(newItem)) {
-        basket.put(newItem, basket.get(newItem)+oldItemQty);
+        basket.put(newItem, basket.get(newItem) + oldItemQty);
       } else {
         basket.put(newItem, oldItemQty);
       }
@@ -58,7 +58,7 @@ public class ShoppingBasket {
   }
 
   public int totalItems() {
-    int total=0;
+    int total = 0;
     for (Integer qty : basket.values()) {
       total += qty;
     }
@@ -66,9 +66,9 @@ public class ShoppingBasket {
   }
 
   public double totalPrice() {
-    double total=0;
+    double total = 0;
     for (Item item : basket.keySet()) {
-        total+=item.getPrice()*basket.get(item);
+      total += item.getPrice() * basket.get(item);
     }
     return total;
   }
@@ -80,10 +80,10 @@ public class ShoppingBasket {
   @Override
   public String toString() {
     StringBuilder s = new StringBuilder();
-    for (Map.Entry<Item, Integer> entry: basket.entrySet()) {
+    for (Map.Entry<Item, Integer> entry : basket.entrySet()) {
       s.append(entry.getKey().toString()).append('_').append(entry.getValue()).append('-');
     }
-    return s.substring(0, s.length()-1);
+    return s.substring(0, s.length() - 1);
   }
 
 }

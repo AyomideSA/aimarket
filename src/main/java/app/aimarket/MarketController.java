@@ -5,7 +5,6 @@ import app.aimarket.aimodel.AiModelService;
 import app.aimarket.order.Order;
 import app.aimarket.order.OrderService;
 import app.aimarket.user.*;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Controller
-@RequestMapping(path="/aimarket")
+@RequestMapping(path = "/aimarket")
 public class MarketController {
   private final UserService userService;
   private final OrderService orderService;
@@ -30,18 +29,19 @@ public class MarketController {
     this.userService = userService;
     this.orderService = orderService;
     this.aiModelService = aiModelService;
-    createTestData();
+    createInitialModels();
+    createAdmin();
   }
 
   // for testing
-  public void createTestData() {
+  public void createInitialModels() {
     AiModel auto = new AiModel(
         1L,
         "AUTO",
         50.00,
         70.00,
         "All aboard, Captain!  AUTO (Short for AutoPilot) is an AI model designed for navigation.  For those who are piloting boats or aircraft, AUTO is a good AI model to help you with your journey.\n" +
-                "Designed with advanced navigation and mapping systems, AUTO should be able to help guide you through your journey no matter where you are.  He can be purchased with extensive training and experience in the field of travel and being a crew member.  He can offer suggestions, intel as well as status reports.  Perfect for those who embark on regular journeys!",
+            "Designed with advanced navigation and mapping systems, AUTO should be able to help guide you through your journey no matter where you are.  He can be purchased with extensive training and experience in the field of travel and being a crew member.  He can offer suggestions, intel as well as status reports.  Perfect for those who embark on regular journeys!",
         true,
         "/pictures/auto.jpg",
         LocalDate.now()
@@ -52,7 +52,7 @@ public class MarketController {
         51.00,
         71.00,
         "A very loyal and smart model, CTN-0453-0 (Cortana for short) is one of our most advanced AI models.  Serving as your companion, she can offer you advice, analysis and even strategic recommendations for tasks.\n" +
-                "Cortana is more of an extension to the client, rather than a tool.  With this AI model, you truly will be unstoppable with whatever tasks await you.  And you might just make a new friend!",
+            "Cortana is more of an extension to the client, rather than a tool.  With this AI model, you truly will be unstoppable with whatever tasks await you.  And you might just make a new friend!",
         true,
         "/pictures/cortana.jpeg",
         LocalDate.now()
@@ -63,7 +63,7 @@ public class MarketController {
         22.00,
         33.00,
         "Strong, Agile and Stylish.  NS-5 (Otherwise known as Sonny) is a newer model compared to his predecessors.  He's very smart and has a sleek design, perfect for anyone looking for a modern day AI model.\n" +
-                "Sonny is a top of the line model and has an excellent personality, a good AI for all clients",
+            "Sonny is a top of the line model and has an excellent personality, a good AI for all clients",
         true,
         "/pictures/irobot.png",
         LocalDate.now()
@@ -74,7 +74,7 @@ public class MarketController {
         30.00,
         40.00,
         "Just another really intelligent system! J.A.R.V.I.S. is a model made for helping engineers with designing new products or designs.  He's got a witty sense of humour and provides great companionship.  He'll be able to help you design any of your engineering needs, providing schematics, sizes as well as suggestions and tips.\n" +
-                "His quick analysis and data finding skills make him stand out from any other software in the engineering industry.",
+            "His quick analysis and data finding skills make him stand out from any other software in the engineering industry.",
         true,
         "/pictures/jarvis.png",
         LocalDate.now()
@@ -85,7 +85,7 @@ public class MarketController {
         30.00,
         40.00,
         "Looking for an AI that has advanced strategic analysis along with coordination and an advanced learning processor?  Than look no further than the SkyNet model.  This is one of our more unique models in the sense of the tasks it can complete.  A highly valued asset for anyone looking to make big plans for their business.\n" +
-                "The advanced learning processor means that it can stay up to date with all the latest news, intel and advancements in the industry of your preference, ensuring you'll never fall behind.",
+            "The advanced learning processor means that it can stay up to date with all the latest news, intel and advancements in the industry of your preference, ensuring you'll never fall behind.",
         true,
         "/pictures/stockai.jpg",
         LocalDate.now()
@@ -96,107 +96,63 @@ public class MarketController {
         40.00,
         50.00,
         "If you're not too interested in the companionship and personalities of the other models, then the Ultron model is the one for you.  Designed solely for peek performance and assistance, he'll get the job done exactly as you intend with no questions asked. \n" +
-                "The Ultron model is a good option for those who know exactly what they want and how they want it.",
+            "The Ultron model is a good option for those who know exactly what they want and how they want it.",
         true,
         "/pictures/ultron.jpg",
         LocalDate.now()
     );
     AiModel kitt = new AiModel(
-            7L,
-            "KITT",
-            51.00,
-            71.00,
-            "KITT (Short for Knight Industries Two Thousand) is an AI model designed for integration with automobiles.  He features an extensive map system that allows him to help the driver navigate the quickest and most efficient route to their destination. \n" +
-                    "If you're looking for a companion for those long drives or even your daily ones then look no further than the KITT series!  Guaranteed to get you where you need to be, and home in time for dinner!",
-            true,
-            "/pictures/kitt.png",
+        7L,
+        "KITT",
+        51.00,
+        71.00,
+        "KITT (Short for Knight Industries Two Thousand) is an AI model designed for integration with automobiles.  He features an extensive map system that allows him to help the driver navigate the quickest and most efficient route to their destination. \n" +
+            "If you're looking for a companion for those long drives or even your daily ones then look no further than the KITT series!  Guaranteed to get you where you need to be, and home in time for dinner!",
+        true,
+        "/pictures/kitt.png",
         LocalDate.now()
     );
     AiModel connor = new AiModel(
-            8L,
-            "Connor",
-            51.00,
-            71.00,
-            "Connor (RK800) is another unique AI model we have for purchase.  Don't let looks deceive you, this model is designed to help you with your culinary needs!\n" +
-                    "Preparing a meal for the family?  Looking for a tasty meal after a long day?  Or perhaps it's just a hobby of yours.  Whatever the case, Connor can help you with the food or drinks you prepare.  Featuring countless recipes as well as knowledge on what taste different ingredients might bring, Connor is able to help you with preparing your next meal and even offer option advice!",
-            true,
-            "/pictures/connor.png",
+        8L,
+        "Connor",
+        51.00,
+        71.00,
+        "Connor (RK800) is another unique AI model we have for purchase.  Don't let looks deceive you, this model is designed to help you with your culinary needs!\n" +
+            "Preparing a meal for the family?  Looking for a tasty meal after a long day?  Or perhaps it's just a hobby of yours.  Whatever the case, Connor can help you with the food or drinks you prepare.  Featuring countless recipes as well as knowledge on what taste different ingredients might bring, Connor is able to help you with preparing your next meal and even offer option advice!",
+        true,
+        "/pictures/connor.png",
         LocalDate.now()
     );
     AiModel baymax = new AiModel(
-            9L,
-            "Baymax",
-            51.00,
-            71.00,
-            "'On a scale of one to ten, how would you rate your pain?'  Baymax is a fan beloved AI model, and extremely useful!\n" +
-                    "Baymax features advanced knowledge on healthcare, medical assistance both, treatments for illnesses both physical and mental as well as an all-round friendly personality!  He is designed to help you with any kind of accidents you might have or illnesses you might suffer from.  He can also assist Doctors and Nurses in aiding patients.  He has a direct contact link with emergency services and can navigate to the closest Hospital or medical centre.",
-            true,
-            "/pictures/baymax.png",
+        9L,
+        "Baymax",
+        51.00,
+        71.00,
+        "'On a scale of one to ten, how would you rate your pain?'  Baymax is a fan beloved AI model, and extremely useful!\n" +
+            "Baymax features advanced knowledge on healthcare, medical assistance both, treatments for illnesses both physical and mental as well as an all-round friendly personality!  He is designed to help you with any kind of accidents you might have or illnesses you might suffer from.  He can also assist Doctors and Nurses in aiding patients.  He has a direct contact link with emergency services and can navigate to the closest Hospital or medical centre.",
+        true,
+        "/pictures/baymax.png",
         LocalDate.now()
     );
     AiModel friday = new AiModel(
-            10L,
-            "Friday",
-            51.00,
-            71.00,
-            "Organise meetings, schedule tasks, inform you of what's going on in the world, Friday might just be the model you're looking for!  This model is designed to act as a personal assistant for users and offer help in planning and scheduling your day.\n" +
-                    "Featuring a unique and loyal personality, she can offer great help and assistance with countless daily tasks!",
-            true,
-            "/pictures/friday.png",
+        10L,
+        "Friday",
+        51.00,
+        71.00,
+        "Organise meetings, schedule tasks, inform you of what's going on in the world, Friday might just be the model you're looking for!  This model is designed to act as a personal assistant for users and offer help in planning and scheduling your day.\n" +
+            "Featuring a unique and loyal personality, she can offer great help and assistance with countless daily tasks!",
+        true,
+        "/pictures/friday.png",
         LocalDate.now()
     );
-
-    testOrders.add(new Order(
-        5L,
-        LocalDate.now(),
-        "arrived",
-        "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
-    ));
-    testOrders.add(new Order(
-        2L,
-        LocalDate.now(),        "arrived",
-        "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
-    ));
-
-    testOrders.add(new Order(
-        2L,
-        LocalDate.now(),        "cancelled",
-        "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
-    ));
-    testOrders.add(new Order(
-        4L,
-        LocalDate.now(),        "cancelled",
-        "Ultron_trained_72.21_2-Auto_untrained_21.21_5"
-    ));
-    orderService.saveAll(testOrders);
     aiModelService.saveAll(List.of(auto, cortana, irobot, jarvis, stockai, ultron, kitt, connor, baymax, friday));
+  }
 
+  private void createAdmin() {
     User admin = new User("Admin", "adminpass", "Admin", "admin@admin.com");
-    userService.save(admin);
-  }
-
-  /*
-  Features such as the shopping basking, order history and the buying of products
-  Will not be allowed for guests in the future. They may only be allowed now for
-  the purpose of testing until the login feature is finished.
-
-  In the feature, trying to access these features as a guest should map the user
-  to a register page/popup.
-   */
-
-  // Used for faster login for testing
-  public void autoAdminLogin(HttpSession session) {
-    User user = new User("Admin", "Admin");
-    loggedIn = true;
-    session.setAttribute("user", user);
-    session.setAttribute("loggedin", loggedIn);
-  }
-
-  public void setUserTest(HttpSession session) {
-    User user = new User("sdddf4", "Ayo");
-    loggedIn = true;
-    session.setAttribute("user", user);
-    session.setAttribute("loggedin", loggedIn);
+    if (userService.findUserByUsername("Admin") == null) {
+      userService.save(admin);
+    }
   }
 
   @GetMapping("/home")
@@ -233,16 +189,13 @@ public class MarketController {
       session.setAttribute("loggedin", loggedIn);
     } else {
       // Some error shows up on html page
-      if(checkCorrect == 1){
+      if (checkCorrect == 1) {
         checkValidUsername = true;
-      }
-      else if(checkCorrect == 2){
+      } else if (checkCorrect == 2) {
         checkValidPassword = true;
-      }
-      else if(checkCorrect == 3){
+      } else if (checkCorrect == 3) {
         checkValidName = true;
-      }
-      else if(checkCorrect == 4){
+      } else if (checkCorrect == 4) {
         checkValidEmail = true;
       }
 
@@ -277,10 +230,9 @@ public class MarketController {
       // Some error shows up on html page
       loggedIn = false;
 
-      if(checkCorrect == 1){
+      if (checkCorrect == 1) {
         checkLogEmail = true;
-      }
-      else if(checkCorrect == 2){
+      } else if (checkCorrect == 2) {
         checkLogPassword = true;
       }
     }
@@ -303,15 +255,15 @@ public class MarketController {
 
   @GetMapping("/history")
   public String getHistory(Model model, HttpSession session) {
-    boolean adminLoggedIn=false;
+    boolean adminLoggedIn = false;
     setGuest(session);
     session.setAttribute("loggedin", loggedIn);
     if (loggedIn) {
       User user = (User) session.getAttribute("user");
       List<Order> userOrders;
       if (Objects.equals(user.getUsername(), "Admin")) {
-        adminLoggedIn=true;
-        userOrders=orderService.getOrders();
+        adminLoggedIn = true;
+        userOrders = orderService.getOrders();
       } else {
         userOrders = orderService.findByUserId(user.getId());
       }
@@ -347,7 +299,7 @@ public class MarketController {
   }
 
   @GetMapping("/catalogue/product/{name}")
-  public String getProduct(Model model, @RequestParam(required=false) String requestSource, @PathVariable String name, HttpSession session) {
+  public String getProduct(Model model, @RequestParam(required = false) String requestSource, @PathVariable String name, HttpSession session) {
     setGuest(session);
     session.setAttribute("loggedin", loggedIn);
     AiModel currentModel = aiModelService.findByName(name);
@@ -445,8 +397,7 @@ public class MarketController {
                          @RequestParam String cardNumber,
                          @RequestParam String cvv,
                          @RequestParam String address, HttpSession session, Model model) {
-    // LIWIA
-    // CHECK IF CARD NUMBER AND CVV ARE NUMBERS
+
     session.setAttribute("checkValidCardNo", false);
     session.setAttribute("checkValidCVV", false);
     boolean validCardNumber = false;
@@ -455,7 +406,8 @@ public class MarketController {
     int checkCorrect = userService.checkoutValidation(cardNumber, cvv);
     if (checkCorrect == 0) {
       HashMap<Item, Integer> postBasket = new HashMap<>();
-      postBasket=new HashMap<Item, Integer>(shoppingBasket.getBasket());
+      orderService.save(shoppingBasket, ((User) session.getAttribute("user")).getId());
+      postBasket = new HashMap<Item, Integer>(shoppingBasket.getBasket());
       model.addAttribute("items", postBasket);
       model.addAttribute("totalPrice", shoppingBasket.totalPrice());
       model.addAttribute("name", cardHolderName);
@@ -463,12 +415,10 @@ public class MarketController {
       model.addAttribute("date", LocalDate.now());
       shoppingBasket.clear();
       return "confirmorder.html";
-    }
-    else{
-      if(checkCorrect == 1){
+    } else {
+      if (checkCorrect == 1) {
         validCardNumber = true;
-      }
-      else{
+      } else {
         validCvv = true;
       }
 
@@ -537,7 +487,7 @@ public class MarketController {
         trainedPrice,
         description,
         availability.equals("available"),
-        "/pictures/"+imageName,
+        "/pictures/" + imageName,
         LocalDate.now()
     );
     aiModelService.save(newModel);
@@ -553,7 +503,7 @@ public class MarketController {
   }
 
   @PostMapping("/error")
-  public String returnError(){
+  public String returnError() {
     return "redirect:/aimarket/home";
   }
 
